@@ -37,7 +37,7 @@ export TERM=xterm
 
 #+begin_src sh :async t :exports both :results output
 nix-shell -p 'git'
-git clone https://github.com/GTrunSec/debian-home-manager.git ~/.config/nixpkgs/
+git clone https://github.com/hardenedlinux/debian-nix-manager.git ~/.config/nixpkgs/
 #+end_src
 
 * Install home-manager
@@ -73,9 +73,19 @@ sudo mkdir -p /etc/nix
 echo "trusted-users = root $USER" | sudo tee -a /etc/nix/nix.conf
 sudo pkill nix-daemon
 cachix use nsm-data-analysis
+sudo systemctl restart nix-daemon.service
 #+end_src
-*  start pkgs service
-**  vast
+
+** Build NSM-data-analysis
+clone https://github.com/hardenedlinux/NSM-data-analysis
+#+begin_src sh :async t :exports both :results output
+git clone https://github.com/hardenedlinux/NSM-data-analysis
+cd NSM-data-analysis/
+nix-build --option substituters "https://cache.nixos.org https://nsm-data-analysis.cachix.org"
+#+end_src
+
+* Start pkgs service
+** [[https://github.com/tenzir/vast][tenzir/vast: Visibility Across Space and Time]] :database:siem:
 #+begin_src sh :async t :exports both :results output
  systemctl --user start vast.service
  systemctl --user status vast.service
