@@ -1,4 +1,4 @@
-#+TITLE: My Debian home-manager
+#+TITLE: Hardenedlinux User's Debian nix home-manager configuration
 #+AUTHOR: GTrunSec
 #+EMAIL: gtrunsec@hardenedlinux.org
 #+DATE:  6 March 2020
@@ -65,14 +65,6 @@ git clone https://github.com/GTrunSec/doom-emacs.git ~/.emacs.d
 cd ~/.doom
 make complie
 #+end_src
-
-
-#+begin_src sh :async t :exports both :results output
-cp ~/.config/nixpkgs/dotfiles/doom/init.org ~/.config/debian-home-manager/dotfiles/doom/.
-cp ~/.config/nixpkgs/dotfiles/doom/xah-fly.org ~/.config/debian-home-manager/dotfiles/doom/.
-#+end_src
-
-#+RESULTS:
 
 * Install cachix
 #+begin_src sh :async t :exports both :results output
