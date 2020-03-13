@@ -17,7 +17,7 @@
 #+begin_src sh :async t :exports both :results output
 mkdir -p ~/.doom.d/
 mkdir -p ~/.doom.d/autoload
-mkdir -p ~/doom.d/etc
+mkdir -p ~/.doom.d/etc
 mkdir -p ~/.doom.d/modules/private/my-code
 #+end_src
 
