@@ -1,0 +1,98 @@
+#+TITLE: My Debian home-manager
+#+AUTHOR: GTrunSec
+#+EMAIL: gtrunsec@hardenedlinux.org
+#+DATE:  6 March 2020
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en cn
+#+SETUPFILE: ~/Documents/my-blog/public/theme/org-html-themes/setup/theme-readtheorg.setup
+#+hugo_publishdate: (0 5)
+#+hugo_auto_set_lastmod: t
+#+HUGO_categories:
+#+HUGO_tags:
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+* Deploy
+#+begin_src sh :async t :exports both :results output
+mkdir -p ~/.doom.d/
+mkdir -p ~/.doom.d/autoload
+mkdir -p ~/doom.d/etc
+mkdir -p ~/.doom.d/modules/private/my-code
+#+end_src
+
+* Install nix
+#+begin_src sh :async t :exports both :results output
+wget https://github.com/hardenedlinux/NSM-data-analysis/releases/download/nix/nix_2.3_master_e3eecb5_amd64.deb
+sudo dpkg -i nix_2.3_master_e3eecb5_amd64.deb
+sudo ln -s /opt/nix-multiuser/nix/bin/nix* /usr/local/bin
+
+nix-channel --add https://nixos.org/channels/nixos-19.09 nixpkgs
+nix-channel --update
+export NIX_PATH="$HOME/.nix-defexpr/channels"
+export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
+export TERM=xterm
+
+#+end_src
+
+#+begin_src sh :async t :exports both :results output
+nix-shell -p 'git'
+git clone https://github.com/GTrunSec/debian-home-manager.git ~/.config/nixpkgs/
+#+end_src
+
+* Install home-manager
+#+begin_src sh :async t :exports both :results output
+nix-env -i home-manager
+#+end_src
+
+add home-manager channel
+#+begin_src sh :async t :exports both :results output
+nix-channel --add https://github.com/rycee/home-manager/archive/release-19.09.tar.gz home-manager
+nix-channel --update
+#+end_src
+* Build
+#+begin_src sh :async t :exports both :results output
+home-manager switch
+#+end_src
+* Install doom emacs
+
+#+begin_src sh :async t :exports both :results output
+git clone https://github.com/GTrunSec/doom-emacs.git ~/.emacs.d
+#+end_src
+
+#+begin_src sh :async t :exports both :results output
+~/.emacs/bin/doom install
+cd ~/.doom
+make complie
+#+end_src
+
+
+#+begin_src sh :async t :exports both :results output
+cp ~/.config/nixpkgs/dotfiles/doom/init.org ~/.config/debian-home-manager/dotfiles/doom/.
+cp ~/.config/nixpkgs/dotfiles/doom/xah-fly.org ~/.config/debian-home-manager/dotfiles/doom/.
+#+end_src
+
+#+RESULTS:
+
+* Install cachix
+#+begin_src sh :async t :exports both :results output
+nix-env -iA cachix -f https://cachix.org/api/v1/install
+sudo mkdir -p /etc/nix
+echo "trusted-users = root $USER" | sudo tee -a /etc/nix/nix.conf
+sudo pkill nix-daemon
+cachix use nsm-data-analysis
+#+end_src
+*  start pkgs service
+**  vast
+#+begin_src sh :async t :exports both :results output
+ systemctl --user start vast.service
+ systemctl --user status vast.service
+#+end_src
+
+#+RESULTS:
+: ● vast.service
+:    Loaded: loaded (/nix/store/59sx0prx1fi93653kkgcsdr4schqa7bv-vast.service/vast.service; enabled; vendor preset: enabled)
+:    Active: active (running) since Fri 2020-03-13 03:17:56 EDT; 1h 9min ago
+:  Main PID: 28612 (vast)
+:    CGroup: /user.slice/user-1000.slice/user@1000.service/vast.service
+:            └─28612 /nix/store/n6vm1zifpl65445k6w866sf109j2imwm-vast/bin/vast -c /nix/store/kg43s4bdarkg3g79kxii3h9cmbfym2sj-vast.conf start
