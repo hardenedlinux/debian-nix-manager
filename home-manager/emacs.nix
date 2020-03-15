@@ -41,7 +41,7 @@ in
    programs.emacs = {
      enable = true;
        extraPackages = epkgs: [
-      epkgs.emacs-libvterm
+         epkgs.emacs-libvterm
     ];
     package = pkgs.emacs.overrideAttrs (old: rec {
       wrapperPath = with pkgs; stdenv.lib.makeBinPath ([

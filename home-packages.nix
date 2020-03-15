@@ -1,8 +1,4 @@
 { config, pkgs, ... }:
-let
-  zeek = pkgs.callPackages ./pkgs/zeek { };
-
-  in
 {
   home.packages = with pkgs;[
     fish-foreign-env
@@ -19,13 +15,14 @@ let
     fd
 	  gnumake
     direnv
-    (python3.withPackages (pkgs: with pkgs; [
-      # rl algorithms
-      dbus
-      qrcode
-      pyqt5
-      fontforge
-	  ]))
+    vim
+    gdb
+    procps
+    jq
+    pet
+    ag
+    ripgrep
     #emacsPackages
+
   ];
 }

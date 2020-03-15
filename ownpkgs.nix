@@ -9,7 +9,7 @@ let
   };
 
   ownpkgs = (import ownpkgs_git) { };
-  zeek = pkgs.callPackages ./pkgs/zeek { };
+  zeek = ownpkgs.callPackages ./pkgs/zeek { };
   vast = ownpkgs.callPackages ./pkgs/vast { };
   # vast = (import (ownpkgs.fetchgit {
   #   url = "https://github.com/tenzir/vast";
@@ -27,6 +27,18 @@ in
   home.packages = with ownpkgs; [
     zeek
     vast
+    #emacs eaf
+    lxqt.qtermwidget
+    (python3.withPackages (pkgs: with pkgs; [
+      # rl algorithms
+      dbus
+      qrcode
+      pyqt5
+      pymupdf
+      xlib
+      grip
+      pyqtwebengine
+    ]))
     ];
 
 
@@ -36,5 +48,7 @@ in
     #db-directory = "./vast/vast.db";
     #log-directory = "./vast/vast.log";
   };
+
+
 
 }

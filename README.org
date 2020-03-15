@@ -19,6 +19,7 @@ mkdir -p ~/.doom.d/
 mkdir -p ~/.doom.d/autoload
 mkdir -p ~/.doom.d/etc
 mkdir -p ~/.doom.d/modules/private/my-code
+mkdir -p ~/.doom.d/modules/private/my-org
 #+end_src
 
 * Install nix
@@ -48,6 +49,7 @@ nix-env -i home-manager
 add home-manager channel
 #+begin_src sh :async t :exports both :results output
 nix-channel --add https://github.com/rycee/home-manager/archive/release-19.09.tar.gz home-manager
+nix-channel --add https://nixos.org/channels/nixos-19.09 nixos
 nix-channel --update
 #+end_src
 * Build
@@ -98,3 +100,35 @@ nix-build --option substituters "https://cache.nixos.org https://nsm-data-analys
 :  Main PID: 28612 (vast)
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/vast.service
 :            └─28612 /nix/store/n6vm1zifpl65445k6w866sf109j2imwm-vast/bin/vast -c /nix/store/kg43s4bdarkg3g79kxii3h9cmbfym2sj-vast.conf start
+* Deploy zeek with nix-shell
+#+begin_src sh :async t :exports both :results output
+wget https://old.zeek.org/downloads/zeek-3.0.3.tar.gz
+tar -xvf zeek-3.0.3.tar.gz
+cd zeek-3.0.3/
+cp ~/.config/nixpkgs/pkgs/zeek/nix-shell default.nix
+#+end_src
+run nix-shell to build Zeek
+if you want use ~make~ by nix own. make sure you have nix/bin/path on ~sudoers~
+
+~home/test/.nix-profile/bin~
+- /etc/sudoers
+~Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/test/.nix-profile/bin"~
+#+begin_src sh :async t :exports both :results output
+nix-shell
+./configuration
+make
+sudo make install
+#+end_src
+
+using ~zeekctl~ deploy node
+
+#+begin_src sh :results output
+sudo /usr/local/zeek/bin/zeekctl deploy
+#+end_src
+DONE FOR TEST
+#+BEGIN_EXAMPLE
+ sudo /usr/local/zeek/bin/zeekctl status                                                                                      220:53:41
+Name         Type       Host          Status    Pid    Started
+zeek         standalone localhost     running   13644  14 Mar 20:53:40
+debian-nix :: share/zeekctl/scripts
+#+END_EXAMPLE

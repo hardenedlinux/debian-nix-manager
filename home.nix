@@ -1,7 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   home_directory = builtins.getEnv "HOME";
   log_directory = "${home_directory}/logs";
+  #sysconfig = (import <nixpkgs/nixos> {}).config;
+
 in
 {
   # Let Home Manager install and manage itself.
@@ -15,9 +17,10 @@ in
     ./home-manager/emacs.nix
     ./home-manager/tmux.nix
     ./home-manager/git.nix
-  ];
-
-
+    ./home-manager/ssh.nix
+  ]; #++ lib.optionals sysconfig.services.xserver.enable [
+    #./home-manager/desktop.nix ];
+  
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 1800;
