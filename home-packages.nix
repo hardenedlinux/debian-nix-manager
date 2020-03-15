@@ -22,7 +22,6 @@
     pet
     ag
     ripgrep
-    #emacsPackages
 
   ];
 }

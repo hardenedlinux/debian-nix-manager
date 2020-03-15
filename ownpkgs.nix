@@ -39,6 +39,9 @@ in
       grip
       pyqtwebengine
     ]))
+    (emacsPackages.emacsWithPackages (with pkgs.emacsPackagesNg; [
+    emacs-libvterm
+    ]))
     ];
 
 

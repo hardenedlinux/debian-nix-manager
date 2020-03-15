@@ -38,25 +38,27 @@ in
     '';
 
 
-   programs.emacs = {
-     enable = true;
-       extraPackages = epkgs: [
-         epkgs.emacs-libvterm
-    ];
-    package = pkgs.emacs.overrideAttrs (old: rec {
-      wrapperPath = with pkgs; stdenv.lib.makeBinPath ([
-        gcc        # to compile emacsql
-        aspell
-        aspellDicts.en
-        plantuml
-        jre        # for plantuml
-        wordnet
-        languagetool
-        pandoc     # markdown preview
-      ]);
-      postFixup = ''
-        wrapProgram $out/bin/emacs --prefix PATH : ${wrapperPath} --set SHELL ${pkgs.bash}/bin/bash
-      '';
-    });
-    };
+
+   # programs.emacs = {
+   #   enable = true;
+   #  #    extraPackages = epkgs: [
+   #  #      epkgs.emacs-libvterm
+   #  # ];
+   #  package = pkgs.emacs.overrideAttrs (old: rec {
+   #    wrapperPath = with pkgs; stdenv.lib.makeBinPath ([
+   #      gcc        # to compile emacsql
+   #      aspell
+   #      aspellDicts.en
+   #      plantuml
+   #      jre        # for plantuml
+   #      wordnet
+   #      languagetool
+   #      pandoc     # markdown preview
+   #    ]);
+   #    postFixup = ''
+   #      wrapProgram $out/bin/emacs --prefix PATH : ${wrapperPath} --set SHELL ${pkgs.bash}/bin/bash
+   #    '';
+   #  });
+   # };
+   # services.emacs.enable = true;
 }
