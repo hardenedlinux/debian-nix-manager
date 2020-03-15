@@ -101,23 +101,15 @@ nix-build --option substituters "https://cache.nixos.org https://nsm-data-analys
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/vast.service
 :            └─28612 /nix/store/n6vm1zifpl65445k6w866sf109j2imwm-vast/bin/vast -c /nix/store/kg43s4bdarkg3g79kxii3h9cmbfym2sj-vast.conf start
 * Deploy zeek with nix-shell
-#+begin_src sh :async t :exports both :results output
-wget https://old.zeek.org/downloads/zeek-3.0.3.tar.gz
-tar -xvf zeek-3.0.3.tar.gz
-cd zeek-3.0.3/
-cp ~/.config/nixpkgs/pkgs/zeek/nix-shell default.nix
-#+end_src
-run nix-shell to build Zeek
+run ~nix-shell~~ to build Zeek
 if you want use ~make~ by nix own. make sure you have nix/bin/path on ~sudoers~
 
 ~home/test/.nix-profile/bin~
 - /etc/sudoers
 ~Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/test/.nix-profile/bin"~
+
 #+begin_src sh :async t :exports both :results output
-nix-shell
-./configuration
-make
-sudo make install
+nix-shell ~/.config/nixpkgs/pkgs/zeek/nix-shell.nix
 #+end_src
 
 using ~zeekctl~ deploy node
