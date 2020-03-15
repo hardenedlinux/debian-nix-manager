@@ -48,10 +48,18 @@ nix-env -i home-manager
 
 add home-manager channel
 #+begin_src sh :async t :exports both :results output
-nix-channel --add https://github.com/rycee/home-manager/archive/release-19.09.tar.gz home-manager
-nix-channel --add https://nixos.org/channels/nixos-19.09 nixos
+nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+nix-channel --add https://nixos.org/channels/nixos-20.03 nixpkgs
 nix-channel --update
 #+end_src
+
+- For China's region users
+
+set substituters to ~~/.config/nix/nix.conf~
+#+begin_src sh :async t :exports both :results output
+substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org
+#+end_src
+
 * Build
 #+begin_src sh :async t :exports both :results output
 home-manager switch
