@@ -12,29 +12,13 @@ dotfiles/doom/modules/private/my-code/*.el
 dotfiles/doom/modules/private/my-org/*.el
 dotfiles/doom/*.el
 dotfiles/doom/etc/b*
-dotfiles/emacs/emacs.d/var
-dotfiles/emacs/emacs.d/straight
-dotfiles/emacs/emacs.d/.*
-dotfiles/emacs/emacs.d/librime.so
-dotfiles/emacs/emacs.d/setup
-dotfiles/emacs/emacs.d/elpa
-dotfiles/emacs/emacs.d/pyim/rime
-Pattern.org
 ##Emacs bookmarks
 bm-macos-data
 
-##system rime config
-dotfiles/fcitx/rime/build
-dotfiles/fcitx/rime/luna_pinyin.userdb/LOG*
-dotfiles/fcitx/rime/luna_pinyin.userdb/LOCK
-dotfiles/fcitx/rime/luna_pinyin.userdb/*.log
-dotfiles/fcitx/log
-dotfiles/fcitx/dbus
-dotfiles/fcitx/clipboard/history.dat
-dotfiles/fcitx/cached*
-dotfiles/fcitx/rime/.*
-dotfiles/fcitx/rime/sync
-dotfiles/fcitx/data
-dotfiles/fcitx/profile*
+#fish
+fundle.fish
+fish_prompt.fish
 
 dotfiles/doom/*.el
+
+

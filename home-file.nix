@@ -12,5 +12,9 @@ home.file = {
    ".direnvrc".text = ''
       source $HOME/.nix-direnv/direnvrc
     '';
+
+
+   ".config/pet".source = ./dotfiles/pet;
 };
+
 }

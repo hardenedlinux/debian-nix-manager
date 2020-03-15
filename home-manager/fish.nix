@@ -15,6 +15,7 @@ with lib;
       "jethrokuan/fzf"
       "rominf/omf-plugin-fzf-autojump"
       "rominf/omf-plugin-autojump"
+      "otms61/fish-pet"
     ];
     in {
     enable = true;
@@ -61,5 +62,11 @@ with lib;
     exec tmux
     end 
     '';
-  };
+    };
+home.activation.linkFuncations = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/fish/functions" ~/.config/fish/functions
+    '';
+ home.activation.linkCompletions = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/fish/completions" ~/.config/fish/completions
+'';
 }
