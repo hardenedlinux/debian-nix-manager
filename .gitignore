@@ -1,6 +1,9 @@
 ## nixos
 result
-
+## zeek BUild cache
+zeek-3.0.3.tar.gz
+zeek-3.0.3
+pkgs/zeek/zeek-postgresql/
 .DS_Store
 init.el
 dotfiles/doom/modules/*.el

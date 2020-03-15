@@ -101,15 +101,22 @@ nix-build --option substituters "https://cache.nixos.org https://nsm-data-analys
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/vast.service
 :            └─28612 /nix/store/n6vm1zifpl65445k6w866sf109j2imwm-vast/bin/vast -c /nix/store/kg43s4bdarkg3g79kxii3h9cmbfym2sj-vast.conf start
 * Deploy zeek with nix-shell
-run ~nix-shell~~ to build Zeek
-if you want use ~make~ by nix own. make sure you have nix/bin/path on ~sudoers~
 
-~home/test/.nix-profile/bin~
+run ~nix-shell~~ to build Zeek
+if you want use ~make~ by nix own. make sure you have nix/bin/path/ on ~sudoers~
+
 - /etc/sudoers
-~Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/test/.nix-profile/bin"~
+#+BEGIN_EXAMPLE
+# echo $HOME/.nix-profile/bin
+# /home/test/.nix-profile/bin
+
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/test/.nix-profile/bin"
+#+END_EXAMPLE
+
+
 
 #+begin_src sh :async t :exports both :results output
-nix-shell ~/.config/nixpkgs/pkgs/zeek/nix-shell.nix
+nix-shell ~/.config/nixpkgs/pkgs/zeek/nix-shell.nix --command "make -j8 all && sudo make instll"
 #+end_src
 
 using ~zeekctl~ deploy node
@@ -124,3 +131,17 @@ Name         Type       Host          Status    Pid    Started
 zeek         standalone localhost     running   13644  14 Mar 20:53:40
 debian-nix :: share/zeekctl/scripts
 #+END_EXAMPLE
+**  Install Zeek PLugin postgresql
+run nix-shell to install
+#+begin_src sh :async t :exports both :results output
+nix-shell ~/.config/nixpkgs/pkgs/zeek/plugin-PostgreSQL.nix --command "make -j8 all && sudo make instll"
+#+end_src
+
+
+test DONE
+#+begin_src sh :async t :exports both :results output
+/usr/local/zeek/bin/zeek -N Johanna::PostgreSQL
+#+end_src
+
+#+RESULTS:
+: Johanna::PostgreSQL - PostgreSQL log writer and input reader (dynamic, version 0.2.0)
