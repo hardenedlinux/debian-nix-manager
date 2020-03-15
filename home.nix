@@ -18,6 +18,7 @@ in
     ./home-manager/tmux.nix
     ./home-manager/git.nix
     ./home-manager/ssh.nix
+    ./pkgs/network
   ]; #++ lib.optionals sysconfig.services.xserver.enable [
     #./home-manager/desktop.nix ];
   

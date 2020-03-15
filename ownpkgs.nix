@@ -11,6 +11,7 @@ let
   ownpkgs = (import ownpkgs_git) { };
   zeek = ownpkgs.callPackages ./pkgs/zeek { };
   vast = ownpkgs.callPackages ./pkgs/vast { };
+  pf-ring = ownpkgs.callPackages ./pkgs/network/pf_ring.nix { };
   # vast = (import (ownpkgs.fetchgit {
   #   url = "https://github.com/tenzir/vast";
   #   rev = "295d0ff776026b4600df7360409f6830ebe0b0fe";
@@ -27,6 +28,7 @@ in
   home.packages = with ownpkgs; [
     zeek
     vast
+    pf-ring
     #emacs eaf
     lxqt.qtermwidget
     (python3.withPackages (pkgs: with pkgs; [
@@ -38,6 +40,7 @@ in
       xlib
       grip
       pyqtwebengine
+      pyinotify
     ]))
     (emacsPackages.emacsWithPackages (with pkgs.emacsPackagesNg; [
     emacs-libvterm
