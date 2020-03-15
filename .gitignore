@@ -1,5 +1,8 @@
 ## nixos
 result
+##PF_RING
+7.6.0.tar.gz
+PF_RING-7.6.0
 ## zeek BUild cache
 zeek-3.0.3.tar.gz
 zeek-3.0.3

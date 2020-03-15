@@ -145,3 +145,57 @@ test DONE
 
 #+RESULTS:
 : Johanna::PostgreSQL - PostgreSQL log writer and input reader (dynamic, version 0.2.0)
+*  Performance
+** PF_RING
+#+begin_src sh :async t :exports both :results output
+nix-shell ~/.config/nixpkgs/pkgs/network/pf_ring_model.nix --command "sudo make install && sudo modprobe pf_ring"
+#+end_src
+#+RESULTS:
+Skip download PF_RING src.
+if you first time running PF_RING of nix-shell
+  sudo apt-get install linux-headers-4.19.0-8-amd64
+mkdir -p /lib/modules/4.19.0-8-amd64/kernel/net/pf_ring
+cp *.ko /lib/modules/4.19.0-8-amd64/kernel/net/pf_ring
+mkdir -p /usr/include/linux
+cp linux/pf_ring.h /usr/include/linux
+/sbin/depmod 4.19.0-8-amd64
+
+- Output test
+#+begin_src sh :async t :exports both :results output
+modinfo pf_ring && cat /proc/net/pf_ring/info
+#+end_src
+
+#+RESULTS:
+#+begin_example
+filename:       /lib/modules/4.19.0-8-amd64/kernel/net/pf_ring/pf_ring.ko
+alias:          net-pf-27
+version:        7.6.0
+description:    Packet capture acceleration and analysis
+author:         ntop.org
+license:        GPL
+srcversion:     A80A92A0F9D4CB8168B549A
+depends:
+retpoline:      Y
+name:           pf_ring
+vermagic:       4.19.0-8-amd64 SMP mod_unload modversions
+parm:           min_num_slots:Min number of ring slots (uint)
+parm:           perfect_rules_hash_size:Perfect rules hash size (uint)
+parm:           enable_tx_capture:Set to 1 to capture outgoing packets (uint)
+parm:           enable_frag_coherence:Set to 1 to handle fragments (flow coherence) in clusters (uint)
+parm:           enable_ip_defrag:Set to 1 to enable IP defragmentation(only rx traffic is defragmentead) (uint)
+parm:           quick_mode:Set to 1 to run at full speed but with upto one socket per interface (uint)
+parm:           force_ring_lock:Set to 1 to force ring locking (automatically enable with rss) (uint)
+parm:           enable_debug:Set to 1 to enable PF_RING debug tracing into the syslog, 2 for more verbosity (uint)
+parm:           transparent_mode:(deprecated) (uint)
+PF_RING Version          : 7.6.0 (master:48b1e116fc0258cc0db1eb69363636aec8f85647)
+Total rings              : 0
+
+Standard (non ZC) Options
+Ring slots               : 4096
+Slot version             : 17
+Capture TX               : Yes [RX+TX]
+IP Defragment            : No
+Socket Mode              : Standard
+Cluster Fragment Queue   : 0
+Cluster Fragment Discard : 0
+#+end_example
