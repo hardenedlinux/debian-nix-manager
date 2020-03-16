@@ -31,8 +31,6 @@ with lib;
       overlay-custom   = "cd ~/.config/nixpkgs/nixos/overlays/custom";
       ag0   = "rg --max-depth=1";
       pcat  = "${python3Packages.pygments}/bin/pygmentize";
-      so    = "pactl set-default-sink (pacmd list-sinks | awk \\\'/name:.*usb/{if (a != \"\") print a;} {a=$NF}\\\')";
-      si    = "pactl set-default-sink (pacmd list-sinks | awk \\\'/name:.*pci/{if (a != \"\") print a;} {a=$NF}\\\')";
     };
     
      interactiveShellInit = ''

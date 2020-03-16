@@ -153,20 +153,20 @@ test DONE
 
 #+RESULTS:
 : Johanna::PostgreSQL - PostgreSQL log writer and input reader (dynamic, version 0.2.0)
+* Deploy osquery
+** install osquery
+
+#+begin_src sh :async t :exports both :results output
+nix-shell ~/.config/nixpkgs/pkgs/zeek/nix-shell.nix --command "cmake --build . -j10 && sudo make install"
+#+end_src
+
+
 *  Performance
 ** PF_RING
 #+begin_src sh :async t :exports both :results output
 nix-shell ~/.config/nixpkgs/pkgs/network/pf_ring_model.nix --command "sudo make install && sudo modprobe pf_ring"
 #+end_src
 #+RESULTS:
-Skip download PF_RING src.
-if you first time running PF_RING of nix-shell
-  sudo apt-get install linux-headers-4.19.0-8-amd64
-mkdir -p /lib/modules/4.19.0-8-amd64/kernel/net/pf_ring
-cp *.ko /lib/modules/4.19.0-8-amd64/kernel/net/pf_ring
-mkdir -p /usr/include/linux
-cp linux/pf_ring.h /usr/include/linux
-/sbin/depmod 4.19.0-8-amd64
 
 - Output test
 #+begin_src sh :async t :exports both :results output

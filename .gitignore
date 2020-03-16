@@ -1,5 +1,6 @@
 ## nixos
 result
+pkgs/osquery/osquery
 ##PF_RING
 7.6.0.tar.gz
 PF_RING-7.6.0

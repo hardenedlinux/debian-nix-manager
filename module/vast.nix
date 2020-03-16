@@ -45,7 +45,7 @@ in
     };
   };
   config = mkIf cfg.enable {
-    systemd.user.services."vast1" = {
+    systemd.user.services.vast = {
       Unit = {
         After = [ "network.target"];
         description = "vast";
