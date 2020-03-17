@@ -23,6 +23,7 @@ in
 {
   imports = [
     ./module/vast.nix
+    ./module/osquery.nix
   ];
 
   home.packages = with ownpkgs; [
@@ -55,6 +56,8 @@ in
     #log-directory = "./vast/vast.log";
   };
 
-
+  services.osquery = {
+    enable = true;
+  };
 
 }

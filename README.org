@@ -154,12 +154,24 @@ test DONE
 #+RESULTS:
 : Johanna::PostgreSQL - PostgreSQL log writer and input reader (dynamic, version 0.2.0)
 * Deploy osquery
+
 ** install osquery
 
 #+begin_src sh :async t :exports both :results output
-nix-shell ~/.config/nixpkgs/pkgs/zeek/nix-shell.nix --command "cmake --build . -j10 && sudo make install"
+nix-shell ~/.config/nixpkgs/pkgs/osquery/osquery.nix --command "cmake --build . -j10 && sudo make install"
+#+end_src
+**  enable osquery Service
+#+begin_src sh :async t :exports both :results output
+systemctl --user status osquery.service
 #+end_src
 
+#+RESULTS:
+: ● osquery.service
+:    Loaded: loaded (/nix/store/27ivxn8p2fg5ky8wl7gxhv070v9m90gj-osquery.service/osquery.service; linked; vendor preset: enabled)
+:    Active: active (running) since Mon 2020-03-16 21:31:13 EDT; 1s ago
+:  Main PID: 25637 (osqueryd)
+:    CGroup: /user.slice/user-1000.slice/user@1000.service/osquery.service
+:            └─25637 /var/empty/local/bin/osqueryd --database_path /home/test/.osquery/osquery.db --logger_path /var/log/osquery --pidfile /home/test/.osquery/osqueryd.pidfile --database_path /home/test/.osquery/osquery.db --extensions_socket /home/test/.osquery/osquery.em
 
 *  Performance
 ** PF_RING

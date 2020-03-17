@@ -51,7 +51,7 @@ in
         description = "vast";
       };      
      
-      Install = { WantedBy = [ "default.target" ]; };
+      Install = { wantedBy = [ "multi-user.target" ];};
 
       Service = {
         ExecStart = "${vast}/bin/vast -c ${configFile} start";

@@ -41,8 +41,9 @@ with lib;
     source ${pkgs.autojump}/share/autojump/autojump.fish
     set -x -U GOPATH $HOME/go 
     set -x -U GOBIN $GOPATH/bin
+    set -x -U OSQUERY /var/empty/local/bin
     set -x -U NIXBIN $HOME/.nix-profile/bin
-    set -g -x PATH $PATH $GOBIN $NIXBIN /usr/sbin
+    set -g -x PATH $PATH $GOBIN $NIXBIN /usr/sbin $OSQUERY
     set -g -x NIX_PATH $HOME/.nix-defexpr/channels
     set -gx TERM screen-256color-bce;
     set -g theme_color_scheme gruvbox
