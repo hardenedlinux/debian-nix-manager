@@ -1,29 +1,29 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs;[
-    fish-foreign-env
+      fish-foreign-env
 	  curl
 	  git
-    bash
-    pet
+      bash
+      pet
 	  kitty
 	  tmux
 	  autojump
 	  cmake
 	  gcc
 	  stdenv
-    fd
+      fd
 	  gnumake
-    direnv
-    vim
-    gdb
-    procps
-    jq
-    pet
-    ag
-    ripgrep
-    #fish pet
-    fzf
-    conda
+      direnv
+      vim
+      gdb
+      procps
+      jq
+      pet
+      ag
+      ripgrep
+      #fish pet
+      fzf
+      conda
   ];
 }

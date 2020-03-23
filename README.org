@@ -173,6 +173,29 @@ systemctl --user status osquery.service
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/osquery.service
 :            └─25637 /var/empty/local/bin/osqueryd --database_path /home/test/.osquery/osquery.db --logger_path /var/log/osquery --pidfile /home/test/.osquery/osqueryd.pidfile --database_path /home/test/.osquery/osquery.db --extensions_socket /home/test/.osquery/osquery.em
 
+* Deploy ELK
+**  Start Elastic service
+create ~/var/lib/elasticsearch/~ and make yourself the owner of that directory
+#+begin_src sh :async t :exports both :results output
+mkdir -p /var/lib/elasticsearch/
+sudo chown $USER /var/lib/elasticsearch/
+#+end_src
+
+start service
+#+begin_src sh :async t :exports both :results output
+systemctl --user start elasticsearch.service
+systemctl --user status elasticsearch.service
+#+end_src
+
+#+RESULTS:
+: ● elasticsearch.service
+:    Loaded: loaded (/nix/store/8dncyqmv46xa6j3cr52czs3ky86nsiyh-elasticsearch.service/elasticsearch.service; linked; vendor preset: enabled)
+:    Active: active (running) since Mon 2020-03-23 19:37:34 EDT; 8min ago
+:  Main PID: 24715 (java)
+:    CGroup: /user.slice/user-1000.slice/user@1000.service/elasticsearch.service
+:            ├─24715 /nix/store/8wmf6apz3yss4vz67z6xdwhhd08yz4cb-openjdk-headless-8u222-ga-jre/bin/java -Xms1g -Xmx1g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -Des.networkaddress.cache.ttl=60 -Des.networkaddress.cache.negative.ttl=10 -XX:+AlwaysPreTouch -Xss1m -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -XX:-OmitStackTraceInFastThrow -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dio.netty.recycler.maxCapacityPerThread=0 -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -Djava.io.tmpdir=/tmp/elasticsearch-5006850798322202895 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=data -XX:ErrorFile=logs/hs_err_pid%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -Xloggc:logs/gc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=32 -XX:GCLogFileSize=64m -Des.path.home=/var/lib/elasticsearch -Des.path.conf=/var/lib/elasticsearch/config -Des.distribution.flavor=default -Des.distribution.type=tar -cp /nix/store/6czj00nnxdzr18by4n3rqlfcp0csak0b-elasticsearch-6.8.3/lib/* org.elasticsearch.bootstrap.Elasticsearch
+:            └─24810 /var/lib/elasticsearch/modules/x-pack-ml/platform/linux-x86_64/bin/controller
+
 *  Performance
 ** PF_RING
 #+begin_src sh :async t :exports both :results output

@@ -24,6 +24,7 @@ in
   imports = [
     ./module/vast.nix
     ./module/osquery.nix
+    ./module/elastic.nix
   ];
 
   home.packages = with ownpkgs; [
@@ -57,6 +58,10 @@ in
   };
 
   services.osquery = {
+    enable = true;
+  };
+
+  services.elasticsearch = {
     enable = true;
   };
 
