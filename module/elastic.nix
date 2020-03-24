@@ -156,16 +156,10 @@ in {
       Service = {
         ExecStart = "${cfg.package}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
         #PermissionsStartOnly = true;
-        Environment = "ES_HOME=${cfg.dataDir} ES_PATH_CONF = ${configDir}";
+        Environment = "ES_HOME=${cfg.dataDir}";
         LimitNOFILE = "1024000";
         ExecStartPre = ''
-        ln -sfT ${esPlugins}/plugins ${cfg.dataDir}/plugins \
-        ln -sfT ${cfg.package}/lib ${cfg.dataDir}/lib \
-        ln -sfT ${cfg.package}/modules ${cfg.dataDir}/modules \
-        cp ${elasticsearchYml} ${configDir}/elasticsearch.yml \
-        rm -f "${configDir}/logging.yml" \
-        cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename} \
-        ${optionalString es6 "cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options"}
+        ${pkgs.bash}/bin/bash -c 'ln -sfT ${esPlugins}/plugins ${cfg.dataDir}/plugins; ln -sfT ${cfg.package}/lib ${cfg.dataDir}/lib; ln -sfT ${cfg.package}/modules ${cfg.dataDir}/modules; mkdir -p /var/lib/elasticsearch/config; cp ${elasticsearchYml} ${configDir}/elasticsearch.yml; rm -f ${configDir}/logging.yml; cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename}; ${optionalString es6 "cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options"}'
       '';
       };
     };

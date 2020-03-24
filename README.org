@@ -124,7 +124,7 @@ Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/
 
 
 #+begin_src sh :async t :exports both :results output
-nix-shell ~/.config/nixpkgs/pkgs/zeek/nix-shell.nix --command "make -j8 all && sudo make instll"
+nix-shell ~/.config/nixpkgs/pkgs/zeek/zeek-shell.nix --command "make -j8 all && sudo make install"
 #+end_src
 
 using ~zeekctl~ deploy node
@@ -142,7 +142,7 @@ debian-nix :: share/zeekctl/scripts
 **  Install Zeek PLugin postgresql
 run nix-shell to install
 #+begin_src sh :async t :exports both :results output
-nix-shell ~/.config/nixpkgs/pkgs/zeek/plugin-PostgreSQL.nix --command "make -j8 all && sudo make instll"
+nix-shell ~/.config/nixpkgs/pkgs/zeek/plugin-PostgreSQL.nix --command "make -j8 all && sudo make install"
 #+end_src
 
 
