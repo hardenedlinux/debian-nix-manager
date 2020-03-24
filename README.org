@@ -167,11 +167,12 @@ systemctl --user status osquery.service
 
 #+RESULTS:
 : ● osquery.service
-:    Loaded: loaded (/nix/store/27ivxn8p2fg5ky8wl7gxhv070v9m90gj-osquery.service/osquery.service; linked; vendor preset: enabled)
-:    Active: active (running) since Mon 2020-03-16 21:31:13 EDT; 1s ago
-:  Main PID: 25637 (osqueryd)
+:    Loaded: loaded (/nix/store/g67c5xn4lz47l5njc4aialb8ijxc540m-osquery.service/osquery.service; linked; vendor preset: enabled)
+:    Active: active (running) since Tue 2020-03-24 02:27:12 EDT; 1min 34s ago
+:  Main PID: 8494 (osqueryd)
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/osquery.service
-:            └─25637 /var/empty/local/bin/osqueryd --database_path /home/test/.osquery/osquery.db --logger_path /var/log/osquery --pidfile /home/test/.osquery/osqueryd.pidfile --database_path /home/test/.osquery/osquery.db --extensions_socket /home/test/.osquery/osquery.em
+:            ├─8494 /var/empty/local/bin/osqueryd --database_path /var/osquery/osquery.db --logger_path /var/osquery/log --pidfile /var/osquery/osqueryd.pidfile --database_path /var/osquery/osquery.db --extensions_socket /var/osquery/osquery.em --config_path /home/test/.osquery/osquery.conf
+:            └─8514 /var/empty/local/bin/osqueryd
 
 * Deploy ELK
 **  Start Elastic service

@@ -1,6 +1,8 @@
 ## nixos
 result
 pkgs/osquery/osquery
+pkgs/osquery/cmake-3.14.6-Linux-x86_64.tar.gz
+pkgs/osquery/osquery-toolchain-1.0.0.tar.xz
 ##PF_RING
 7.6.0.tar.gz
 PF_RING-7.6.0

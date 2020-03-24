@@ -28,7 +28,7 @@ sudo tar xvf osquery-toolchain-1.0.0.tar.xz -C /usr/local
 
 # Download and install a newer CMake
 wget https://github.com/Kitware/CMake/releases/download/v3.14.6/cmake-3.14.6-Linux-x86_64.tar.gz
-sudo tar xvf cmake-3.14.6-Linux-x86_64.tar.gz -C /usr/local --strip 1
+     sudo tar xvf cmake-3.14.6-Linux-x86_64.tar.gz -C /usr/local --strip 1
   git clone https://github.com/osquery/osquery
   cd osquery
   mkdir build

@@ -6,11 +6,12 @@ with lib;
 let
   cfg = config.services.osquery;
   osquery = "/var/empty/local";
-  ownpath = "/home/test";
+  home_directory = builtins.getEnv "HOME";
+  osuqerycfg = "${home_directory}/.osquery/osquery.conf";
+
 in
 
 {
-
   options = {
 
     services.osquery = {
@@ -20,13 +21,13 @@ in
       loggerPath = mkOption {
         type = types.path;
         description = "Base directory used for logging.";
-        default = "/var/log/osquery";
+        default = "/var/osquery/log";
       };
 
       pidfile = mkOption {
         type = types.path;
         description = "Path used for pid file.";
-        default = "${ownpath}/.osquery/osqueryd.pidfile";
+        default = "/var/osquery/osqueryd.pidfile";
       };
 
       utc = mkOption {
@@ -38,12 +39,12 @@ in
       databasePath = mkOption {
         type = types.path;
         description = "Path used for database file.";
-        default = "${ownpath}/.osquery/osquery.db";
+        default = "/var/osquery/osquery.db";
       };
       extensionsPath = mkOption {
         type = types.path;
         description = "Path used for extensions_socket file";
-        default = "${ownpath}/.osquery/osquery.em";
+        default = "/var/osquery/osquery.em";
       };
       extraConfig = mkOption {
         type = types.attrs // {
@@ -79,7 +80,7 @@ in
 
       Service = {
         TimeoutStartSec = 0;
-        ExecStart = "${osquery}/bin/osqueryd --database_path ${escapeShellArg cfg.databasePath}  --logger_path ${escapeShellArg cfg.loggerPath} --pidfile ${escapeShellArg cfg.pidfile} --database_path ${escapeShellArg cfg.databasePath} --extensions_socket  ${escapeShellArg cfg.extensionsPath}";
+        ExecStart = "${osquery}/bin/osqueryd --database_path ${escapeShellArg cfg.databasePath}  --logger_path ${escapeShellArg cfg.loggerPath} --pidfile ${escapeShellArg cfg.pidfile} --database_path ${escapeShellArg cfg.databasePath} --extensions_socket  ${escapeShellArg cfg.extensionsPath} --config_path ${escapeShellArg osuqerycfg}";
         Restart = "on-failure";
       };
     };

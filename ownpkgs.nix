@@ -23,7 +23,7 @@ in
 {
   imports = [
     ./module/vast.nix
-    ./module/osquery.nix
+    ./module/osquery
     ./module/elastic.nix
   ];
 
