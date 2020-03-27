@@ -44,6 +44,8 @@ in
      emacs-libvterm
     ]))
     wakatime
+    go
+    polipo
     ];
 
 
