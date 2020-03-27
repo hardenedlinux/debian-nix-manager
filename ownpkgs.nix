@@ -12,12 +12,6 @@ let
   zeek = ownpkgs.callPackages ./pkgs/zeek { };
   vast = ownpkgs.callPackages ./pkgs/vast { };
   pf-ring = ownpkgs.callPackages ./pkgs/network/pf_ring.nix { };
-  # vast = (import (ownpkgs.fetchgit {
-  #   url = "https://github.com/tenzir/vast";
-  #   rev = "295d0ff776026b4600df7360409f6830ebe0b0fe";
-  #   deepClone = true;
-  #   sha256 = "1nmh7wqqq6i72yam5g8a2nclcf3jchzd7s5vx5bx2jgsbllzclch";
-  # }){});
 
 in
 {
@@ -46,9 +40,9 @@ in
 
       ##owner
     ]))
-    # (emacsPackages.emacsWithPackages (with pkgs.emacsPackagesNg; [
-    # emacs-libvterm
-    # ]))
+    (emacsPackages.emacsWithPackages (with pkgs.emacsPackagesNg; [
+     emacs-libvterm
+    ]))
     wakatime
     ];
 
