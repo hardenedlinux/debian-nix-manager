@@ -10,7 +10,6 @@ let
 
   ownpkgs = (import ownpkgs_git) { };
   zeek = ownpkgs.callPackages ./pkgs/zeek { };
-  osquery = ownpkgs.callPackages ./pkgs/osquery { };
   vast = ownpkgs.callPackages ./pkgs/vast { };
   pf-ring = ownpkgs.callPackages ./pkgs/network/pf_ring.nix { };
   # vast = (import (ownpkgs.fetchgit {
@@ -32,7 +31,6 @@ in
     zeek
     vast
     pf-ring
-    osquery
     #emacs eaf
     lxqt.qtermwidget
     (python3.withPackages (pkgs: with pkgs; [
