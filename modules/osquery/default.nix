@@ -5,10 +5,9 @@ with lib;
 
 let
   cfg = config.services.osquery;
-  osquery = "/var/empty/local";
   home_directory = builtins.getEnv "HOME";
   osuqerycfg = "${home_directory}/.osquery/osquery.conf";
-
+  osquery = pkgs.callPackages ../../pkgs/osquery { };
 in
 
 {

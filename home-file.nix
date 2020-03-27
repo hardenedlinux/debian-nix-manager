@@ -13,6 +13,13 @@ home.file = {
       source $HOME/.nix-direnv/direnvrc
     '';
 
+  # ".emacs.d".source = pkgs.fetchFromGitHub {
+  #   owner = "GTrunSec";
+  #   repo = "doom-emacs";
+  #   rev = "728fbc498229be1f63d811c2eb29e3661da58a9a";
+  #   sha256 = "044qr82xndx3xnz2mlfma469picla5jkzrswyj8xghd34jxxdawq";
+  # };
+  
    ".config/pet".source = ./dotfiles/pet;
    ".wakatime.cfg".text = ''
     [settings]

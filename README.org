@@ -70,7 +70,7 @@ git clone https://github.com/GTrunSec/doom-emacs.git ~/.emacs.d
 #+end_src
 
 #+begin_src sh :async t :exports both :results output
-~/.emacs/bin/doom install
+~/.emacs.d/bin/doom refresh
 cd ~/.doom
 make complie
 #+end_src
@@ -154,11 +154,6 @@ test DONE
 : Johanna::PostgreSQL - PostgreSQL log writer and input reader (dynamic, version 0.2.0)
 * Deploy osquery
 
-** install osquery
-
-#+begin_src sh :async t :exports both :results output
-nix-shell ~/.config/nixpkgs/pkgs/osquery/osquery.nix --command "cmake --build . -j10 && sudo make install"
-#+end_src
 **  enable osquery Service
 #+begin_src sh :async t :exports both :results output
 systemctl --user status osquery.service
@@ -166,12 +161,12 @@ systemctl --user status osquery.service
 
 #+RESULTS:
 : ● osquery.service
-:    Loaded: loaded (/nix/store/g67c5xn4lz47l5njc4aialb8ijxc540m-osquery.service/osquery.service; linked; vendor preset: enabled)
-:    Active: active (running) since Tue 2020-03-24 02:27:12 EDT; 1min 34s ago
-:  Main PID: 8494 (osqueryd)
+:    Loaded: loaded (/nix/store/mxpjazyy6b4hymxk9hkivfs1kqk7jvly-osquery.service/osquery.service; linked; vendor preset: enabled)
+:    Active: active (running) since Fri 2020-03-27 02:49:17 EDT; 37s ago
+:  Main PID: 26822 (osqueryd)
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/osquery.service
-:            ├─8494 /var/empty/local/bin/osqueryd --database_path /var/osquery/osquery.db --logger_path /var/osquery/log --pidfile /var/osquery/osqueryd.pidfile --database_path /var/osquery/osquery.db --extensions_socket /var/osquery/osquery.em --config_path /home/test/.osquery/osquery.conf
-:            └─8514 /var/empty/local/bin/osqueryd
+:            ├─26822 /nix/store/acx6mvslzxbzw7fyl4nr87m9pybb9wmn-osquery-4.2.0/bin/osqueryd --database_path /var/osquery/osquery.db --logger_path /var/osquery/log --pidfile /var/osquery/osqueryd.pidfile --database_path /var/osquery/osquery.db --extensions_socket /var/osquery/osquery.em --config_path /home/test/.osquery/osquery.conf
+:            └─26841 /nix/store/acx6mvslzxbzw7fyl4nr87m9pybb9wmn-osquery-4.2.0/bin/osqueryd
 
 * Deploy ELK
 **  Start Elastic service
