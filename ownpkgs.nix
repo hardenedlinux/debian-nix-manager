@@ -13,7 +13,6 @@ let
   #osquery = ownpkgs.callPackages ./pkgs/osquery { };
   vast = ownpkgs.callPackages ./pkgs/vast { };
   pf-ring = ownpkgs.callPackages ./pkgs/network/pf_ring.nix { };
-  wakatime = ownpkgs.callPackages ./pkgs/wakatime { };
   # vast = (import (ownpkgs.fetchgit {
   #   url = "https://github.com/tenzir/vast";
   #   rev = "295d0ff776026b4600df7360409f6830ebe0b0fe";
@@ -47,11 +46,11 @@ in
       pyinotify
 
       ##owner
-      wakatime
     ]))
     (emacsPackages.emacsWithPackages (with pkgs.emacsPackagesNg; [
     emacs-libvterm
     ]))
+    wakatime
     ];
 
 
