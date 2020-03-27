@@ -10,8 +10,10 @@ let
 
   ownpkgs = (import ownpkgs_git) { };
   zeek = ownpkgs.callPackages ./pkgs/zeek { };
+  #osquery = ownpkgs.callPackages ./pkgs/osquery { };
   vast = ownpkgs.callPackages ./pkgs/vast { };
   pf-ring = ownpkgs.callPackages ./pkgs/network/pf_ring.nix { };
+  wakatime = ownpkgs.callPackages ./pkgs/wakatime { };
   # vast = (import (ownpkgs.fetchgit {
   #   url = "https://github.com/tenzir/vast";
   #   rev = "295d0ff776026b4600df7360409f6830ebe0b0fe";
@@ -22,9 +24,9 @@ let
 in
 {
   imports = [
-    ./module/vast.nix
-    ./module/osquery
-    ./module/elastic.nix
+    ./modules/vast.nix
+    ./modules/osquery
+    ./modules/elastic.nix
   ];
 
   home.packages = with ownpkgs; [
@@ -43,6 +45,9 @@ in
       grip
       pyqtwebengine
       pyinotify
+
+      ##owner
+      wakatime
     ]))
     (emacsPackages.emacsWithPackages (with pkgs.emacsPackagesNg; [
     emacs-libvterm

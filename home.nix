@@ -8,7 +8,7 @@ in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  
+
   imports = [
     ./home-packages.nix
     ./ownpkgs.nix

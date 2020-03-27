@@ -24,6 +24,7 @@
 ;;
 ;; More information about these modules (and what flags they support) can be
 ;; found in modules/README.org.
+
 (doom! :input
        chinese
        ;;japanese
@@ -224,6 +225,7 @@
 (package! yatemplate)
 (package! pinyin-search)
 (package! grab-x-link)
+(package! ctrlf :recipe (:host github :repo "raxod502/ctrlf"))
 
 ;; window
 (package! dimmer)
@@ -243,6 +245,7 @@
 (package! imenu-list)
 (package! helm-tramp)
 (package! visual-fill-column)
+(package! wakatime-mode)
 (package! sunrise-commander :recipe (:host github :repo "sunrise-commander/sunrise-commander"))
 ;; (package! berrys-theme)
 #+end_src
@@ -253,8 +256,14 @@
 (load! "xah-fly.el")
 
 
-(use-package! pinyin-search)
+(use-package! ctrlf
+  :hook
+  (after-init . ctrlf-mode))
 
+;;[2020-03-26 Thu 16:39]
+(use-package! wakatime-mode
+:hook (after-init . global-wakatime-mode))
+(use-package! pinyin-search)
 
 (use-package! helm-tramp
   :config
@@ -293,7 +302,6 @@
 (add-hook! 'text-mode-hook 'gtrun/truncate-lines-hook)
 (add-hook! 'elfeed-show-mode-hook 'gtrun/truncate-lines-hook)
 (add-hook! 'sunrise-start-hook 'xah-fly-insert-mode-activate)
-
 (add-hook 'maple-explorer-imenu-mode-hook
           (lambda() (setq cursor-type 'box
                           cursor-in-non-selected-windows t)))
@@ -396,6 +404,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 #+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
 (package! company-english-helper :recipe (:host github :repo "manateelazycat/company-english-helper"))
 (package! org-super-agenda)
+(package! ob-mermaid)
 (package! org-starter)
 (package! helm-org-rifle)
 (package! org-wild-notifier)
@@ -821,6 +830,14 @@ make
 ** ☞ TODO [[https://github.com/jingtaozf/literate-elisp][jingtaozf/literate-elisp: a literate programming tool to load Emacs Lisp codes from org mode file directly]] :lisp:org:
 ** [[https://github.com/abrochard/walkman][abrochard/walkman: Write HTTP requests in Org mode and replay them at will using cURL]]
 ** [[https://github.com/niklasfasching/go-org][niklasfasching/go-org: Org mode parser with html & pretty printed org rendering]]
+** ob-mermaid
+#+begin_src emacs-lisp :tangle  "./modules/private/my-org/config.el"
+(use-package! ob-mermaid
+  :config
+  (setq ob-mermaid-cli-path "~/.nix-profile/bin/mmdc")
+  )
+
+#+end_src
 
 * Completion
 ** Ivy/counsel
@@ -1152,6 +1169,22 @@ In that case, insert the number."
 (add-hook 'imenu-list-after-jump-hook #'recenter-top-bottom)
 )
 #+end_src
+
+* format
+** html file to ox-hugo
+#+begin_src emacs-lisp :tangle "config.el"
+  ;; (require 'ox)
+  ;; (defun my-html-ox-hugo (text backend info)
+  ;;   "Transcode :blah: into <mark>blah</mark> in body text."
+  ;;   (when (org-export-derived-backend-p backend 'html)
+  ;;     (let ((text (replace-regexp-in-string "file" "/ox-hugo/"  text nil nil 1 nil))))))
+
+  ;; (add-to-list 'org-export-filter-plain-text-functions 'my-html-ox-hugo)
+#+end_src
+
+#+RESULTS:
+| my-html-ox-hugo |
+
 * minor mode and major mode
 ** [[https://github.com/rnkn/binder][rnkn/binder: Emacs global minor mode facilitating multi-file writing projects]]
 ** [[https://github.com/emacs-taskrunner/emacs-taskrunner][emacs-taskrunner/emacs-taskrunner: A universal task runner for emacs]]
@@ -1262,6 +1295,43 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
      "OrgMode")
     (t
      (awesome-tab-get-group-name (current-buffer))))))
+
+
+
+(defhydra awesome-fast-switch (:hint nil)
+  "
+ ^^^^Fast Move             ^^^^Tab                    ^^Search            ^^Misc
+-^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
+   ^_k_^   prev group    | _C-a_^^     select first | _b_ search buffer | _C-k_   kill buffer
+ _h_   _l_  switch tab   | _C-e_^^     select last  | _g_ search group  | _C-S-k_ kill others in group
+   ^_j_^   next group    | _C-j_^^     ace jump     | ^^                | ^^
+ ^^0 ~ 9^^ select window | _C-h_/_C-l_ move current | ^^                | ^^
+-^^^^--------------------+-^^^^---------------------+-^^----------------+-^^---------------------------
+"
+  ("h" awesome-tab-backward-tab)
+  ("j" awesome-tab-forward-group)
+  ("k" awesome-tab-backward-group)
+  ("l" awesome-tab-forward-tab)
+  ("0" my-select-window)
+  ("1" my-select-window)
+  ("2" my-select-window)
+  ("3" my-select-window)
+  ("4" my-select-window)
+  ("5" my-select-window)
+  ("6" my-select-window)
+  ("7" my-select-window)
+  ("8" my-select-window)
+  ("9" my-select-window)
+  ("C-a" awesome-tab-select-beg-tab)
+  ("C-e" awesome-tab-select-end-tab)
+  ("C-j" awesome-tab-ace-jump)
+  ("C-h" awesome-tab-move-current-tab-to-left)
+  ("C-l" awesome-tab-move-current-tab-to-right)
+  ("b" ivy-switch-buffer)
+  ("g" awesome-tab-counsel-switch-group)
+  ("C-k" kill-current-buffer)
+  ("C-S-k" awesome-tab-kill-other-buffers-in-current-group)
+  ("q" nil "quit"))
 )
 ;; (setq awesome-tab-style "bar")
 ;; (setq awesome-tab-set-icons t)
@@ -1330,6 +1400,8 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 #+end_src
 ** [[https://github.com/seagle0128/grip-mode][seagle0128/grip-mode: Instant Github-flavored Markdown/Org preview using grip]]
 
+* git
+** [[https://github.com/syohex/emacs-git-messenger2][syohex/emacs-git-messenger2: My own git-messenger.el implementation]]
 * my-codes
 ** packages
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
@@ -1523,7 +1595,6 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 : t
 
 ** Code misc
-
 *** parentheses
 - [[https://with-emacs.com/posts/ui-hacks/show-matching-lines-when-parentheses-go-off-screen/][with-emacs · Show matching lines when parentheses go off-screen]]s
 - [[https://www.reddit.com/r/emacs/comments/bqyx6h/withemacs_show_matching_lines_when_parentheses_go/][(with-emacs · Show matching lines when parentheses go off-screen : emacs]]
@@ -1590,6 +1661,7 @@ FACE defaults to inheriting from default and highlight."
 (show-paren-mode 1)
 #+end_src
 
+*** [[https://github.com/jacktasia/dumb-jump][jacktasia/dumb-jump: an Emacs "jump to definition" package for 40+ languages]]
 ** julia
 *** [[https://github.com/gcv/julia-snail][gcv/julia-snail: An Emacs development environment for Julia]]
 
@@ -1740,16 +1812,17 @@ FACE defaults to inheriting from default and highlight."
     :custom
     (eaf-find-alternate-file-in-dired t)
     :config
-    (eaf-bind-key scroll_up "RET" eaf-pdf-viewer-keybinding)
-    (eaf-bind-key scroll_down_page "DEL" eaf-pdf-viewer-keybinding)
+    (add-hook! 'eaf-mode-hook 'xah-fly-keys-off)
+
     (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
     (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
-    (eaf-bind-key take_photo "p" eaf-camera-keybinding)
+
     (defun eaf-open-google ()
       "Open Google using EAF."
       (interactive)
       (eaf-open-browser "https://www.google.com")))
   )
+
 (use-package! snails
   :if (eq system-type 'gnu/linux)
   :load-path "~/.doom.d/modules/private/snails"
@@ -1804,6 +1877,10 @@ FACE defaults to inheriting from default and highlight."
 (add-hook 'ob-async-pre-execute-src-block-hook
         '(lambda ()
            (setq inferior-julia-program-name "/usr/local/bin/julia")))
+
+
+(add-hook! 'emacs-startup-hook 'doom-modeline-mode)
+
 
 )
 
