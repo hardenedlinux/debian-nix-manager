@@ -14,10 +14,12 @@ mkShell {
     git
     my-python
     musl
+    cudatoolkit
   ];
 
   shellHooks = ''
   export PATH="${pkgs.stdenv.lib.makeBinPath ([ my-python ])}''${PATH:+:}$PATH"
-  conda-shell
+  export CUDA_PATH="${pkgs.cudatoolkit}"
+  conda-shell && conda activate clx-fast.ai
   '';
 }

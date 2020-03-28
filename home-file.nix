@@ -33,7 +33,7 @@ home.file = {
       ^/etc/
       ^__pycache__
       ^/zeek
-    include = .*
+    include =
     include_only_with_project_file = false
     [projectmap]
        ^~/.config/nixpkgs(\d+)/ = project{0}

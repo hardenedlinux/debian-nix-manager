@@ -1,6 +1,10 @@
 conda-install
+conda update -n base -c defaults conda
+conda update conda
+conda config --set channel_priority flexible
 conda create -n clx-fast.ai python=3.6 ipykernel
 conda activate clx-fast.ai
+ conda install -c conda-forge boost
 pip install seaborn s3fs
 
 ##cuxfilter

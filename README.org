@@ -156,6 +156,11 @@ test DONE
 
 **  enable osquery Service
 #+begin_src sh :async t :exports both :results output
+sudo mkdir -p /var/osquery/log
+sudo chown $USER /var/osquery
+#+end_src
+
+#+begin_src sh :async t :exports both :results output
 systemctl --user status osquery.service
 #+end_src
 
@@ -172,7 +177,7 @@ systemctl --user status osquery.service
 **  Start Elastic service
 create ~/var/lib/elasticsearch/~ and make yourself the owner of that directory
 #+begin_src sh :async t :exports both :results output
-mkdir -p /var/lib/elasticsearch/
+sudo mkdir -p /var/lib/elasticsearch/
 sudo chown $USER /var/lib/elasticsearch/
 #+end_src
 
