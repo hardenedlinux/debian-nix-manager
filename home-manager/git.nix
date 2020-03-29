@@ -21,6 +21,9 @@
       rebase = {
         autostash = true;
       };
+      http = {
+        sslVerify = true;
+      };
     };
   };
 }
