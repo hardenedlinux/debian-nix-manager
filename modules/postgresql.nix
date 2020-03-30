@@ -12,16 +12,17 @@ let
       else cfg.package.withPackages (_: cfg.extraPlugins);
 
   # The main PostgreSQL configuration file.
-  PreShell = pkgs.writeScript "run-postgresql" ''  #! ${pkgs.runtimeShell} -e
-    if ! test -e ${cfg.dataDir}/PG_VERSION; then
+  PreShell = pkgs.writeScript "run-postgresql" ''
+    if ! test -e "${cfg.dataDir}/PG_VERSION"; then
        initdb -E 'UTF-8' --no-locale -U ${cfg.superUser} ${concatStringsSep " " cfg.initdbArgs}
        touch "${cfg.dataDir}/.first_startup"
       fi
-       ln -sfn "${configFile}" "${cfg.dataDir}/postgresql.conf"
+  ln -sfn "${configFile}" "${cfg.dataDir}/postgresql.conf"
       ${optionalString (cfg.recoveryConfig != null) ''
       ln -sfn "${pkgs.writeText "recovery.conf" cfg.recoveryConfig}"
           "${cfg.dataDir}/recovery.conf"
             ''}
+
             ${pkgs.postgresql}/bin/postgres  -k ${cfg.dataDir}
     '';
 
@@ -32,6 +33,7 @@ let
       log_destination = 'stderr'
       listen_addresses = '${if cfg.enableTCPIP then "*" else "localhost"}'
       port = ${toString cfg.port}
+      unix_socket_directories = '${cfg.dataDir}'
       ${cfg.extraConfig}
     '';
 
@@ -284,14 +286,15 @@ in
 
         Service =
           { ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-            PermissionsStartOnly = true;
-            Environment = [
+             Environment = [
               ''"PGDATA=${cfg.dataDir}"''
+              ''"PGHOST=${cfg.dataDir}"''
+              ''"PATH=${cfg.package}/bin"''
               ];
-            # ExecStartPre = ''
-            #    '';
+            ExecStartPre = ''
+                '';
             ExecStart = ''
-            ${PreShell}
+            ${pkgs.bash}/bin/bash ${PreShell}
                 '';
           #   if ! test -e ${cfg.dataDir}/PG_VERSION; then
           #     initdb -U ${cfg.superUser} ${concatStringsSep " " cfg.initdbArgs}
@@ -319,8 +322,6 @@ in
           #     chown -R postgres:postgres ${cfg.dataDir}
           #   fi
           # ''; # */
-            TimeoutSec = 120;
-
           };
         
         # Wait for PostgreSQL to be ready to accept connections.

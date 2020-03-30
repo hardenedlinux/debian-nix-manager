@@ -47,7 +47,7 @@ in
     wakatime
     go
     polipo
-    coreutils
+    nodejs
   ];
 
 
@@ -69,6 +69,6 @@ in
     enable = true;
     package = pkgs.postgresql_11 ;
     dataDir = "/var/db/postgresql/11";
-  };
+    };
 
 }

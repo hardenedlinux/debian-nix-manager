@@ -24,5 +24,7 @@ in
       kmod
       hydra
       postgresql
+      ripgrep
+      ag
   ];
 }
