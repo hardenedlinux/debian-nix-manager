@@ -1,4 +1,7 @@
 { config, pkgs, lib, ... }:
+let
+  USER = builtins.getEnv "USER";
+in
 with lib;
 {
 
@@ -35,7 +38,7 @@ with lib;
     
      interactiveShellInit = ''
     if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
-    ${concatMapStringsSep "\n" (p: "fundle plugin '${p}'") plugins}
+        ${concatMapStringsSep "\n" (p: "fundle plugin '${p}'") plugins}
     fundle init
     #infocmp | ssh $remote "cat > $TERM.ti ; tic -o ~/.terminfo $TERM.ti"
     source ${pkgs.autojump}/share/autojump/autojump.fish
@@ -45,8 +48,6 @@ with lib;
     set -x -U NIXBIN $HOME/.nix-profile/bin
     set -g -x PATH $PATH $GOBIN $NIXBIN /usr/sbin $OSQUERY
     set -g -x NIX_PATH $HOME/.nix-defexpr/channels
-    set -x -U http_proxy http://127.0.0.1:8123
-    set -x -U https_proxy http://127.0.0.1:8123
     set -g -x TERM screen-256color-bce;
     set -g theme_color_scheme gruvbox
     kitty + complete setup fish | source
@@ -69,7 +70,12 @@ with lib;
     if status is-interactive
     and not set -q TMUX
     exec tmux
-    end 
+    end
+    switch (whoami)
+    case nsm
+        set -x -U http_proxy http://127.0.0.1:8123
+        set -x -U https_proxy http://127.0.0.1:8123
+   end
     '';
     };
 home.activation.linkFuncations = config.lib.dag.entryAfter [ "writeBoundary" ] ''

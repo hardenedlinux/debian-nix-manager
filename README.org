@@ -152,6 +152,31 @@ test DONE
 
 #+RESULTS:
 : Johanna::PostgreSQL - PostgreSQL log writer and input reader (dynamic, version 0.2.0)
+* DAtabase
+** postgresql
+#+begin_src sh :async t :exports both :results output
+systemctl --user start  postgresql.service
+systemctl --user status  postgresql.service
+#+end_src
+
+#+RESULTS:
+#+begin_example
+● postgresql.service
+   Loaded: loaded (/nix/store/32xm7dcwlnjais6b42iaa8jh4zkfc3ji-postgresql.service/postgresql.service; linked; vendor preset: enabled)
+   Active: active (running) since Sun 2020-03-29 23:11:28 EDT; 15min ago
+ Main PID: 3542 (mp0sg0q78h9bwa0)
+   CGroup: /user.slice/user-1000.slice/user@1000.service/postgresql.service
+           ├─3542 /nix/store/828g2nqfgivscv79xykkmgjk0znll08l-bash-4.4-p23/bin/bash -e /nix/store/mp0sg0q78h9bwa0z45x4n4alc0ffg24f-run-postgresql
+           ├─3551 /nix/store/gl7xj33j9fsklbwlgwlgdw6ggj57l7fh-postgresql-11.7/bin/postgres -k /var/db/postgresql/11
+           ├─3563 postgres: checkpointer
+           ├─3564 postgres: background writer
+           ├─3565 postgres: walwriter
+           ├─3566 postgres: autovacuum launcher
+           ├─3567 postgres: stats collector
+           └─3568 postgres: logical replication launcher
+#+end_example
+
+
 * Deploy osquery
 
 **  enable osquery Service

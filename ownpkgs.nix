@@ -19,6 +19,7 @@ in
     ./modules/vast.nix
     ./modules/osquery
     ./modules/elastic.nix
+    ./modules/postgresql.nix
   ];
 
   home.packages = with ownpkgs; [
@@ -46,7 +47,8 @@ in
     wakatime
     go
     polipo
-    ];
+    coreutils
+  ];
 
 
   services.vast = {
@@ -62,6 +64,11 @@ in
 
   services.elasticsearch = {
     enable = true;
+  };
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_11 ;
+    dataDir = "/var/db/postgresql/11";
   };
 
 }
