@@ -23,7 +23,7 @@ let
           "${cfg.dataDir}/recovery.conf"
             ''}
 
-            ${pkgs.postgresql}/bin/postgres  -k ${cfg.dataDir}
+            ${pkgs.postgresql}/bin/postgres  -k "/run/postgresql/"
     '';
 
   configFile = pkgs.writeText "postgresql.conf"
@@ -291,8 +291,7 @@ in
               ''"PGHOST=${cfg.dataDir}"''
               ''"PATH=${cfg.package}/bin"''
               ];
-            ExecStartPre = ''
-                '';
+
             ExecStart = ''
             ${pkgs.bash}/bin/bash ${PreShell}
                 '';

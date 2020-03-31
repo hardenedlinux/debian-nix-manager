@@ -7,11 +7,10 @@ sudo chown $USER /var/lib/elasticsearch/
 sudo mkdir -p /var/osquery/log
 sudo chown $USER /var/osquery
 
-sudo mkdir -p /var/lib/postgresql
+sudo mkdir -p /run/postgresql/
 sudo mkdir -p /var/db/postgresql
 sudo chown $USER /var/db/postgresql
-sudo chown $USER /var/lib/postgresql
-mkdir -p /var/lib/postgresql/11
+sudo chown $USER /run/postgresql
 
 systemctl --user start osquery.service
 systemctl --user start elasticsearch.service
