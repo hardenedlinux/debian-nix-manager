@@ -26,5 +26,6 @@ in
     postgresql
     ripgrep
     ag
+    adoptopenjdk-jre-openj9-bin-11
   ];
 }

@@ -166,6 +166,5 @@ in {
     };
 
     home.packages = [ cfg.package ];
-
   };
 }
