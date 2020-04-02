@@ -278,51 +278,24 @@ in
           after = [ "network.target" ];
         };
 
-      Install = { wantedBy = [ "multi-user.target" ];};
-      #environment.PGDATA = cfg.dataDir;
+        Install = { wantedBy = [ "multi-user.target" ];};
+        #environment.PGDATA = cfg.dataDir;
 
-      #paths = [ postgresql ];
+        #paths = [ postgresql ];
 
 
         Service =
           { ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-             Environment = [
+            Environment = [
               ''"PGDATA=${cfg.dataDir}"''
               ''"PGHOST=${cfg.dataDir}"''
               ''"PATH=${cfg.package}/bin"''
-              ];
+            ];
 
             ExecStart = ''
             ${pkgs.bash}/bin/bash ${PreShell}
                 '';
-          #   if ! test -e ${cfg.dataDir}/PG_VERSION; then
-          #     initdb -U ${cfg.superUser} ${concatStringsSep " " cfg.initdbArgs}
-          #     # See postStart!
-          #     touch "${cfg.dataDir}/.first_startup"
-          #   fi
-          #   ln -sfn "${configFile}" "${cfg.dataDir}/postgresql.conf"
-          #   ${optionalString (cfg.recoveryConfig != null) ''
-          #     ln -sfn "${pkgs.writeText "recovery.conf" cfg.recoveryConfig}" \
-          #       "${cfg.dataDir}/recovery.conf"
-          #   ''}
-          #   ${optionalString (!groupAccessAvailable) ''
-          #     # postgresql pre 11.0 doesn't start if state directory mode is group accessible
-          #     chmod 0700 "${cfg.dataDir}"
-          #   ''}
-          #   exec postgres
-          # '';
-
-          #   ExecStartPre =
-          #     ''
-          #   # Create data directory.
-          #   if ! test -e ${cfg.dataDir}/PG_VERSION; then
-          #     mkdir -m 0700 -p ${cfg.dataDir}
-          #     rm -f ${cfg.dataDir}/*.conf
-          #     chown -R postgres:postgres ${cfg.dataDir}
-          #   fi
-          # ''; # */
           };
-        
         # Wait for PostgreSQL to be ready to accept connections.
 
         unitConfig.RequiresMountsFor = "${cfg.dataDir}";

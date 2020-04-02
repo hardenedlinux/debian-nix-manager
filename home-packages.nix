@@ -26,6 +26,8 @@ in
     postgresql
     ripgrep
     ag
-    adoptopenjdk-jre-openj9-bin-11
+    fzf
+    jre_headless
+    certbot
   ];
 }

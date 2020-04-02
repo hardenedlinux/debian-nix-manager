@@ -18,6 +18,10 @@ let
   '';
 
   configDir = cfg.dataDir + "/config";
+  configDir7 = cfg.dataDir + "/7/config";
+
+  ES_JAVA_OPTS = toString ( [ "-Des.path.conf=${configDir}" ]
+                            ++ cfg.extraJavaOptions);
 
   elasticsearchYml = pkgs.writeTextFile {
     name = "elasticsearch.yml";
@@ -145,23 +149,33 @@ in {
       after = [ "network.target" ];
       };
       Install = { wantedBy = [ "multi-user.target" ];};
-      # Environment = {
-      #   ES_HOME = cfg.dataDir;
-      #   ES_JAVA_OPTS = toString ( optional (!es6) [ "-Des.path.conf=${configDir}" ]
-      #                             ++ cfg.extraJavaOptions);
-      #   } // optionalAttrs es6 {
-      #     ES_PATH_CONF = configDir;
-      #   };
-
       Service = {
         ExecStart = "${cfg.package}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
         #PermissionsStartOnly = true;
         Environment = "ES_HOME=${cfg.dataDir}";
+        EX = "sd";
         LimitNOFILE = "1024000";
         ExecStartPre = ''
          ${pkgs.bash}/bin/bash -c 'rm -rf /var/lib/elasticsearch/config; ln -sfT ${esPlugins}/plugins ${cfg.dataDir}/plugins; ln -sfT ${cfg.package}/lib ${cfg.dataDir}/lib; ln -sfT ${cfg.package}/modules ${cfg.dataDir}/modules; mkdir -p /var/lib/elasticsearch/config; cp ${elasticsearchYml} ${configDir}/elasticsearch.yml; rm -f ${configDir}/logging.yml; cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename}; ${optionalString es6 "cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options"}'
        '';
+      };
+    };
 
+    systemd.user.services.elasticsearch-6x = {
+      Unit = {
+      description = "Elasticsearch Daemon";
+      after = [ "network.target" ];
+      };
+      Install = { wantedBy = [ "multi-user.target" ];};
+      Service = {
+        ExecStart = "${pkgs.elasticsearch7}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
+        #PermissionsStartOnly = true;
+        Environment = "ES_HOME=${cfg.dataDir}/7";
+        ES_JAVA_OPTS = "${ES_JAVA_OPTS}";
+        LimitNOFILE = "1024000";
+        ExecStartPre = ''
+         ${pkgs.bash}/bin/bash -c 'rm -rf /var/lib/elasticsearch/7/config; ln -sfT ${esPlugins}/plugins ${cfg.dataDir}/7/plugins; ln -sfT ${pkgs.elasticsearch7}/lib ${cfg.dataDir}/7/lib; ln -sfT ${pkgs.elasticsearch7}/modules ${cfg.dataDir}/7/modules; mkdir -p /var/lib/elasticsearch/7/config; cp ${elasticsearchYml} ${configDir7}/elasticsearch.yml; rm -f ${configDir7}/logging.yml; cp ${loggingConfigFile} ${configDir7}/${loggingConfigFilename}; cp ${pkgs.elasticsearch7}/config/jvm.options ${configDir7}/jvm.options'
+       '';
       };
     };
 

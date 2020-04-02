@@ -24,6 +24,7 @@ in
     ./modules/osquery
     ./modules/elastic.nix
     ./modules/postgresql.nix
+    ./modules/nix-serve.nix
   ];
 
   home.packages = with ownpkgs; [
@@ -69,7 +70,8 @@ in
   services.elasticsearch = {
     enable = true;
     package = elastic5.elasticsearch5;
-    cluster_name = "thehive";
+    cluster_name =  "thehive";
+    #extraJavaOptions = ["test"];
   };
   services.postgresql = {
     enable = true;
@@ -77,4 +79,8 @@ in
     dataDir = "/var/db/postgresql/11";
     };
 
+  services.nix-serve = {
+  enable = true;
+  secretKeyFile = "/var/cache-key/cache-priv-key.pem";
+  };
 }
