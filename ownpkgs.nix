@@ -25,6 +25,7 @@ in
     ./modules/elastic.nix
     ./modules/postgresql.nix
     ./modules/nix-serve.nix
+    ./modules/hydra.nix
   ];
 
   home.packages = with ownpkgs; [
@@ -54,6 +55,13 @@ in
     polipo
     nodejs
   ];
+
+  services.hydra = {
+    enable = true;
+    listenHost = "127.0.0.1";
+    port = 9001;
+  };
+
 
 
   services.vast = {
