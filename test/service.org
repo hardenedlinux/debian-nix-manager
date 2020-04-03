@@ -1,0 +1,174 @@
+#+TITLE: test output with user's services
+#+AUTHOR: GTrunSec
+#+EMAIL: gtrunsec@hardenedlinux.org
+#+DATE:  4 April 2020
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en cn
+#+SETUPFILE: ~/Documents/my-blog/public/theme/org-html-themes/setup/theme-readtheorg.setup
+#+hugo_publishdate: (0 5)
+#+hugo_auto_set_lastmod: t
+#+HUGO_categories:
+#+HUGO_tags:
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+* Elastic
+** Elastic 5x
+#+begin_src sh :async t :exports both :results output
+systemctl --user status elasticsearch.service
+#+end_src
+
+#+RESULTS:
+: ● elasticsearch.service
+:    Loaded: loaded (/nix/store/kbf8nmpp9zh9c9mhadj8dwajwb3qicwc-elasticsearch.service/elasticsearch.service; linked; vendor preset: enabled)
+:    Active: active (running) since Thu 2020-04-02 12:24:46 HKT; 1 day 17h ago
+:  Main PID: 24830 (java)
+:    CGroup: /user.slice/user-1001.slice/user@1001.service/elasticsearch.service
+:            ├─24830 /nix/store/8wmf6apz3yss4vz67z6xdwhhd08yz4cb-openjdk-headless-8u222-ga-jre/bin/java -Xms1g -Xmx1g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -Des.networkaddress.cache.ttl=60 -Des.networkaddress.cache.negative.ttl=10 -XX:+AlwaysPreTouch -Xss1m -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -XX:-OmitStackTraceInFastThrow -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dio.netty.recycler.maxCapacityPerThread=0 -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -Djava.io.tmpdir=/tmp/elasticsearch-2352954014746958930 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=data -XX:ErrorFile=logs/hs_err_pid%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -Xloggc:logs/gc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=32 -XX:GCLogFileSize=64m -Des.path.home=/var/lib/elasticsearch -Des.path.conf=/var/lib/elasticsearch/config -Des.distribution.flavor=default -Des.distribution.type=tar -cp /nix/store/6czj00nnxdzr18by4n3rqlfcp0csak0b-elasticsearch-6.8.3/lib/* org.elasticsearch.bootstrap.Elasticsearch
+:            └─25013 /var/lib/elasticsearch/modules/x-pack-ml/platform/linux-x86_64/bin/controller
+
+* Hydra
+** Hydra-server
+#+begin_src sh :async t :exports both :results output
+systemctl --user restart hydra-server.service
+#+end_src
+
+#+begin_src sh :async t :exports both :results output
+systemctl --user status hydra-server.service
+#+end_src
+
+#+RESULTS:
+#+begin_example
+● hydra-server.service
+   Loaded: loaded (/nix/store/zgiqb9c9hfhz64flmk5vskvhhsdaw19r-hydra-server.service/hydra-server.service; linked; vendor preset: enabled)
+   Active: active (running) since Fri 2020-04-03 10:40:41 HKT; 19h ago
+ Main PID: 8216 (starman master )
+   CGroup: /user.slice/user-1001.slice/user@1001.service/hydra-server.service
+           ├─ 3807 starman worker
+           ├─ 8216 starman master
+           ├─20670 starman worker
+           ├─22010 starman worker
+           ├─22031 starman worker
+           └─27929 starman worker
+#+end_example
+
+** Hydra-queue-runner
+#+begin_src sh :async t :exports both :results output
+systemctl --user restart hydra-queue-runner.service
+#+end_src
+
+#+begin_src sh :async t :exports both :results output
+systemctl --user status hydra-queue-runner.service
+#+end_src
+
+#+RESULTS:
+: ● hydra-queue-runner.service
+:    Loaded: loaded (/nix/store/4yxchssh61v8dvj80dvr56wkmxyqggkn-hydra-queue-runner.service/hydra-queue-runner.service; linked; vendor preset: enabled)
+:    Active: active (running) since Sat 2020-04-04 03:57:44 HKT; 1h 48min ago
+:  Main PID: 30897 (hydra-queue-run)
+:    CGroup: /user.slice/user-1001.slice/user@1001.service/hydra-queue-runner.service
+:            ├─ 9757 nix-store --serve --write
+:            └─30897 /nix/store/zj34mhylqnm7h32jylqy4msw2c5bvr6v-hydra-2020-02-06/bin/hydra-queue-runner -vvvv
+
+**  Hydra-evaluator
+#+begin_src sh :async t :exports both :results output
+systemctl --user restart hydra-evaluator.service
+#+end_src
+
+#+begin_src sh :async t :exports both :results output
+systemctl --user status hydra-evaluator.service
+#+end_src
+
+#+RESULTS:
+: ● hydra-evaluator.service
+:    Loaded: loaded (/nix/store/3n57wmq2ldlm935jnf2kv61xj3swv3q6-hydra-evaluator.service/hydra-evaluator.service; linked; vendor preset: enabled)
+:    Active: active (running) since Sat 2020-04-04 04:41:45 HKT; 1h 2min ago
+:  Main PID: 16088 (hydra-evaluator)
+:    CGroup: /user.slice/user-1001.slice/user@1001.service/hydra-evaluator.service
+:            └─16088 hydra-evaluator
+* Osquery
+#+begin_src sh :async t :exports both :results output
+systemctl --user restart osquery.service
+#+end_src
+
+#+begin_src sh :async t :exports both :results output
+systemctl --user status osquery.service
+#+end_src
+
+#+RESULTS:
+: ● osquery.service
+:    Loaded: loaded (/nix/store/3ashimzj1xxxcv6pxc9rsg63bj162gkg-osquery.service/osquery.service; linked; vendor preset: enabled)
+:    Active: active (running) since Sat 2020-04-04 05:50:03 HKT; 2s ago
+:  Main PID: 9751 (osqueryd)
+:    CGroup: /user.slice/user-1001.slice/user@1001.service/osquery.service
+:            └─9751 /nix/store/259v1w7rcsdqlbkb8n3vjig2iy1myim9-osquery-4.2.0/bin/osqueryd --database_path /var/osquery/osquery.db --logger_path /var/osquery/log --pidfile /var/osquery/osqueryd.pidfile --database_path /var/osquery/osquery.db --extensions_socket /var/osquery/osquery.em --config_path /home/nsm//.osquery/osquery.conf
+
+* Nix
+** nix-serve
+#+begin_src sh :async t :exports both :results output
+systemctl --user status nix-serve.service
+#+end_src
+
+#+RESULTS:
+#+begin_example
+● nix-serve.service
+   Loaded: loaded (/nix/store/wcsjnmgxl375znvxqhaz2z02cia8rx6k-nix-serve.service/nix-serve.service; linked; vendor preset: enabled)
+   Active: active (running) since Fri 2020-04-03 09:08:38 HKT; 20h ago
+ Main PID: 8187 (starman master )
+   CGroup: /user.slice/user-1001.slice/user@1001.service/nix-serve.service
+           ├─8187 starman master /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
+           ├─8207 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
+           ├─8208 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
+           ├─8209 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
+           ├─8210 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
+           └─8211 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
+#+end_example
+* PostgreSQL
+#+begin_src sh :async t :exports both :results output
+systemctl --user status postgresql.service
+#+end_src
+
+#+RESULTS:
+#+begin_example
+● postgresql.service
+   Loaded: loaded (/nix/store/941lrx9pggxmsv88b2cagdj27vlcv1bn-postgresql.service/postgresql.service; linked; vendor preset: enabled)
+   Active: active (running) since Fri 2020-04-03 09:12:25 HKT; 20h ago
+ Main PID: 10141 (bash)
+   CGroup: /user.slice/user-1001.slice/user@1001.service/postgresql.service
+           ├─ 4005 postgres: nsm hydra [local] idle
+           ├─ 7660 postgres: hydra hydra ::1(50702) idle
+           ├─ 8300 postgres: hydra hydra ::1(50488) idle
+           ├─10141 /nix/store/9si14qjcz8072c0v42zbkglq08s2cg04-bash-4.4-p23/bin/bash /nix/store/glcg74jsvlpq88r85j3kb49a54npmyqk-run-postgresql
+           ├─10148 /nix/store/kxy8qfbm8vl3kl3lbkvq09y16mvzk4nc-postgresql-11.7/bin/postgres -k /run/postgresql/
+           ├─10164 postgres: checkpointer
+           ├─10165 postgres: background writer
+           ├─10166 postgres: walwriter
+           ├─10167 postgres: autovacuum launcher
+           ├─10168 postgres: stats collector
+           ├─10169 postgres: logical replication launcher
+           ├─16109 postgres: hydra hydra ::1(50386) idle
+           ├─16118 postgres: hydra hydra ::1(50388) idle
+           ├─21969 postgres: hydra hydra ::1(50650) idle
+           ├─29319 postgres: hydra hydra ::1(50172) idle
+           ├─30919 postgres: nsm hydra [local] idle
+           └─30925 postgres: nsm hydra [local] idle
+#+end_example
+* Vast
+#+begin_src sh :async t :exports both :results output
+systemctl --user start osquery.service
+#+end_src
+
+#+RESULTS:
+
+#+begin_src sh :async t :exports both :results output
+systemctl --user status vast.service
+#+end_src
+
+#+RESULTS:
+: ● vast.service
+:    Loaded: loaded (/nix/store/lgs8400az7ckwl7wb5qr9hdj3pzqq804-vast.service/vast.service; linked; vendor preset: enabled)
+:    Active: active (running) since Sat 2020-04-04 05:51:42 HKT; 10s ago
+:  Main PID: 3367 (vast)
+:    CGroup: /user.slice/user-1001.slice/user@1001.service/vast.service
+:            └─3367 /nix/store/n6vm1zifpl65445k6w866sf109j2imwm-vast/bin/vast -c /nix/store/zkmj2wbi3ahx4ldj9jzxznabnhg3d678-vast.conf start
