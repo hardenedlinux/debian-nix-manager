@@ -2,7 +2,7 @@
 let
   nixpkgs = (import ~/.config/nixpkgs/channel/nixpkgs) { };
   unstable = import <nixpkgs-unstable> { };
-
+  home_directory = builtins.getEnv "HOME";
   ownpkgs_git = builtins.fetchTarball {
     url = "https://github.com/GTrunSec/nixpkgs/tarball/806fac5d109cdc6653c33a18924dac31ac477a2b";
     sha256 = "0b1aksy1070xh9wn7mwdgyz2hpfljr4jxs6qj90x7pnxj3m3p7a4";
@@ -81,6 +81,6 @@ in
 
   services.nix-serve = {
   enable = true;
-  secretKeyFile = "/var/cache-key/cache-priv-key.pem";
+  secretKeyFile = "${home_directory}/.config/key/cache-priv-key.pem";
   };
 }
