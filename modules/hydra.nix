@@ -246,15 +246,17 @@ in
         #path = [ cfg.package pkgs.nettools pkgs.openssh pkgs.bzip2 config.nix.package ];
         #restartTriggers = [ hydraConf ];
         Service =
-          { ExecStart = "@${cfg.package}/bin/hydra-queue-runner hydra-queue-runner -v";
+          { ExecStart = "${cfg.package}/bin/hydra-queue-runner -vvvv";
             ExecStopPost = "${cfg.package}/bin/hydra-queue-runner --unlock";
-            User = "hydra-queue-runner";
             Restart = "always";
             # Environment = env // {
             #   PGPASSFILE = "${baseDir}/pgpass-queue-runner"; # grrr
             #   IN_SYSTEMD = "1"; # to get log severity levels
             # };
-
+            Environment = [
+              ''"HYDRA_DATA=/var/lib/hydra"''
+              ''"NIX_BUILD_CORES=12"''
+            ];
             # Ensure we can get core dumps.
             LimitCORE = "infinity";
             WorkingDirectory = "${baseDir}/queue-runner";
@@ -273,8 +275,11 @@ in
         #restartTriggers = [ hydraConf ];
         Service =
           { ExecStart = "@${cfg.package}/bin/hydra-evaluator hydra-evaluator";
-            #Environment = env;
             Restart = "always";
+            Environment = [
+              ''"HYDRA_DBI=dbi:Pg:dbname=hydra;host=localhost;user=hydra;password=${import /var/lib/hydra/pgpass}"''
+            ];
+
             WorkingDirectory = baseDir;
           };
       };
