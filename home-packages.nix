@@ -22,12 +22,14 @@ in
     gdb
     procps
     kmod
-    hydra
+#    hydra
     postgresql
     ripgrep
     ag
     fzf
     jre_headless
     certbot
-  ];
+    aria2
+    gotty
+   ];
 }

@@ -63,8 +63,7 @@ in
       };
 
       package = mkOption {
-        type = types.path;
-        default = pkgs.hydra;
+        type = types.package;
         defaultText = "pkgs.hydra";
         description = "The Hydra package.";
       };
@@ -226,12 +225,14 @@ in
               + "-p ${toString cfg.port} --max_spare_servers 5 --max_servers 25 "
               + "--max_requests 100 ${optionalString cfg.debugServer "-d"}";
             #PermissionsStartOnly = true;
-            ExecStartPre = "${cfg.package}/bin/hydra-init";
+            ExecStartPre = ''${pkgs.bash}/bin/bash -c '${cfg.package}/bin/hydra-init; ln -sf ${hydraConf} ${baseDir}/hydra.conf'
+            '';
             Restart = "always";
             Environment = [
               ''"PAHT=${cfg.package}/bin"''
               ''"PGPASSFILE=/var/lib/hydra/pgpass"''
               ''"HYDRA_DBI=dbi:Pg:dbname=hydra;host=localhost;user=hydra;password=${import /var/lib/hydra/pgpass}"''
+              ''"HYDRA_CONFIG=${baseDir}/hydra.conf"''
             ];
           };
       };
@@ -249,13 +250,12 @@ in
           { ExecStart = "${cfg.package}/bin/hydra-queue-runner -vvvv";
             ExecStopPost = "${cfg.package}/bin/hydra-queue-runner --unlock";
             Restart = "always";
-            # Environment = env // {
-            #   PGPASSFILE = "${baseDir}/pgpass-queue-runner"; # grrr
-            #   IN_SYSTEMD = "1"; # to get log severity levels
-            # };
+
             Environment = [
               ''"HYDRA_DATA=/var/lib/hydra"''
               ''"NIX_BUILD_CORES=12"''
+              ''"IN_SYSTEMD=1"''            # to get log severity levels
+              ''"HYDRA_CONFIG=${baseDir}/hydra.conf"''
             ];
             # Ensure we can get core dumps.
             LimitCORE = "infinity";
@@ -278,6 +278,7 @@ in
             Restart = "always";
             Environment = [
               ''"HYDRA_DBI=dbi:Pg:dbname=hydra;host=localhost;user=hydra;password=${import /var/lib/hydra/pgpass}"''
+              ''"PATH=${makeBinPath [ pkgs.nettools pkgs.jq cfg.package ]}"''
             ];
 
             WorkingDirectory = baseDir;

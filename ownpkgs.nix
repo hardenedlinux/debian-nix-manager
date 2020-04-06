@@ -60,6 +60,11 @@ in
     enable = true;
     listenHost = "127.0.0.1";
     port = 9001;
+    package = pkgs.hydra-unstable;
+    hydraURL = "http://127.0.0.0.1";
+    notificationSender = "gtrun@hardenedlinux.org";
+    useSubstitutes = true;
+    logo = "${home_directory}/.config/nixpkgs/img/logo_no_background_color_white.png";
   };
 
 
