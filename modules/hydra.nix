@@ -247,7 +247,7 @@ in
         #path = [ cfg.package pkgs.nettools pkgs.openssh pkgs.bzip2 config.nix.package ];
         #restartTriggers = [ hydraConf ];
         Service =
-          { ExecStart = "${cfg.package}/bin/hydra-queue-runner -vvvv";
+          { ExecStart = "${cfg.package}/bin/hydra-queue-runner -v --option build-use-substitutes true";
             ExecStopPost = "${cfg.package}/bin/hydra-queue-runner --unlock";
             Restart = "always";
 
