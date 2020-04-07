@@ -7,7 +7,7 @@ let
   cfg = config.services.osquery;
   home_directory = builtins.getEnv "HOME";
   osuqerycfg = "${home_directory}/.osquery/osquery.conf";
-  osquery = pkgs.callPackages ../../pkgs/osquery { };
+  osquery = pkgs.callPackage ../../pkgs/osquery { };
 in
 
 {

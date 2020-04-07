@@ -7,7 +7,10 @@ let
 in
 {
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs.home-manager = {
+    enable = true;
+    path = "${home_directory}/.nix-defexpr/channels/home-mananger";
+  };
 
   imports = [
     ./home-packages.nix
@@ -17,6 +20,7 @@ in
     ./home-manager/emacs.nix
     ./home-manager/tmux.nix
     ./home-manager/git.nix
+    ./home-manager/zsh.nix
     ./home-manager/ssh.nix
     ./pkgs/network
   ]; #++ lib.optionals sysconfig.services.xserver.enable [

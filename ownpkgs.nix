@@ -1,21 +1,23 @@
 {pkgs, ...}:
 let
-  nixpkgs = (import ~/.config/nixpkgs/channel/nixpkgs) { };
-  unstable = import <nixpkgs-unstable> { };
+  nixpkgs = (import <nixpkgs> { config.allowUnfree = true; config.ignoreCollisions = true;});
+  unstable = (import <unstable> { });
   home_directory = builtins.getEnv "HOME";
   ownpkgs_git = builtins.fetchTarball {
-    url = "https://github.com/GTrunSec/nixpkgs/tarball/806fac5d109cdc6653c33a18924dac31ac477a2b";
-    sha256 = "0b1aksy1070xh9wn7mwdgyz2hpfljr4jxs6qj90x7pnxj3m3p7a4";
-  };
+    url = "https://github.com/GTrunSec/nixpkgs/tarball/39247f8d04c04b3ee629a1f85aeedd582bf41cac";
+     sha256 = "1q7asvk73w7287d2ghgya2hnvn01szh65n8xczk4x2b169c5rfv0";
+    };
+
   elastic_5x = builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/tarball/8673d82bc18d3c6af28b1e3fe5c109276b5121ed";
     sha256 = "1d9hv2cc247vm3rrky6k3706k958128213r0j0hyakpafqy4qz55";
   };
+  
   elastic5 = (import elastic_5x) { };
   ownpkgs = (import ownpkgs_git) { };
-  zeek = ownpkgs.callPackages ./pkgs/zeek { };
-  vast = ownpkgs.callPackages ./pkgs/vast { };
-  pf-ring = ownpkgs.callPackages ./pkgs/network/pf_ring.nix { };
+  zeek = ownpkgs.callPackage ./pkgs/zeek { };
+  vast = ownpkgs.callPackage ./pkgs/vast { };
+  pf-ring = ownpkgs.callPackage ./pkgs/network/pf_ring.nix { };
 
 in
 {
@@ -60,7 +62,7 @@ in
     enable = true;
     listenHost = "127.0.0.1";
     port = 9001;
-    package = pkgs.hydra-unstable;
+    package = nixpkgs.hydra-flakes;
     hydraURL = "http://127.0.0.1";
     notificationSender = "gtrun@hardenedlinux.org";
     useSubstitutes = true;
