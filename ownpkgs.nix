@@ -70,29 +70,31 @@ in
   };
 
 
+  services.elasticsearch = {
+    enable = true;
+    package = elastic5.elasticsearch5;
+    cluster_name =  "thehive";
+    extraJavaOptions = [""];
+  };
 
   services.vast = {
     enable = true;
     endpoint = "localhost:4000";
-    #db-directory = "./vast/vast.db";
-    #log-directory = "./vast/vast.log";
+    db-directory = "./vast/vast.db";
+    log-directory = "./vast/vast.log";
   };
 
   services.osquery = {
     enable = true;
   };
 
-  services.elasticsearch = {
-    enable = true;
-    package = elastic5.elasticsearch5;
-    cluster_name =  "thehive";
-    #extraJavaOptions = ["test"];
-  };
+
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_11 ;
     dataDir = "/var/db/postgresql/11";
-    };
+  };
+
 
   services.nix-serve = {
   enable = true;
