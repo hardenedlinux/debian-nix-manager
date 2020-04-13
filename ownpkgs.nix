@@ -62,7 +62,7 @@ in
     enable = true;
     listenHost = "127.0.0.1";
     port = 9001;
-    package = nixpkgs.hydra-flakes;
+    package = nixpkgs.hydra-unstable;
     hydraURL = "http://127.0.0.1";
     notificationSender = "gtrun@hardenedlinux.org";
     useSubstitutes = true;
@@ -80,8 +80,8 @@ in
   services.vast = {
     enable = true;
     endpoint = "localhost:4000";
-    db-directory = "./vast/vast.db";
-    log-directory = "./vast/vast.log";
+    #db-directory = "./vast/vast.db";
+    #log-directory = "./vast/vast.log";
   };
 
   services.osquery = {
