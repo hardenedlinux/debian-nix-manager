@@ -11,6 +11,8 @@ sudo mkdir -p /run/postgresql/
 sudo mkdir -p /var/db/postgresql
 sudo chown $USER /var/db/postgresql
 sudo chown $USER /run/postgresql
+sudo mkdir /var/lib/zookeeper
+sudo chown $USER /var/lib/zookeeper
 
 systemctl --user start osquery.service
 systemctl --user start elasticsearch.service

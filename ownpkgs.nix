@@ -28,6 +28,8 @@ in
     ./modules/postgresql.nix
     ./modules/nix-serve.nix
     ./modules/hydra.nix
+    ./modules/zookeeper.nix
+    ./modules/apache-kakfa.nix
   ];
 
   home.packages = with ownpkgs; [
@@ -56,8 +58,19 @@ in
     go
     polipo
     nodejs
-  ];
+   ];
 
+
+  services.zookeeper = {
+    enable = true;
+  };
+
+  
+  services.apache-kafka = {
+    enable = true;
+  };
+
+  
   services.hydra = {
     enable = true;
     listenHost = "127.0.0.1";
