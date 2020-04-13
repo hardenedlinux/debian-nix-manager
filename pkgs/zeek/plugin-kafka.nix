@@ -2,7 +2,7 @@ with import <nixpkgs> {};
 stdenv.mkDerivation {
   name = "zeek-PostgreSQL";
   nativeBuildInputs = [ cmake  ];
-  buildInputs = [ git postgresql libpcap ];
+  buildInputs = [ git rdkafka openssl libpcap];
   shellHook = ''
   dir="zeek-3.0.3"
   if [ -d "$dir" ]
@@ -12,7 +12,8 @@ stdenv.mkDerivation {
     wget https://old.zeek.org/downloads/zeek-3.0.3.tar.gz
       tar -xvf zeek-3.0.3.tar.gz
 fi
-  git clone https://github.com/0xxon/zeek-postgresql.git
-  cd zeek-postgresql && ./configure --zeek-dist=../zeek-3.0.3
+#  git clone https://github.com/apache/metron-bro-plugin-kafka.git --depth=1
+  cd metron-bro-plugin-kafka
+  ./configure --bro-dist=../zeek-3.0.3
   '';
 }

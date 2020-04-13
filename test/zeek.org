@@ -1,0 +1,29 @@
+#+TITLE: Test zeek services and plugins
+#+AUTHOR: GTrunSec
+#+EMAIL: gtrunsec@hardenedlinux.org
+#+DATE: 13 April 2020
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en cn
+#+SETUPFILE: ~/Documents/my-blog/public/theme/org-html-themes/setup/theme-readtheorg.setup
+#+hugo_publishdate: (0 5)
+#+hugo_auto_set_lastmod: t
+#+HUGO_categories:
+#+HUGO_tags:
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+* metron-bro-plugin-kafka
+#+begin_src sh :async t :exports both :results output
+/usr/local/zeek/bin/zeek -N Apache::Kafka
+#+end_src
+
+#+RESULTS:
+: Apache::Kafka - Writes logs to Kafka (dynamic, version 0.3.0)
+* Johanna::PostgreSQL
+#+begin_src sh :async t :exports both :results output
+/usr/local/zeek/bin/zeek -N Johanna::PostgreSQL
+#+end_src
+
+#+RESULTS:
+: Johanna::PostgreSQL - PostgreSQL log writer and input reader (dynamic, version 0.2.0)

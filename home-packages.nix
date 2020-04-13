@@ -31,5 +31,6 @@ in
     certbot
     aria2
     gotty
+    nettools
    ];
 }
