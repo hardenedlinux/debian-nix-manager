@@ -23,6 +23,7 @@ in
     ./home-manager/zsh.nix
     ./home-manager/ssh.nix
     ./pkgs/network
+    ./pkgs/zeek-pkgs.nix
   ]; #++ lib.optionals sysconfig.services.xserver.enable [
     #./home-manager/desktop.nix ];
   
@@ -41,5 +42,5 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "19.09";
+  home.stateVersion = "20.03";
 }
