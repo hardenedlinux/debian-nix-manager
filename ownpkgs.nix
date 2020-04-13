@@ -58,6 +58,7 @@ in
     go
     polipo
     nodejs
+    tcpreplayls
    ];
 
 
@@ -68,6 +69,7 @@ in
   
   services.apache-kafka = {
     enable = true;
+    logDirs = ["/var/lib/kafka"];
   };
 
   
