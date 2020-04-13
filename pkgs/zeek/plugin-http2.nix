@@ -1,8 +1,8 @@
 with import <nixpkgs> {};
 stdenv.mkDerivation {
-  name = "zeek-kafka";
+  name = "zeek-http2";
   nativeBuildInputs = [ cmake  ];
-  buildInputs = [ git rdkafka openssl libpcap];
+  buildInputs = [ git nghttp2 brotli libpcap zlib openssl ];
   shellHook = ''
   dir="zeek-3.0.3"
   if [ -d "$dir" ]
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
     wget https://old.zeek.org/downloads/zeek-3.0.3.tar.gz
       tar -xvf zeek-3.0.3.tar.gz
 fi
-  git clone https://github.com/apache/metron-bro-plugin-kafka.git --depth=1
-  cd metron-bro-plugin-kafka &&  ./configure --bro-dist=../zeek-3.0.3
+  git clone https://github.com/MITRECND/bro-http2
+  cd bro-http2 &&  ./configure --bro-dist=../zeek-3.0.3
   '';
 }
