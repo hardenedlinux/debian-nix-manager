@@ -1,4 +1,5 @@
-export PATH=$HOME/.nix-profile/bin:bin:/usr/bin:/usr/local/bin:/sbin/:/usr/sbin:$HOME
+#!/usr/bin/env zsh
+export PATH=$HOME/.nix-profile/bin:/usr/local/bin:/usr/sbin/:/bin:/sbin/:/usr/bin:
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
@@ -39,7 +40,6 @@ function cd() {
 if [ "$(whoami)" = "nsm" ]; then
         export  http_proxy=http://127.0.0.1:8123
         export  https_proxy=http://127.0.0.1:8123
-        exit 255
 fi
 export NIX_PATH=$HOME/.nix-defexpr/channels
 export TERM=xterm-256color

@@ -39,19 +39,26 @@ in
       si    = "pactl set-default-sink (pacmd list-sinks | awk \\\'/name:.*pci/{if (a != \"\") print a;} {a=$NF}\\\')";
     };
 
-    initExtra = builtins.readFile "${home_directory}/.config/nixpkgs/dotfiles/keys.sh" + builtins.readFile "${home_directory}/.config/nixpkgs/dotfiles/zshrc";
-
+    initExtra = builtins.readFile "${home_directory}/.config/nixpkgs/dotfiles/keys.sh" + builtins.readFile "${home_directory}/.config/nixpkgs/dotfiles/zshrc" + ''
+        SPACESHIP_TIME_SHOW=true
+        SPACESHIP_EXIT_CODE_SHOW=true
+        SPACESHIP_VI_MODE_SHOW=false
+        SPACESHIP_BATTERY_THRESHOLD=30
+        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=238'
+        setopt HIST_IGNORE_ALL_DUPS
+'';
+    
     plugins =
       [
-       # {
-       #   name = "spaceship";
-       #   file = "spaceship.zsh";
-       #   src = pkgs.fetchgit {
-       #     url = "https://github.com/denysdovhan/spaceship-prompt";
-       #     rev = "v3.11.1";
-       #     sha256 = "0habry3r6wfbd9xbhw10qfdar3h5chjffr5pib4bx7j4iqcl8lw8";
-       #   };
-       # }
+       {
+         name = "spaceship";
+         file = "spaceship.zsh";
+         src = pkgs.fetchgit {
+           url = "https://github.com/denysdovhan/spaceship-prompt";
+           rev = "v3.11.1";
+           sha256 = "0habry3r6wfbd9xbhw10qfdar3h5chjffr5pib4bx7j4iqcl8lw8";
+         };
+       }
         {
           name = "fast-syntax-highlighting";
           src = pkgs.fetchFromGitHub {
