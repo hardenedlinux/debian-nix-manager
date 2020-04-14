@@ -10,10 +10,17 @@
 #+hugo_auto_set_lastmod: t
 #+HUGO_categories:
 #+HUGO_tags:
-#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+OPTIONS: H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
 * Kafka & Zookeeper
+** KAfka
+#+begin_src sh :exports both :results output
+systemctl --user start apache-kafka.service
+#+end_src
+
+#+RESULTS:
+
 #+begin_src sh :async t :exports both :results output
 systemctl --user status apache-kafka.service
 #+end_src
@@ -26,6 +33,12 @@ systemctl --user status apache-kafka.service
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/apache-kafka.service
 :            ├─8480 /nix/store/ffli6m23501dkiznwlkf6n4xvrj02snr-bash-4.4-p23/bin/bash /nix/store/kqmvgwlrzm61x3lrd0wni9f2fnwafpc1-run-kafka
 :            └─8481 /nix/store/i93m7bna9jmn4xrqjaiwvdzimwkzwnzi-openjdk-8u242-b08-jre/bin/java -cp /nix/store/rh6hhfg1mqv5ddpdjkm7n3fm4xisbxmx-apache-kafka-2.12-2.4.0/libs/* -Dlog4j.configuration=file:/nix/store/bz0bs6sr5a96zdqhagswmyg0k2kspg1i-log4j.properties -server -Xmx1G -Xms1G -XX:+UseCompressedOops -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true kafka.Kafka /nix/store/lh4mzn03yp55659frc4rrb5anngygjfl-server.properties
+** Zookeeper
+#+begin_src sh :async t :exports both :results output
+systemctl --user start  zookeeper.service
+#+end_src
+
+#+RESULTS:
 
 #+begin_src sh :async t :exports both :results output
 systemctl --user status zookeeper.service

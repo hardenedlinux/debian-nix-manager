@@ -3,6 +3,7 @@ let
     home_directory = builtins.getEnv "HOME";
 in
 {
+  programs.direnv.enable = true;
   programs.zsh = {
     enable = true;
     autocd = true;
@@ -11,7 +12,7 @@ in
     dotDir = ".config/zsh";
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "sudo" "z" ];
+      plugins = [ "git" "sudo" "z" "history-substring-search"];
       theme = "robbyrussell";
     };
     history = {
@@ -42,6 +43,15 @@ in
 
     plugins =
       [
+       # {
+       #   name = "spaceship";
+       #   file = "spaceship.zsh";
+       #   src = pkgs.fetchgit {
+       #     url = "https://github.com/denysdovhan/spaceship-prompt";
+       #     rev = "v3.11.1";
+       #     sha256 = "0habry3r6wfbd9xbhw10qfdar3h5chjffr5pib4bx7j4iqcl8lw8";
+       #   };
+       # }
         {
           name = "fast-syntax-highlighting";
           src = pkgs.fetchFromGitHub {

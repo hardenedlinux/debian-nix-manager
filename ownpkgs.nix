@@ -8,12 +8,6 @@ let
      sha256 = "1q7asvk73w7287d2ghgya2hnvn01szh65n8xczk4x2b169c5rfv0";
     };
 
-  elastic_5x = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/tarball/8673d82bc18d3c6af28b1e3fe5c109276b5121ed";
-    sha256 = "1d9hv2cc247vm3rrky6k3706k958128213r0j0hyakpafqy4qz55";
-  };
-  
-  elastic5 = (import elastic_5x) { };
   ownpkgs = (import ownpkgs_git) { };
   zeek = ownpkgs.callPackage ./pkgs/zeek { };
   vast = ownpkgs.callPackage ./pkgs/vast { };
@@ -31,6 +25,8 @@ in
     ./modules/zookeeper.nix
     ./modules/apache-kakfa.nix
     ./modules/kibana.nix
+    ./modules/logstash.nix
+    ./elk.nix
   ];
 
   home.packages = with ownpkgs; [
@@ -60,15 +56,8 @@ in
     polipo
     nodejs
     tcpreplay
-    bash-completion
+    bat
    ];
-
-  services.kibana = {
-    enable = true;
-    package = pkgs.kibana7;
-    # listenAddress = "10.220.170.113";
-    elasticsearch.hosts = [ "http://localhost:9200" ];
-  };
 
 
   services.zookeeper = {
@@ -78,7 +67,8 @@ in
   
   services.apache-kafka = {
     enable = true;
-    logDirs = ["/var/lib/kafka"];
+    #brokerId=1;
+    logDirs = ["/var/lib/kafka/log"];
   };
 
   
@@ -94,14 +84,6 @@ in
   };
 
 
-  services.elasticsearch = {
-    enable = true;
-    #for thehive
-    package = elastic5.elasticsearch5;
-    package-7x = pkgs.elasticsearch7;
-    #cluster_name =  "thehive";
-    extraJavaOptions = [""];
-  };
 
   services.vast = {
     enable = true;

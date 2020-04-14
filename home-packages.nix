@@ -4,10 +4,8 @@ let
 in
 {
   home.packages = with pkgs;[
-    fish-foreign-env
 	  curl
 	  git
-    bash
     pet
 	  kitty
 	  tmux

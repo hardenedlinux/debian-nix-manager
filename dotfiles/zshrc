@@ -1,3 +1,4 @@
+export PATH=$HOME/.nix-profile/bin:bin:/usr/bin:/usr/local/bin:/sbin/:/usr/sbin:$HOME
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
@@ -34,8 +35,15 @@ function cd() {
                                         builtin cd "$dir" &> /dev/null
                                 done
                                 }
-
-
-
+##proxy
+if [ "$(whoami)" = "nsm" ]; then
+        export  http_proxy=http://127.0.0.1:8123
+        export  https_proxy=http://127.0.0.1:8123
+        exit 255
+fi
+export NIX_PATH=$HOME/.nix-defexpr/channels
+export TERM=xterm-256color
+##fix https://github.com/sindresorhus/pure/issues/300 Command duplicated on tab completion with oh-my-zsh /Debian system
+export LANG=C.UTF-8
 # nix direnv hook
 eval "$(direnv hook zsh)"

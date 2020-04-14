@@ -16,7 +16,7 @@ in
     ./home-packages.nix
     ./ownpkgs.nix
     ./home-file.nix
-    ./home-manager/fish.nix
+    #./home-manager/fish.nix
     ./home-manager/emacs.nix
     ./home-manager/tmux.nix
     ./home-manager/git.nix

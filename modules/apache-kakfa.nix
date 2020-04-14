@@ -16,6 +16,7 @@ let
         host.name=${cfg.hostname}
         log.dirs=${concatStringsSep "," cfg.logDirs}
         zookeeper.connect=${cfg.zookeeper}
+        offsets.topic.replication.factor=1
         ${toString cfg.extraProperties}
       '';
 

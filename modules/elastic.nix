@@ -44,6 +44,7 @@ let
   };
 
   loggingConfigFilename = "log4j2.properties";
+
   loggingConfigFile = pkgs.writeTextFile {
     name = loggingConfigFilename;
     text = cfg.logging;
