@@ -14,7 +14,8 @@ in
     package = pkgs.logstash7;
     plugins = [ pkgs.logstash-contrib ];
     extraSettings = ''
-    path.logs : "/var/lib/logstash/logs"
+    config.reload.automatic: true
+    config.reload.interval: 3s
     '';
     inputConfig = ''
     kafka {

@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.services.logstash;
+  home_directory = builtins.getEnv "HOME";
   pluginPath = lib.concatStringsSep ":" cfg.plugins;
   havePluginPath = lib.length cfg.plugins > 0;
   ops = lib.optionalString;
@@ -35,15 +36,14 @@ let
     mkdir -p $out
     ln -s $logstashSettingsYml $out/logstash.yml
     cp ${cfg.package}/config/log4j2.properties $out/.
+     sed -i "1ipath.logs = /var/lib/logstash/logs" $out/log4j2.properties
   '';
 
 
   PreShell = pkgs.writeScript "run-logstash" ''
           ${cfg.package}/bin/logstash \
-          -w ${toString cfg.filterWorkers} \
           ${pluginsPath} \
-          ${verbosityFlag} \
-          -f ${logstashConf} \
+          --path.config ${cfg.logstashConfDir}/*.conf \
           --path.settings ${logstashSettingsDir} \
           --path.data ${cfg.dataDir}
     '';
@@ -83,6 +83,15 @@ in
         description = "The paths to find other logstash plugins in.";
       };
 
+       logstashConfDir = mkOption {
+        type = types.str;
+        default = "${home_directory}/.config/nixpkgs/elk/zeek-logstash";
+        description = ''
+          A path to directory writable by logstash that it uses to sotre config files.
+        '';
+      };
+
+      
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/logstash";
@@ -185,19 +194,19 @@ in
       #path = [ pkgs.bash ];
       Service = {
         Environment = "JAVA_HOME=${pkgs.jre}";
-        # ExecStart = ''
-        #     ${pkgs.bash}/bin/bash ${PreShell}
-        # '';
+        ExecStart = ''
+           ${pkgs.bash}/bin/bash ${PreShell}
+         '';
 
-        ExecStart = concatStringsSep " " (filter (s: stringLength s != 0) [
-          "${cfg.package}/bin/logstash"
-          "-w ${toString cfg.filterWorkers}"
-          (ops havePluginPath pluginsPath)
-          "${verbosityFlag}"
-          "-f ${logstashConf}"
-          "--path.settings ${logstashSettingsDir}"
-          "--path.data ${cfg.dataDir} ${PreShell}"
-        ]);
+        # ExecStart = concatStringsSep " " (filter (s: stringLength s != 0) [
+        #   "${cfg.package}/bin/logstash"
+        #   "-w ${toString cfg.filterWorkers}"
+        #   (ops havePluginPath pluginsPath)
+        #   "${verbosityFlag}"
+        #   "-f ${logstashConf}"
+        #   "--path.settings ${logstashSettingsDir}"
+        #   "--path.data ${cfg.dataDir} ${PreShell}"
+        # ]);
 
       };
     };

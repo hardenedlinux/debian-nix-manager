@@ -26,7 +26,7 @@ in
     ./modules/apache-kakfa.nix
     ./modules/kibana.nix
     ./modules/logstash.nix
-    ./elk.nix
+    ./elk/elk.nix
   ];
 
   home.packages = with ownpkgs; [
