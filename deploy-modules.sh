@@ -14,6 +14,9 @@ sudo chown $USER /run/postgresql
 sudo mkdir /var/lib/zookeeper
 sudo chown $USER /var/lib/zookeeper
 
+sudo mkdir /var/lib/kibana
+sudo chown $USER /var/lib/kibana
+
 systemctl --user start osquery.service
 systemctl --user start elasticsearch.service
 systemctl --user status elasticsearch.service

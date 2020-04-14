@@ -30,6 +30,7 @@ in
     ./modules/hydra.nix
     ./modules/zookeeper.nix
     ./modules/apache-kakfa.nix
+    ./modules/kibana.nix
   ];
 
   home.packages = with ownpkgs; [
@@ -58,8 +59,16 @@ in
     go
     polipo
     nodejs
-    tcpreplayls
+    tcpreplay
+    bash-completion
    ];
+
+  services.kibana = {
+    enable = true;
+    package = pkgs.kibana7;
+    # listenAddress = "10.220.170.113";
+    elasticsearch.hosts = [ "http://localhost:9200" ];
+  };
 
 
   services.zookeeper = {
@@ -87,8 +96,10 @@ in
 
   services.elasticsearch = {
     enable = true;
+    #for thehive
     package = elastic5.elasticsearch5;
-    cluster_name =  "thehive";
+    package-7x = pkgs.elasticsearch7;
+    #cluster_name =  "thehive";
     extraJavaOptions = [""];
   };
 

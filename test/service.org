@@ -54,6 +54,34 @@ systemctl --user status elasticsearch.service
 :    CGroup: /user.slice/user-1001.slice/user@1001.service/elasticsearch.service
 :            ├─24830 /nix/store/8wmf6apz3yss4vz67z6xdwhhd08yz4cb-openjdk-headless-8u222-ga-jre/bin/java -Xms1g -Xmx1g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -Des.networkaddress.cache.ttl=60 -Des.networkaddress.cache.negative.ttl=10 -XX:+AlwaysPreTouch -Xss1m -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -XX:-OmitStackTraceInFastThrow -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dio.netty.recycler.maxCapacityPerThread=0 -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -Djava.io.tmpdir=/tmp/elasticsearch-2352954014746958930 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=data -XX:ErrorFile=logs/hs_err_pid%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -Xloggc:logs/gc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=32 -XX:GCLogFileSize=64m -Des.path.home=/var/lib/elasticsearch -Des.path.conf=/var/lib/elasticsearch/config -Des.distribution.flavor=default -Des.distribution.type=tar -cp /nix/store/6czj00nnxdzr18by4n3rqlfcp0csak0b-elasticsearch-6.8.3/lib/* org.elasticsearch.bootstrap.Elasticsearch
 :            └─25013 /var/lib/elasticsearch/modules/x-pack-ml/platform/linux-x86_64/bin/controller
+** Elastci 7x
+#+begin_src sh :async t :exports both :results output
+systemctl --user status elasticsearch-7x.service
+#+end_src
+
+#+RESULTS:
+: ● elasticsearch-7x.service
+:    Loaded: loaded (/nix/store/69d9xgni8bgixqgggvb4q3431n8s572l-elasticsearch-7x.service/elasticsearch-7x.service; linked; vendor preset: enabled)
+:    Active: active (running) since Mon 2020-04-13 23:48:02 EDT; 2min 51s ago
+:   Process: 3700 ExecStartPre=/nix/store/ffli6m23501dkiznwlkf6n4xvrj02snr-bash-4.4-p23/bin/bash -c rm -rf /var/lib/elasticsearch/7/config; ln -sfT /nix/store/993rhjyh5wg4y73qj3ybhbzlvyp74gmm-elasticsearch-plugins/plugins /var/lib/elasticsearch/7/plugins; ln -sfT /nix/store/2h0xbf19lzmzqbdm8xx5gqgl6vviaq83-elasticsearch-7.5.1/lib /var/lib/elasticsearch/7/lib; ln -sfT /nix/store/2h0xbf19lzmzqbdm8xx5gqgl6vviaq83-elasticsearch-7.5.1/modules /var/lib/elasticsearch/7/modules; mkdir -p /var/lib/elasticsearch/7/config; cp /nix/store/qq4hyrljm6d5nwy2acra6i74cr6pdrkp-elasticsearch.yml /var/lib/elasticsearch/7/config/elasticsearch.yml; rm -f /var/lib/elasticsearch/7/config/logging.yml; cp /nix/store/x8a1ar90syfchgnqzw9pq03c07a8nqmh-log4j2.properties /var/lib/elasticsearch/7/config/log4j2.properties; cp /nix/store/2h0xbf19lzmzqbdm8xx5gqgl6vviaq83-elasticsearch-7.5.1/config/jvm.options /var/lib/elasticsearch/7/config/jvm.options (code=exited, status=0/SUCCESS)
+:  Main PID: 3710 (java)
+:    CGroup: /user.slice/user-1000.slice/user@1000.service/elasticsearch-7x.service
+:            ├─3710 /nix/store/0rp8r3bab8z3fln0hz05afaqpqplgbc1-openjdk-headless-8u242-b08-jre/bin/java -Des.networkaddress.cache.ttl=60 -Des.networkaddress.cache.negative.ttl=10 -XX:+AlwaysPreTouch -Xss1m -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -XX:-OmitStackTraceInFastThrow -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dio.netty.recycler.maxCapacityPerThread=0 -Dio.netty.allocator.numDirectArenas=0 -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -Djava.locale.providers=COMPAT -Xms1g -Xmx1g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -Djava.io.tmpdir=/tmp/elasticsearch-6761781078600335667 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=data -XX:ErrorFile=logs/hs_err_pid%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -Xloggc:logs/gc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=32 -XX:GCLogFileSize=64m -XX:MaxDirectMemorySize=536870912 -Des.path.home=/var/lib/elasticsearch/7 -Des.path.conf=/var/lib/elasticsearch/7/config -Des.distribution.flavor=default -Des.distribution.type=tar -Des.bundled_jdk=true -cp /nix/store/2h0xbf19lzmzqbdm8xx5gqgl6vviaq83-elasticsearch-7.5.1/lib/* org.elasticsearch.bootstrap.Elasticsearch
+:            └─3825 /var/lib/elasticsearch/7/modules/x-pack-ml/platform/linux-x86_64/bin/controller
+
+* Kibana
+#+begin_src sh :async t :exports both :results output
+systemctl --user status kibana.service          
+#+end_src
+
+#+RESULTS:
+: ● kibana.service
+:    Loaded: loaded (/nix/store/12l8i9fcqlfapdrvgi7zrb46fkkygl68-kibana.service/kibana.service; linked; vendor preset: enabled)
+:    Active: active (running) since Mon 2020-04-13 23:33:28 EDT; 17min ago
+:  Main PID: 29545 (bash)
+:    CGroup: /user.slice/user-1000.slice/user@1000.service/kibana.service
+:            ├─29545 /nix/store/ffli6m23501dkiznwlkf6n4xvrj02snr-bash-4.4-p23/bin/bash /nix/store/9kzm2mfx2nalmkyn1drrzgxl8nlvdzx9-run-kibana
+:            └─29547 /nix/store/imck490sdmw0vcbxarb9xrki4cfq2q5b-nodejs-10.20.1/bin/node /nix/store/n0b194f3h3snp7pg9jdp35cg0qanqsxw-kibana-7.5.1/libexec/kibana/bin/../src/cli --config /nix/store/97z6ih2y9ihcs0qljhz6p2sksmh2vzvb-kibana.json --path.data /var/lib/kibana
 
 * Hydra
 ** Hydra-server
