@@ -312,6 +312,7 @@ HTML them READ org
   )
 
 (add-hook! 'text-mode-hook 'gtrun/truncate-lines-hook)
+(add-hook! 'emacs-startup-hook 'doom-modeline-mode)
 (add-hook! 'elfeed-show-mode-hook 'gtrun/truncate-lines-hook)
 (add-hook! 'sunrise-start-hook 'xah-fly-insert-mode-activate)
 (add-hook 'maple-explorer-imenu-mode-hook
@@ -988,6 +989,7 @@ In that case, insert the number."
                         js-mode
                         css-mode
                         web-mode
+                        conf-mode
                         )
   '(:separate company-tabnine
               company-files
@@ -2025,5 +2027,3 @@ FACE defaults to inheriting from default and highlight."
 
 
 -  [[https://github.com/munen/emacs.d/blob/master/configuration.org][emacs.d/configuration.org at master · munen/emacs.d]]
-
-
