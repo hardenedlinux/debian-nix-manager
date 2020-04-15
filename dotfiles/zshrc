@@ -45,5 +45,12 @@ export NIX_PATH=$HOME/.nix-defexpr/channels
 export TERM=xterm-256color
 ##fix https://github.com/sindresorhus/pure/issues/300 Command duplicated on tab completion with oh-my-zsh /Debian system
 export LANG=C.UTF-8
+
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
+[[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]" up-line-or-beginning-search
+[[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
+
 # nix direnv hook
 eval "$(direnv hook zsh)"
