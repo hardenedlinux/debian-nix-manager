@@ -18,22 +18,8 @@ in
     config.reload.interval: 3s
     '';
     inputConfig = ''
-    kafka {
-		topics => ["zeek-conn"]
-		group_id => "zeek_logstash"
-     		bootstrap_servers => "localhost:9092"
-     		codec => json
-     		auto_offset_reset => "earliest"
-   	}
-        '';
-    outputConfig = ''
-    	elasticsearch {
-     		hosts => ["localhost:9200"]
-          index => "zeek-conn"
-      }
         '';
   };
-
 
   services.kibana = {
     enable = true;
