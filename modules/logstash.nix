@@ -43,7 +43,7 @@ let
   PreShell = pkgs.writeScript "run-logstash" ''
           ${cfg.package}/bin/logstash \
           ${pluginsPath} \
-          --path.config ${cfg.logstashConfDir}/*.conf \
+          --path.config "${toString cfg.logstashConfDir}/*.conf" \
           --path.settings ${logstashSettingsDir} \
           --path.data ${cfg.dataDir}
     '';
@@ -197,17 +197,6 @@ in
         ExecStart = ''
            ${pkgs.bash}/bin/bash ${PreShell}
          '';
-
-        # ExecStart = concatStringsSep " " (filter (s: stringLength s != 0) [
-        #   "${cfg.package}/bin/logstash"
-        #   "-w ${toString cfg.filterWorkers}"
-        #   (ops havePluginPath pluginsPath)
-        #   "${verbosityFlag}"
-        #   "-f ${logstashConf}"
-        #   "--path.settings ${logstashSettingsDir}"
-        #   "--path.data ${cfg.dataDir} ${PreShell}"
-        # ]);
-
       };
     };
   };

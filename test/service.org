@@ -13,6 +13,18 @@
 #+OPTIONS: H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
+* Run all of services
+#+begin_src sh :exports both :results output
+systemctl --user start apache-kafka.service
+systemctl --user start kibana.service
+systemctl --user start elasticsearch-7x.service
+systemctl --user start zookeeper.service
+systemctl --user start zookeeper.service
+systemctl --user start logstash.service
+#+end_src
+
+#+RESULTS:
+
 * Kafka & Zookeeper
 ** KAfka
 #+begin_src sh :exports both :results output

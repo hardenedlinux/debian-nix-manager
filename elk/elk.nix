@@ -19,7 +19,7 @@ in
     '';
     inputConfig = ''
     kafka {
-		topics => ["conn"]
+		topics => ["zeek-conn"]
 		group_id => "zeek_logstash"
      		bootstrap_servers => "localhost:9092"
      		codec => json
