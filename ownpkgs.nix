@@ -57,6 +57,8 @@ in
     nodejs
     tcpreplay
     bat
+
+    suricata
    ];
 
 

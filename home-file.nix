@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-home.file = {
+  home.file = {
   # This has been integrated into direnv stdlib
    ".nix-direnv".source = pkgs.fetchFromGitHub {
      owner = "nix-community";
@@ -10,12 +10,9 @@ home.file = {
      sha256 = "16mpc6lidmn6annyl4skdixzx7syvwdj9c5la0sidg57l8kh1rqd";
    };
 
-   
    ".direnvrc".text = ''
       source $HOME/.nix-direnv/direnvrc
     '';
-
-
 
    ".myscript/eaf".source =pkgs.fetchFromGitHub {
      owner = "manateelazycat";
@@ -31,14 +28,9 @@ home.file = {
      rev = "7e83f3822c00ee496cce42cf69331436cb3b1379";
      sha256 = "1448d333vny2gq4jaldl9zy62jy81ih5166l0aak3p49vv8g38bz";
    };
-  # ".emacs.d".source = pkgs.fetchFromGitHub {
-  #   owner = "GTrunSec";
-  #   repo = "doom-emacs";
-  #   rev = "728fbc498229be1f63d811c2eb29e3661da58a9a";
-  #   sha256 = "044qr82xndx3xnz2mlfma469picla5jkzrswyj8xghd34jxxdawq";
-  # };
-  
+
    ".config/pet".source = ./dotfiles/pet;
+
    ".wakatime.cfg".text = ''
     [settings]
     debug=true
@@ -59,6 +51,5 @@ home.file = {
     disable_submodules = false
     '';
 
-};
-
+  };
 }

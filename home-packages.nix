@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-    osquery = pkgs.callPackages ./pkgs/osquery { };
+     osquery = pkgs.callPackages ./pkgs/osquery { };
 in
 {
   home.packages = with pkgs;[ curl
