@@ -35,7 +35,23 @@ function cd() {
                                         [[ ''${#dir} != 0 ]] || return 0
                                         builtin cd "$dir" &> /dev/null
                                 done
-                                }
+}
+
+function prev() {
+  PREV=$(fc -lrn | head -n 1)
+  sh -c "pet new `printf %q "$PREV"`"
+}
+
+
+function pet-select() {
+  BUFFER=$(pet search --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle redisplay
+}
+zle -N pet-select
+stty -ixon
+bindkey '^s' pet-select
+
 ##proxy
 if [ "$(whoami)" = "nsm" ]; then
         export  http_proxy=http://127.0.0.1:8123
@@ -48,6 +64,7 @@ export LANG=C.UTF-8
 
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
+
 
 [[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]" up-line-or-beginning-search
 [[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
