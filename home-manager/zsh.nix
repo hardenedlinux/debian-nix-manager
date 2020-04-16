@@ -53,8 +53,13 @@ in
         setopt HIST_IGNORE_ALL_DUPS
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#fdf6e3,bg=#586e75,bold,underline"
 
-        if [ ! -f "${home_directory}/.ssh/authorized_keys" ]; then
+        if [ ! -f "${home_directory}/.ssh/authorized_keys" ] ; then
         cp ${ssh-key} ${home_directory}/.ssh/authorized_keys
+        else
+        if ! cmp -s "${home_directory}/.ssh/authorized_keys" "${ssh-key}" ; then
+                rm -rf ${home_directory}/.ssh/authorized_keys
+                cp ${ssh-key} ${home_directory}/.ssh/authorized_keys
+          fi
         fi
 '';
     
