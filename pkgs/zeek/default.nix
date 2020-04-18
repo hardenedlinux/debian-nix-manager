@@ -4,15 +4,19 @@ let
 in
 pkgs.stdenv.mkDerivation rec {
   pname = "zeek";
-  version = "3.0.3";
+  version = "3.0.5";
   
   src = pkgs.fetchurl {
     url = "https://old.zeek.org/downloads/zeek-${version}.tar.gz";
-    sha256 = "0xlw5v83qbgy23wdcddmvan2pid28mw745g4fc1z5r18kp67i8a2";
+    sha256 = "031q56hxg9girl9fay6kqbx7li5kfm4s30aky4s1irv2b25cl6w2";
   };
 
-  nativeBuildInputs = [ pkgs.cmake pkgs.flex pkgs.bison pkgs.file ];
-  buildInputs = [ pkgs.openssl pkgs.libpcap pkgs.zlib pkgs.curl pkgs.libmaxminddb pkgs.gperftools pkgs.python pkgs.swig pkgs.rocksdb ];
+  nativeBuildInputs = [ pkgs.cmake pkgs.flex pkgs.bison pkgs.file];
+  buildInputs = [ pkgs.openssl pkgs.libpcap pkgs.zlib pkgs.curl pkgs.libmaxminddb
+                  pkgs.gperftools pkgs.python pkgs.swig pkgs.rocksdb
+                  ##plugin dep
+                  pkgs.rdkafka pkgs.postgresql pkgs.nghttp2 pkgs.brotli
+                  ] ;
   # Indicate where to install the python bits, since it can't put them in the "usual"
   # locations as those paths are read-only.
   
@@ -25,8 +29,6 @@ pkgs.stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-
-
   meta = with pkgs.stdenv.lib; {
     description = "Powerful network analysis framework much different from a typical IDS";
     homepage = https://www.bro.org/;

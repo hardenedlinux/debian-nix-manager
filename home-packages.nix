@@ -29,5 +29,6 @@ in
                               gotty
                               nettools
                               exa
+                              pwgen
                             ];
 }

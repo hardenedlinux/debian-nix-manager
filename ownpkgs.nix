@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{config, pkgs, lib, ...}:
 let
   nixpkgs = (import <nixpkgs> { config.allowUnfree = true; config.ignoreCollisions = true;});
   unstable = (import <unstable> { });
@@ -26,7 +26,7 @@ in
     ./modules/apache-kakfa.nix
     ./modules/kibana.nix
     ./modules/logstash.nix
-    ./elk/elk.nix
+    ./elk
   ];
 
   home.packages = with ownpkgs; [

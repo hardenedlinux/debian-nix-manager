@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-let
+ let
   elastic_5x = builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/tarball/8673d82bc18d3c6af28b1e3fe5c109276b5121ed";
     sha256 = "1d9hv2cc247vm3rrky6k3706k958128213r0j0hyakpafqy4qz55";
@@ -9,6 +9,8 @@ let
 
 in
 {
+  config = with lib; mkMerge [
+    (mkIf (config.home.username == "test") {
     services.logstash = {
     enable = true;
     package = pkgs.logstash7;
@@ -36,5 +38,6 @@ in
     #cluster_name =  "thehive";
     extraJavaOptions = [""];
   };
-
+    })
+  ];
 }

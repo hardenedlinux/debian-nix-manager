@@ -11,7 +11,6 @@ in
     enable = true;
     path = "${home_directory}/.nix-defexpr/channels/home-mananger";
   };
-
   imports = [
     ./home-packages.nix
     ./ownpkgs.nix

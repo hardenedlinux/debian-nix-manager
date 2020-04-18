@@ -14,12 +14,14 @@
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
 
-* Last test <2020-04-13 Mon 02:38>
+* Last test 
+** zeek 3.0.5[2020-04-18 Sat 00:07]
+
+** zeek 3.0.2<2020-04-13 Mon 02:38>
 #+BEGIN_EXAMPLE
 sudo /usr/local/zeek/bin/zeek -i enp0s3 local.zeek
 listening on enp0s
 #+END_EXAMPLE
-
 
 * Http2
 #+begin_src sh :async t :exports both :results output
