@@ -23,6 +23,9 @@ let
     if [ ! -d "/etc/netdata" ];then
       mkdir -p /etc/netdata
       fi
+    if [ ! -d "/var/cache/netdata" ];then
+      mkdir -p /var/cache/netdata
+      fi
   '';
   
   plugins = [
