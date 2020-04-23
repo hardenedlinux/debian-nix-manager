@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-
+sudo chown $USER /var/lib
+sudo chown $USER /var/log
+sudo chown $USER /etc
 sudo mkdir -p /var/lib/elasticsearch/
 sudo chown $USER /var/lib/elasticsearch/
 

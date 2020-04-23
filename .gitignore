@@ -5,6 +5,8 @@ result
 pkgs/osquery/osquery
 pkgs/osquery/cmake-3.14.6-Linux-x86_64.tar.gz
 pkgs/osquery/osquery-toolchain-1.0.0.tar.xz
+pkgs/zeek/bro-http2/
+pkgs/zeek/metron-bro-plugin-kafka/
 pkgs/osquery/osquery-4.2.0/
 ##PF_RING
 7.6.0.tar.gz

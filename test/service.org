@@ -21,9 +21,15 @@ systemctl --user start elasticsearch-7x.service
 systemctl --user start zookeeper.service
 systemctl --user start zookeeper.service
 systemctl --user start logstash.service
+systemctl --user start netdata.service
 #+end_src
 
 #+RESULTS:
+ 
+* Netdata
+#+begin_src sh :async t :exports both :results output
+systemctl --user status netdata.service
+#+end_src
 
 * Kafka & Zookeeper
 ** KAfka

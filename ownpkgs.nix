@@ -26,6 +26,7 @@ in
     ./modules/apache-kakfa.nix
     ./modules/kibana.nix
     ./modules/logstash.nix
+    ./modules/netdata.nix
     ./elk
   ];
 
@@ -61,6 +62,10 @@ in
     suricata
    ];
 
+
+  services.netdata = {
+    enable = true;
+  };
 
   services.zookeeper = {
     enable = true;
