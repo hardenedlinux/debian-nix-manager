@@ -36,11 +36,13 @@ let
   localConfig = {
     global = {
       "plugins directory" = concatStringsSep " " plugins;
+      "bind to" = "127.0.0.1:19999";
     };
     web = {
       "web files owner" = "root";
       "web files group" = "root";
     };
+    
   };
   mkConfig = generators.toINI {} (recursiveUpdate localConfig cfg.config);
   configFile = pkgs.writeText "netdata.conf" (if cfg.configText != null then cfg.configText else mkConfig);
