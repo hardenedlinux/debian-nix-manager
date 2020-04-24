@@ -109,6 +109,11 @@ in
         '';
       };
 
+      max_job = mkOption {
+      description = "set max_job number";
+      default = 8;
+      type = types.int;
+    };
       notificationSender = mkOption {
         type = types.str;
         description = ''
@@ -247,7 +252,7 @@ in
         #path = [ cfg.package pkgs.nettools pkgs.openssh pkgs.bzip2 config.nix.package ];
         #restartTriggers = [ hydraConf ];
         Service =
-          { ExecStart = "${cfg.package}/bin/hydra-queue-runner -v --option build-use-substitutes true";
+          { ExecStart = "${cfg.package}/bin/hydra-queue-runner -j ${toString cfg.max_job} -v --option build-use-substitutes true";
             ExecStopPost = "${cfg.package}/bin/hydra-queue-runner --unlock";
             Restart = "always";
 

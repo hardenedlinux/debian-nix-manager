@@ -84,6 +84,7 @@ in
     listenHost = "127.0.0.1";
     port = 9001;
     package = nixpkgs.hydra-unstable;
+    max_job = 24;
     hydraURL = "http://127.0.0.1";
     notificationSender = "gtrun@hardenedlinux.org";
     useSubstitutes = true;
