@@ -40,10 +40,9 @@ HTML them READ org
 
        :completion
        company           ; the ultimate code completion backend
-       helm              ; the *other* search engine for love and life
+       ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ivy               ; a search engine for love and life
-
        :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
@@ -229,7 +228,7 @@ HTML them READ org
 (package! bm)
 (package! w3m)
 (package! discover :recipe (:host github :repo "mickeynp/discover.el"))
-(package! xah-fly-keys :recipe (:host github :repo "xahlee/xah-fly-keys"))
+(package! xah-fly-keys :recipe (:host github :repo "GTrunSec/xah-fly-keys"))
 (package! hungry-delete)
 (package! flymake-json)
 (package! maple-iedit :recipe (:host github :repo "honmaple/emacs-maple-iedit"))
@@ -257,6 +256,7 @@ HTML them READ org
 (package! imenu-list)
 (package! helm-tramp)
 (package! visual-fill-column)
+(package! vlf)
 (package! wakatime-mode)
 (package! sunrise-commander :recipe (:host github :repo "sunrise-commander/sunrise-commander"))
 ;; (package! berrys-theme)
@@ -268,7 +268,12 @@ HTML them READ org
 (load! "setting")
 (load! "xah-fly.el")
 
-
+(use-package! vlf
+  :config
+  (require 'vlf-setup)
+  (custom-set-variables
+   '(vlf-application 'dont-ask))
+)
 (use-package! ctrlf
   :hook
   (after-init . ctrlf-mode))
@@ -312,9 +317,11 @@ HTML them READ org
   )
 
 (add-hook! 'text-mode-hook 'gtrun/truncate-lines-hook)
-(add-hook! 'emacs-startup-hook 'doom-modeline-mode)
 (add-hook! 'elfeed-show-mode-hook 'gtrun/truncate-lines-hook)
+
 (add-hook! 'sunrise-start-hook 'xah-fly-insert-mode-activate)
+
+
 (add-hook 'maple-explorer-imenu-mode-hook
           (lambda() (setq cursor-type 'box
                           cursor-in-non-selected-windows t)))
@@ -544,7 +551,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
         ("d" "ALL DONE OF TASKS"
          search "+{^\\*+\\s-+\\(✔ DONE\\|✘ CANCELED\\)\\s-}")
-        
+
         ("i" "ALL INPROCESS OF TASKS"
          search "+{^\\*+\\s-+\\(⚔ INPROCESS\\)\\s-}")
 
@@ -623,11 +630,12 @@ Uses `current-date-time-format' for the formatting the date/time."
                    ("post/myself/love.org"         :key "l" :refile (:maxlevel .5 ))
                    ("post/myself/qing.org"         :key "q" :refile (:maxlevel .5 ))
                    ("post/myself/plan.org"         :key "p" :refile (:maxlevel .5 ))
+                   ("elfeed.org"         :key "e" :refile (:maxlevel .5 ))
                    ("GTD/my-books.org"             :agenda t :key "b" :refile (:maxlevel .5 ))
                    ("post/life-thing/life-things.org")
                    ("NSM-GTD/workflow.org"         :agenda t :required t)
                    ("NSM-GTD/NsmOrg.org"           :agenda t :required t)
-                   ("art/music.org"                :agenda t :required t)
+                   ("art/learn-music.org"          :agenda t :key "M" :refile (:maxlevel .5 ))
                    )
   (org-starter-def "~/.config/nixpkgs/dotfiles/doom/"
                    :files
@@ -649,12 +657,14 @@ Uses `current-date-time-format' for the formatting the date/time."
  _i_: init.org    _g_: gtd.org      _l_: love.org
  _n_: note        _t_: traveling    _h_: Habit.org
  _m_: myself      _q_: 情-qing      _p_: Plan.org
- _b_: my-books
+ _b_: my-books    _e_: elfeed       _M_: learn music
 
   "
       ("i" org-starter-find-file:init)
       ("g" org-starter-find-file:gtd)
       ("n" org-starter-find-file:notes)
+      ("e" org-starter-find-file:elfeed)
+      ("M" org-starter-find-file:learn-music)
       ("m" org-starter-find-file:myself)
       ("t" org-starter-find-file:traveling)
       ("q" org-starter-find-file:qing)
@@ -924,6 +934,7 @@ make
   (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
   (define-key company-active-map (kbd "C-j") 'company-select-previous-or-abort)
 
+
 (defun ora-company-number ()
   "Forward to `company-complete-number'.
 Unless the number is potentially part of the candidate.
@@ -966,14 +977,14 @@ In that case, insert the number."
               company-files
               company-yasnippet
               ))
-
-;;  (set-company-backend! 'sh-mode nil) ; unsets backends for sh-mode
-(set-company-backend! '(org-mode)
-  '(:separate company-english-helper-search
+(set-company-backend! '(julia-mode)
+  '(:separate company-lsp
               company-tabnine
               company-files
               company-yasnippet
               ))
+
+;;  (set-company-backend! 'sh-mode nil) ; unsets backends for sh-mode
 (set-company-backend! '(c-mode
                         c++-mode
                         ess-mode
@@ -989,13 +1000,13 @@ In that case, insert the number."
                         js-mode
                         css-mode
                         web-mode
-                        conf-mode
                         )
   '(:separate company-tabnine
               company-files
               company-yasnippet))
 
 (setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
+
 #+end_src
 
 #+RESULTS:
@@ -1738,7 +1749,7 @@ FACE defaults to inheriting from default and highlight."
   (setq lsp-julia-default-environment "~/.julia/environments/v1.3")
   (setq lsp-folding-range-limit 100)
   (setq lsp-julia-package-dir nil)
-  (setq lsp-julia-flags '("--project=/Users/gtrun/.julia/packages/languageserver"  "--startup-file=no" "--history-file=no"))
+  ;;(setq lsp-julia-flags '("--project=/Users/gtrun/.julia/packages/languageserver"  "--startup-file=no" "--history-file=no"))
   )
 #+end_src
 
@@ -1750,6 +1761,8 @@ FACE defaults to inheriting from default and highlight."
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/config.el"
 (use-package! nox
   :config
+  (add-to-list 'nox-server-programs '(haskell-mode . ("ghcide" "--lsp")))
+
   ;; (dolist (hook (list
   ;;                'js-mode-hook
   ;;                'rust-mode-hook
@@ -1778,7 +1791,7 @@ FACE defaults to inheriting from default and highlight."
 (use-package! pinyinlib
   :config
 
-  
+
   (defun re-builder-extended-pattern (str)
     (let* ((len (length str)))
       (cond
@@ -1874,6 +1887,7 @@ FACE defaults to inheriting from default and highlight."
   :load-path "./modules"
   :if (eq system-type 'gnu/linux)
   :config
+  (add-hook! 'emacs-startup-hook 'doom-modeline-mode)
   (setq-default cursor-type 'box)
   (blink-cursor-mode -1)
   (set-cursor-color "IndianRed3")

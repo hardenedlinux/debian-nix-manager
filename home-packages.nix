@@ -1,9 +1,13 @@
 { config, pkgs, ... }:
 let
      osquery = pkgs.callPackages ./pkgs/osquery { };
+     clean-nix-store = pkgs.writeScriptBin "clean-nix-store" (import ./bin/clean-nix-store.nix { });
+     deploy-home-manager = pkgs.writeScriptBin "deploy-home-manager" (import ./bin/deploy-home-manager.nix { });
 in
 {
-  home.packages = with pkgs;[ curl
+     home.packages = with pkgs;[ curl
+                                 clean-nix-store
+                                 deploy-home-manager
 	                            git
                               pet
 	                            kitty
