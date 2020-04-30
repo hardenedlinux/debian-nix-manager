@@ -1,4 +1,5 @@
-with import <nixpkgs> {};
+{stdenv, fetchurl, cmake, flex, bison, openssl, libpcap, zlib, file, curl
+, libmaxminddb, gperftools, python, swig, rocksdb, rdkafka, postgresql, pkgs, system-sendmail, caf}:
 let
   preConfigure = (import ./shell.nix);
   metron-bro-plugin-kafka = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).metron-bro-plugin-kafka;
@@ -15,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake flex bison file ];
-  buildInputs = [ openssl libpcap zlib curl libmaxminddb gperftools python swig rocksdb system-sendmail caf makeWrapper
+  buildInputs = [ openssl libpcap zlib curl libmaxminddb gperftools python swig rocksdb system-sendmail caf
                   rdkafka postgresql
                 ];
   # Indicate where to install the python bits, since it can't put them in the "usual"

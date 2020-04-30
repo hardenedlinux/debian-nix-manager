@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 let
-  spl-spt = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-json.json)).spl-spt;
-  IRC-Zeek-package = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-json.json)).IRC-Zeek-package;
-  IRC-Behavioral-Analysis = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-json.json)).IRC-Behavioral-Analysis;
+  spl-spt = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek/zeek-plugin.json)).spl-spt;
+  IRC-Zeek-package = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek/zeek-plugin.json)).IRC-Zeek-package;
+  IRC-Behavioral-Analysis = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek/zeek-plugin.json)).IRC-Behavioral-Analysis;
 in
 {
   home.file = {
