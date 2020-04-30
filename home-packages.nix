@@ -8,6 +8,8 @@ in
      home.packages = with pkgs;[ curl
                                  clean-nix-store
                                  deploy-home-manager
+                                 system-sendmail
+                                 tree
 	                            git
                               pet
 	                            kitty

@@ -8,7 +8,7 @@ install_plugin(){
     mkdir -p /build/$1
     cp -r $2/* /build/$1/
     cd /build/$name/
-    if [ $name == 'metron-bro-plugin-kafka' ] || [ $name == 'asd' ]; then
+    if [ $name == 'metron-bro-plugin-kafka' ] || [ $name == 'tls' ]; then
         ./configure --bro-dist=/build/zeek-$3
         make -j4 && make install
     else

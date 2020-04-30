@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
         substituteInPlace $out/etc/zeekctl.cfg \
          --replace "CfgDir = $out/etc" "CfgDir = ${confdir}/etc"
          echo "scriptsdir = ${confdir}/scripts" >> $out/etc/zeekctl.cfg
-
+         echo "helperdir = ${confdir}/scripts/helpers" >> $out/etc/zeekctl.cfg
+         ###INSTALL Zeek PLugins
          bash ${install_plugin} metron-bro-plugin-kafka ${metron-bro-plugin-kafka} ${version}
          bash ${install_plugin} zeek-postgresql ${zeek-postgresql} ${version}
   '';
