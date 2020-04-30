@@ -8,15 +8,15 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "zeek";
-  version = "3.0.3";
+  version = "3.0.5";
   confdir = "/var/db/${pname}";
   src = fetchurl {
     url = "https://old.zeek.org/downloads/zeek-${version}.tar.gz";
-    sha256 = "0xlw5v83qbgy23wdcddmvan2pid28mw745g4fc1z5r18kp67i8a2";
+    sha256 = "031q56hxg9girl9fay6kqbx7li5kfm4s30aky4s1irv2b25cl6w2";
   };
 
   nativeBuildInputs = [ cmake flex bison file ];
-  buildInputs = [ openssl libpcap zlib curl libmaxminddb gperftools python swig rocksdb system-sendmail caf
+  buildInputs = [ openssl libpcap zlib curl libmaxminddb gperftools python swig rocksdb system-sendmail caf 
                   rdkafka postgresql
                 ];
   # Indicate where to install the python bits, since it can't put them in the "usual"
