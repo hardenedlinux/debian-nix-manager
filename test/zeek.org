@@ -13,6 +13,24 @@
 #+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
+* test zeek service
+#+begin_src sh :async t :exports both :results output
+systemctl --user status zeek.service  
+#+end_src
+
+#+RESULTS:
+#+begin_example
+● zeek.service
+   Loaded: loaded (/nix/store/9jjfd5xp4dv8rh800dj92bqv212iqij9-zeek.service/zeek.service; linked; vendor preset: enabled)
+   Active: active (running) since Fri 2020-05-01 03:39:24 EDT; 58s ago
+  Process: 8187 ExecStartPre=/nix/store/kgp3vq8l9yb8mzghbw83kyr3f26yqvsz-bash-4.4-p23/bin/bash /nix/store/0180i23kdirmvqcrqcdky57bqfygpv2q-Pre-runZeek (code=exited, status=0/SUCCESS)
+ Main PID: 8204 (bash)
+   CGroup: /user.slice/user-1000.slice/user@1000.service/zeek.service
+           ├─8204 /nix/store/kgp3vq8l9yb8mzghbw83kyr3f26yqvsz-bash-4.4-p23/bin/bash /nix/store/rsqp03azy03ixlz0ym47hy2yqml2dr6f-zeek-oneshot
+           ├─8272 /nix/store/kgp3vq8l9yb8mzghbw83kyr3f26yqvsz-bash-4.4-p23/bin/bash /var/lib/zeek/scripts/run-zeek -1 -i enp0s3 -U .status -p zeekctl -p zeekctl-live -p standalone -p local -p zeek local.zeek zeekctl zeekctl/standalone zeekctl/auto
+           ├─8278 /nix/store/k8c2znch34li453kwf9zyqb81brblxvr-zeek-3.0.5/bin/zeek -i enp0s3 -U .status -p zeekctl -p zeekctl-live -p standalone -p local -p zeek local.zeek zeekctl zeekctl/standalone zeekctl/auto
+           └─8306 sleep infinity
+#+end_example
 
 * Last test 
 ** zeek 3.0.5[2020-04-18 Sat 00:07]

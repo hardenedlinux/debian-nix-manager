@@ -3,6 +3,15 @@ with lib;
 let
   cfg = config.services.zeek;
   zeek = pkgs.callPackage ../pkgs/zeek { };
+
+  zeek-oneshot = pkgs.writeScript "zeek-oneshot" ''
+  /usr/bin/sudo ${zeek}/bin/zeekctl deploy
+  if [ $? -eq 0 ]; then
+  sleep infinity
+else
+  exit
+fi
+  '';
   StandaloneConfig = ''
   [zeek]
   type=standalone
@@ -117,8 +126,10 @@ in {
       };
       Install = { wantedBy = [ "multi-user.target" ];};
       Service = {
-        Environment = "PATH=/usr/bin";
-        ExecStart = "/usr/bin/sudo ${zeek}/bin/zeekctl deploy";
+        #ExecStart = "/usr/bin/sudo ${zeek}/bin/zeekctl deploy";
+        ExecStart = ''
+         ${pkgs.bash}/bin/bash ${zeek-oneshot}
+         '';
         ExecReload = "/usr/bin/sudo ${zeek}/bin/zeekctl restart";
         ExecStop = "/usr/bin/sudo ${zeek}/bin/zeekctl stop";
         ExecStartPre = ''
