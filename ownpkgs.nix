@@ -6,10 +6,10 @@ let
   ownpkgs_git = builtins.fetchTarball {
     url = "https://github.com/GTrunSec/nixpkgs/tarball/39247f8d04c04b3ee629a1f85aeedd582bf41cac";
      sha256 = "1q7asvk73w7287d2ghgya2hnvn01szh65n8xczk4x2b169c5rfv0";
-    };
+  };
 
   ownpkgs = (import ownpkgs_git) { };
-  zeek = ownpkgs.callPackage ./pkgs/zeek { };
+  zeek = pkgs.callPackage ./pkgs/zeek { };
   vast = ownpkgs.callPackage ./pkgs/vast { };
   pf-ring = ownpkgs.callPackage ./pkgs/network/pf_ring.nix { };
 
@@ -27,6 +27,7 @@ in
     ./modules/kibana.nix
     ./modules/logstash.nix
     ./modules/netdata.nix
+    ./modules/zeek.nix
     ./elk
   ];
 
@@ -58,10 +59,13 @@ in
     nodejs
     tcpreplay
     bat
-
     suricata
    ];
 
+  services.zeek = {
+    enable = true;
+    interface = "enp0s3";
+  };
 
   services.netdata = {
     enable = true;

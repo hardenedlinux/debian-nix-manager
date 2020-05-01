@@ -1,5 +1,5 @@
 {stdenv, fetchurl, cmake, flex, bison, openssl, libpcap, zlib, file, curl
-, libmaxminddb, gperftools, python, swig, rocksdb, rdkafka, postgresql, pkgs, system-sendmail, caf}:
+, libmaxminddb, gperftools, python, swig, rocksdb, rdkafka, postgresql, pkgs, system-sendmail, caf, fetchpatch}:
 let
   preConfigure = (import ./shell.nix);
   metron-bro-plugin-kafka = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).metron-bro-plugin-kafka;
@@ -9,7 +9,7 @@ in
 stdenv.mkDerivation rec {
   pname = "zeek";
   version = "3.0.5";
-  confdir = "/var/db/${pname}";
+  confdir = "/var/lib/${pname}";
   src = fetchurl {
     url = "https://old.zeek.org/downloads/zeek-${version}.tar.gz";
     sha256 = "031q56hxg9girl9fay6kqbx7li5kfm4s30aky4s1irv2b25cl6w2";
@@ -23,7 +23,15 @@ stdenv.mkDerivation rec {
   # locations as those paths are read-only.
   ZEEK_DIST = "${placeholder "out"}";
 
-  patches = [ ./zeekctl.patch];
+  patches = [ ./zeekctl.patch ] ++ stdenv.lib.optionals stdenv.cc.isClang [
+    # Fix pybind c++17 build with Clang. See: https://github.com/pybind/pybind11/issues/1604
+    (fetchpatch {
+      url = "https://github.com/pybind/pybind11/commit/759221f5c56939f59d8f342a41f8e2d2cacbc8cf.patch";
+      sha256 = "0l8z7d7chq1awd8dnfarj4c40wx36hkhcan0702p5l89x73wqk54";
+      extraPrefix = "aux/broker/bindings/python/3rdparty/pybind11/";
+      stripLen = 1;
+    })    
+  ];
 
   inherit preConfigure;
 
