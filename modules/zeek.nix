@@ -117,6 +117,7 @@ in {
       };
       Install = { wantedBy = [ "multi-user.target" ];};
       Service = {
+        Environment = "PATH=/usr/bin";
         ExecStart = "/usr/bin/sudo ${zeek}/bin/zeekctl deploy";
         ExecReload = "/usr/bin/sudo ${zeek}/bin/zeekctl restart";
         ExecStop = "/usr/bin/sudo ${zeek}/bin/zeekctl stop";
