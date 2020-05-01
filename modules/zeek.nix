@@ -130,7 +130,7 @@ in {
         ExecStart = ''
          ${pkgs.bash}/bin/bash ${zeek-oneshot}
          '';
-        ExecReload = "/usr/bin/sudo ${zeek}/bin/zeekctl restart";
+        ExecReload = "${pkgs.bash}/bin/bash ${zeek-oneshot}";
         ExecStop = "/usr/bin/sudo ${zeek}/bin/zeekctl stop";
         ExecStartPre = ''
         ${pkgs.bash}/bin/bash ${PreShell}
