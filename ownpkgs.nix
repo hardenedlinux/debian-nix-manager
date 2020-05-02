@@ -32,7 +32,6 @@ in
   ];
 
   home.packages = with ownpkgs; [
-    zeek
     vast
     pf-ring
     #emacs eaf
@@ -64,7 +63,9 @@ in
 
   services.zeek = {
     enable = true;
+    standalone = true;
     interface = "enp0s3";
+    listenAddress = "localhost";
   };
 
   services.netdata = {

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   # locations as those paths are read-only.
   ZEEK_DIST = "${placeholder "out"}";
 
-  patches = [ ./zeekctl.patch ] ++ stdenv.lib.optionals stdenv.cc.isClang [
+  patches = stdenv.lib.optionals stdenv.cc.isClang [
     # Fix pybind c++17 build with Clang. See: https://github.com/pybind/pybind11/issues/1604
     (fetchpatch {
       url = "https://github.com/pybind/pybind11/commit/759221f5c56939f59d8f342a41f8e2d2cacbc8cf.patch";
@@ -48,10 +48,14 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
         substituteInPlace $out/etc/zeekctl.cfg \
-         --replace "CfgDir = $out/etc" "CfgDir = ${confdir}/etc"
+         --replace "CfgDir = $out/etc" "CfgDir = ${confdir}/etc" \
+         --replace "SpoolDir = $out/spool" "SpoolDir = ${confdir}/spool" \
+         --replace "LogDir = $out/logs" "LogDir = ${confdir}/logs"
          echo "scriptsdir = ${confdir}/scripts" >> $out/etc/zeekctl.cfg
          echo "helperdir = ${confdir}/scripts/helpers" >> $out/etc/zeekctl.cfg
          echo "postprocdir = ${confdir}/scripts/postprocessors" >> $out/etc/zeekctl.cfg
+         ## default disable sendmail
+         echo "sendmail=" >> $out/etc/zeekctl.cfg
          ###INSTALL Zeek PLugins
          bash ${install_plugin} metron-bro-plugin-kafka ${metron-bro-plugin-kafka} ${version}
          bash ${install_plugin} zeek-postgresql ${zeek-postgresql} ${version}
