@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   version = "3.0.5";
   confdir = "/var/lib/${pname}";
   src = fetchurl {
-    url = "https://old.zeek.org/downloads/zeek-${version}.tar.gz";
+    url = "https://download.zeek.org/downloads/zeek-${version}.tar.gz";
     sha256 = "031q56hxg9girl9fay6kqbx7li5kfm4s30aky4s1irv2b25cl6w2";
   };
 
@@ -42,8 +42,6 @@ stdenv.mkDerivation rec {
     "-DINSTALL_ZEEKCTL=true"
     "-DZEEK_ETC_INSTALL_DIR=${placeholder "out"}/etc"
     "-DCAF_ROOT_DIR=${caf}"
-    "-DZEEK_SPOOL_DIR=${confdir}/spool"
-    "-DZEEK_LOG_DIR=${confdir}/logs"
   ];
 
   postFixup = ''

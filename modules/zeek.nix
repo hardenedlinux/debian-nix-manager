@@ -126,7 +126,13 @@ in {
       };
       Install = { wantedBy = [ "multi-user.target" ];};
       Service = {
-        #ExecStart = "/usr/bin/sudo ${zeek}/bin/zeekctl deploy";
+        WorkingDirectory = "/var/lib/zeek";
+        PrivateTmp="yes";
+        ProtectHome="yes";
+        Environment = [
+          ''"INTERFACE=${cfg.interface}"''
+        ];
+        ProtectSystem = "strict";
         ExecStart = ''
          ${pkgs.bash}/bin/bash ${zeek-oneshot}
          '';

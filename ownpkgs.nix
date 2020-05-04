@@ -59,6 +59,7 @@ in
     tcpreplay
     bat
     suricata
+    zeek
    ];
 
   services.zeek = {
