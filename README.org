@@ -116,6 +116,20 @@ nix-build --option substituters "https://cache.nixos.org https://nsm-data-analys
 * Deploy zeek and Model
 - Deploy it with Sytemd
 
+  Zeek Service Demo
+
+
+#+begin_src nix :async t :exports both :results output
+  services.zeek = {
+    enable = true;
+    standalone = true;
+    interface = "enp0s3";
+    listenAddress = "localhost";
+    privateScript = ''
+    @load /home/gtrun/project/hardenedlinux-zeek-script/scripts/zeek-query.zeek
+    '';
+  };
+#+end_src
 
 #+begin_src sh :async t :exports both :results output
  systemctl --user start zeek.service
@@ -138,7 +152,7 @@ DONE FOR TEST
 Default enable Kafka and PsotgreSqll alread in nix of Zeek.
 
 : Johanna::PostgreSQL - PostgreSQL log writer and input reader (dynamic, version 0.2.0)
-* DAtabase
+* Database
 ** postgresql
 #+begin_src sh :async t :exports both :results output
 systemctl --user start  postgresql.service
@@ -161,7 +175,6 @@ systemctl --user status  postgresql.service
            ├─3567 postgres: stats collector
            └─3568 postgres: logical replication launcher
 #+end_example
-
 
 * Deploy osquery
 **  enable osquery Service

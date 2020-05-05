@@ -33,6 +33,7 @@ in
      ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/bin" $HOME/.doom.d/bin
      ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/snippets" $HOME/.doom.d/snippets
      ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/modules" $HOME/.doom.d/modules
+     ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/Makefile" $HOME/.doom.d/Makefile
    '';
 
     # editors
@@ -45,7 +46,6 @@ in
       onChange = updateInit;
       };
 
-       home.file.".doom.d/Makefile".source = ../dotfiles/doom/Makefile;
    # programs.emacs = {
    #   enable = true;
    #  #    extraPackages = epkgs: [
