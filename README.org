@@ -47,6 +47,7 @@ nix-env -i home-manager
 #+end_src
 
 add home-manager channel
+
 #+begin_src sh :async t :exports both :results output
 nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
 nix-channel --update
@@ -54,7 +55,9 @@ nix-channel --update
 
 - For China's region users
 
+
 set substituters to ~~/.config/nix/nix.conf~
+
 #+begin_src sh :async t :exports both :results output
 substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org
 #+end_src
@@ -63,7 +66,6 @@ substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://c
 #+begin_src sh :async t :exports both :results output
 home-manager switch
 #+end_src
-* Install doom emacs
 
 #+begin_src sh :async t :exports both :results output
 git clone https://github.com/GTrunSec/doom-emacs.git ~/.emacs.d
@@ -87,6 +89,7 @@ sudo systemctl restart nix-daemon.service
 
 ** Build NSM-data-analysis
 clone https://github.com/hardenedlinux/NSM-data-analysis
+
 #+begin_src sh :async t :exports both :results output
 git clone https://github.com/hardenedlinux/NSM-data-analysis
 cd NSM-data-analysis/
@@ -107,50 +110,54 @@ nix-build --option substituters "https://cache.nixos.org https://nsm-data-analys
 :  Main PID: 28612 (vast)
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/vast.service
 :            └─28612 /nix/store/n6vm1zifpl65445k6w866sf109j2imwm-vast/bin/vast -c /nix/store/kg43s4bdarkg3g79kxii3h9cmbfym2sj-vast.conf start
-* Deploy zeek with nix-shell
-
-run ~nix-shell~~ to build Zeek
+* Deploy zeek
 if you want use ~make~ by nix own. make sure you have nix/bin/path/ on ~sudoers~
 
 - /etc/sudoers
+
+
 #+BEGIN_EXAMPLE
 # echo $HOME/.nix-profile/bin
 # /home/test/.nix-profile/bin
 
 Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/test/.nix-profile/bin"
 #+END_EXAMPLE
-
+- set `NOPASSWORD` to `sudoers`
 
 
 #+begin_src sh :async t :exports both :results output
-nix-shell ~/.config/nixpkgs/pkgs/zeek/zeek-shell.nix --command "make -j8 all && sudo make install"
+test   ALL=(ALL:ALL) NOPASSWD: ALL
 #+end_src
 
-using ~zeekctl~ deploy node
+- Deploy it with Sytemd
+
+
+#+begin_src sh :async t :exports both :results output
+ systemctl --user start zeek.service
+#+end_src
+
+- Check status
+
 
 #+begin_src sh :results output
-sudo /usr/local/zeek/bin/zeekctl deploy
+sudo zeekctl status
 #+end_src
+
+#+RESULTS:
+: Name         Type       Host          Status    Pid    Started
+: zeek         standalone localhost     running   8167   05 May 00:04:44
+
 DONE FOR TEST
+
 #+BEGIN_EXAMPLE
- sudo /usr/local/zeek/bin/zeekctl status                                                                                      220:53:41
+ sudo zeekctl status                                                                                      220:53:41
 Name         Type       Host          Status    Pid    Started
 zeek         standalone localhost     running   13644  14 Mar 20:53:40
 debian-nix :: share/zeekctl/scripts
 #+END_EXAMPLE
-**  Install Zeek PLugin postgresql
-run nix-shell to install
-#+begin_src sh :async t :exports both :results output
-nix-shell ~/.config/nixpkgs/pkgs/zeek/plugin-PostgreSQL.nix --command "make -j8 all && sudo make install"
-#+end_src
+**  Zeek PLugin postgresql
+Default enable Kafka and PsotgreSqll alread in nix of Zeek.
 
-
-test DONE
-#+begin_src sh :async t :exports both :results output
-/usr/local/zeek/bin/zeek -N Johanna::PostgreSQL
-#+end_src
-
-#+RESULTS:
 : Johanna::PostgreSQL - PostgreSQL log writer and input reader (dynamic, version 0.2.0)
 * DAtabase
 ** postgresql
@@ -178,7 +185,6 @@ systemctl --user status  postgresql.service
 
 
 * Deploy osquery
-
 **  enable osquery Service
 #+begin_src sh :async t :exports both :results output
 sudo mkdir -p /var/osquery/log
@@ -201,12 +207,14 @@ systemctl --user status osquery.service
 * Deploy ELK
 **  Start Elastic service
 create ~/var/lib/elasticsearch/~ and make yourself the owner of that directory
+
 #+begin_src sh :async t :exports both :results output
 sudo mkdir -p /var/lib/elasticsearch/
 sudo chown $USER /var/lib/elasticsearch/
 #+end_src
 
 start service
+
 #+begin_src sh :async t :exports both :results output
 systemctl --user start elasticsearch.service
 systemctl --user status elasticsearch.service
@@ -224,11 +232,16 @@ systemctl --user status elasticsearch.service
 *  Performance
 ** PF_RING
 #+begin_src sh :async t :exports both :results output
+sudo apt-get update
+sudo apt install linux-headers-$(uname -r)
 nix-shell ~/.config/nixpkgs/pkgs/network/pf_ring_model.nix --command "sudo make install && sudo modprobe pf_ring"
 #+end_src
+
 #+RESULTS:
 
 - Output test
+
+
 #+begin_src sh :async t :exports both :results output
 modinfo pf_ring && cat /proc/net/pf_ring/info
 #+end_src

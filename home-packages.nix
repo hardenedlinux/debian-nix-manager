@@ -10,6 +10,8 @@ in
                                  deploy-home-manager
                                  system-sendmail
                                  tree
+                                 zip
+                                 unzip
 	                            git
                               pet
 	                            kitty

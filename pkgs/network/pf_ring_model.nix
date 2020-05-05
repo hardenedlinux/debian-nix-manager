@@ -15,6 +15,5 @@ stdenv.mkDerivation {
       tar -xvf 7.6.0.tar.gz
 fi
   cd PF_RING-7.6.0/kernel
-  make
   '';
 }
