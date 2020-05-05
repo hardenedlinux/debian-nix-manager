@@ -13,6 +13,28 @@ in
     onChange = updatefont;
   };
 
+
+    home.activation.linkEmacsPrivate = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+     if [ ! -d "$HOME/.emacs.d" ];then
+         ${pkgs.git}/bin/git clone https://github.com/GTrunSec/doom-emacs.git --depth=1 ~/.emacs.d
+      if [ ! -d "$HOME/.emacs.d/bin/doom" ];then
+       mv $HOME/.emacs.d $HOME/.emacs.d-backup
+       ${pkgs.git}/bin/git clone https://github.com/GTrunSec/doom-emacs.git --depth=1 ~/.emacs.d
+       fi
+     fi
+     if [ ! -d "$HOME/.doom.d" ];then
+     mkdir -p $HOME/.doom.d/
+     mkdir -p $HOME/.doom.d/autoload
+     mkdir -p $HOME/.doom.d/etc
+     mkdir -p $HOME/.doom.d/.modules/private/my-code
+     mkdir -p $HOME/.doom.d/.modules/private/my-org
+     fi
+     ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/lisp" $HOME/.doom.d/lisp
+     ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/bin" $HOME/.doom.d/bin
+     ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/snippets" $HOME/.doom.d/snippets
+     ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/modules" $HOME/.doom.d/modules
+   '';
+
     # editors
     home.file.".doom.d/init.org" = {
       source = ../dotfiles/doom/init.org;
@@ -21,24 +43,9 @@ in
       home.file.".doom.d/xah-fly.org" = {
         source = ../dotfiles/doom/xah-fly.org;
       onChange = updateInit;
-    };
-    home.file.".doom.d/Makefile".source = ../dotfiles/doom/Makefile;
-    home.activation.linkEmacsLisp = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-     ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/lisp" $HOME/.doom.d/lisp
-   '';
-    home.activation.linkEmacsBin = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-     ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/bin" $HOME/.doom.d/bin
-   '';
+      };
 
-    home.activation.linkEmacsPrivate = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-     ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/modules" $HOME/.doom.d/modules
-   '';
-        home.activation.linkEmacsSnippets = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/snippets" $HOME/.doom.d/snippets
-    '';
-
-
-
+       home.file.".doom.d/Makefile".source = ../dotfiles/doom/Makefile;
    # programs.emacs = {
    #   enable = true;
    #  #    extraPackages = epkgs: [

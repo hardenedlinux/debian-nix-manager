@@ -13,15 +13,6 @@
 #+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
-* Deploy
-#+begin_src sh :async t :exports both :results output
-mkdir -p ~/.doom.d/
-mkdir -p ~/.doom.d/autoload
-mkdir -p ~/.doom.d/etc
-mkdir -p ~/.doom.d/modules/private/my-code
-mkdir -p ~/.doom.d/modules/private/my-org
-#+end_src
-
 * Install nix
 #+begin_src sh :async t :exports both :results output
 wget https://github.com/hardenedlinux/NSM-data-analysis/releases/download/nix/nix_2.3_master_e3eecb5_amd64.deb
@@ -39,6 +30,28 @@ export TERM=xterm
 #+begin_src sh :async t :exports both :results output
 nix-shell -p 'git'
 git clone https://github.com/hardenedlinux/debian-nix-manager.git ~/.config/nixpkgs/
+#+end_src
+
+- Authorized User
+
+
+- use ~make~ by nix own. make sure you have nix/bin/path/ on ~sudoers~
+
+
+- /etc/sudoers
+
+
+#+BEGIN_EXAMPLE
+# echo $HOME/.nix-profile/bin
+# /home/test/.nix-profile/bin
+
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/test/.nix-profile/bin"
+#+END_EXAMPLE
+- set User's `NOPASSWORD` to `sudoers`
+
+
+#+begin_src sh :async t :exports both :results output
+test   ALL=(ALL:ALL) NOPASSWD: ALL
 #+end_src
 
 * Install home-manager
@@ -65,16 +78,6 @@ substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://c
 * Build
 #+begin_src sh :async t :exports both :results output
 home-manager switch
-#+end_src
-
-#+begin_src sh :async t :exports both :results output
-git clone https://github.com/GTrunSec/doom-emacs.git ~/.emacs.d
-#+end_src
-
-#+begin_src sh :async t :exports both :results output
-~/.emacs.d/bin/doom refresh
-cd ~/.doom
-make complie
 #+end_src
 
 * Install cachix
@@ -110,25 +113,7 @@ nix-build --option substituters "https://cache.nixos.org https://nsm-data-analys
 :  Main PID: 28612 (vast)
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/vast.service
 :            └─28612 /nix/store/n6vm1zifpl65445k6w866sf109j2imwm-vast/bin/vast -c /nix/store/kg43s4bdarkg3g79kxii3h9cmbfym2sj-vast.conf start
-* Deploy zeek
-if you want use ~make~ by nix own. make sure you have nix/bin/path/ on ~sudoers~
-
-- /etc/sudoers
-
-
-#+BEGIN_EXAMPLE
-# echo $HOME/.nix-profile/bin
-# /home/test/.nix-profile/bin
-
-Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/test/.nix-profile/bin"
-#+END_EXAMPLE
-- set `NOPASSWORD` to `sudoers`
-
-
-#+begin_src sh :async t :exports both :results output
-test   ALL=(ALL:ALL) NOPASSWD: ALL
-#+end_src
-
+* Deploy zeek and Model
 - Deploy it with Sytemd
 
 
@@ -149,12 +134,6 @@ sudo zeekctl status
 
 DONE FOR TEST
 
-#+BEGIN_EXAMPLE
- sudo zeekctl status                                                                                      220:53:41
-Name         Type       Host          Status    Pid    Started
-zeek         standalone localhost     running   13644  14 Mar 20:53:40
-debian-nix :: share/zeekctl/scripts
-#+END_EXAMPLE
 **  Zeek PLugin postgresql
 Default enable Kafka and PsotgreSqll alread in nix of Zeek.
 
@@ -268,7 +247,7 @@ parm:           quick_mode:Set to 1 to run at full speed but with upto one socke
 parm:           force_ring_lock:Set to 1 to force ring locking (automatically enable with rss) (uint)
 parm:           enable_debug:Set to 1 to enable PF_RING debug tracing into the syslog, 2 for more verbosity (uint)
 parm:           transparent_mode:(deprecated) (uint)
-PF_RING Version          : 7.6.0 (master:48b1e116fc0258cc0db1eb69363636aec8f85647)
+PF_RING Version          : 7.6.0 (unknown)
 Total rings              : 0
 
 Standard (non ZC) Options
