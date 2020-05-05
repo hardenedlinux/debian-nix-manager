@@ -26,8 +26,8 @@ in
      mkdir -p $HOME/.doom.d/
      mkdir -p $HOME/.doom.d/autoload
      mkdir -p $HOME/.doom.d/etc
-     mkdir -p $HOME/.doom.d/.modules/private/my-code
-     mkdir -p $HOME/.doom.d/.modules/private/my-org
+     mkdir -p $HOME/.doom.d/modules/private/my-code
+     mkdir -p $HOME/.doom.d/modules/private/my-org
      fi
      ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/lisp" $HOME/.doom.d/lisp
      ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/bin" $HOME/.doom.d/bin
