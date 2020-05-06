@@ -10,6 +10,10 @@ in
                                  deploy-home-manager
                                  system-sendmail
                                  tree
+                                 networkmanager
+                                 pciutils
+                                 nettools
+                                 bc
                                  zip
                                  unzip
 	                            git

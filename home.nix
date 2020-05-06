@@ -23,6 +23,7 @@ in
     ./home-manager/ssh.nix
     ./pkgs/network
     ./pkgs/zeek-pkgs.nix
+    ./pkgs/hardenedlinux.nix
   ]; #++ lib.optionals sysconfig.services.xserver.enable [
     #./home-manager/desktop.nix ];
   
