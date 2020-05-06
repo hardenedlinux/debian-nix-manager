@@ -131,7 +131,7 @@ HTML them READ org
        ;;assembly          ; assembly for fun or debugging
        cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
-       common-lisp       ; if you've seen one lisp, you've seen them all
+       ;; common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
@@ -225,39 +225,43 @@ HTML them READ org
 :END:
 
 #+begin_src emacs-lisp :tangle "packages.el"
-(package! bm)
-(package! w3m)
 (package! discover :recipe (:host github :repo "mickeynp/discover.el"))
 (package! xah-fly-keys :recipe (:host github :repo "GTrunSec/xah-fly-keys"))
-(package! hungry-delete)
-(package! flymake-json)
 (package! maple-iedit :recipe (:host github :repo "honmaple/emacs-maple-iedit"))
-(package! yatemplate)
-(package! pinyin-search)
-(package! grab-x-link)
 (package! ctrlf :recipe (:host github :repo "raxod502/ctrlf"))
 
+;; (package! bm)
+;; (package! w3m)
+
+;; (package! hungry-delete)
+;; (package! flymake-json)
+
+;; (package! yatemplate)
+;; (package! pinyin-search)
+;; (package! grab-x-link)
+
 ;; window
-(package! dimmer)
-(package! beacon)
-(package! golden-ratio)
-(package! writegood-mode)
+;; (package! dimmer)
+;; (package! beacon)
+;; (package! golden-ratio)
+;; (package! writegood-mode)
 #+end_src
 
 ** third-part
 #+begin_src emacs-lisp :tangle "packages.el"
-(package! eyebrowse)
-(package! cnfonts)
+;; (package! eyebrowse)
+;; (package! cnfonts)
+;; (package! elfeed-goodies)
 (package! scrollkeeper :recipe (:host github :repo "alphapapa/scrollkeeper.el"))
-(package! elfeed-goodies)
+
 (package! awesome-tab :recipe (:host github :repo "manateelazycat/awesome-tab"))
 (package! ob-session-async :recipe (:host github :repo "jackkamm/ob-session-async"))
 (package! maple-explorer :recipe (:host github :repo "honmaple/emacs-maple-explorer"))
-(package! imenu-list)
-(package! helm-tramp)
-(package! visual-fill-column)
-(package! vlf)
-(package! wakatime-mode)
+;; (package! imenu-list)
+;; (package! helm-tramp)
+;; (package! visual-fill-column)
+;; (package! vlf)
+;; (package! wakatime-mode)
 (package! sunrise-commander :recipe (:host github :repo "sunrise-commander/sunrise-commander"))
 ;; (package! berrys-theme)
 #+end_src
@@ -268,6 +272,7 @@ HTML them READ org
 (load! "setting")
 (load! "xah-fly.el")
 
+(use-package! hungry-delete)
 (use-package! vlf
   :config
   (require 'vlf-setup)
@@ -290,12 +295,12 @@ HTML them READ org
   (setq helm-tramp-custom-connections '(/ssh:sensor1@10.220.170.121:/home/sensor1/.config/nixpkgs
                                         /ssh:test@10.220.170.113:/home/test/.config/nixpkgs))
   (add-hook 'helm-tramp-pre-command-hook '(lambda () ;;(global-aggressive-indent-mode 0)
-				     (projectile-mode 0)
-				     ;;(editorconfig-mode 0)
+                     (projectile-mode 0)
+                     ;;(editorconfig-mode 0)
              ))
   (add-hook 'helm-tramp-quit-hook '(lambda () ;;(global-aggressive-indent-mode 1)
-			      (projectile-mode 1)
-			      ;;(editorconfig-mode 1)
+                  (projectile-mode 1)
+                  ;;(editorconfig-mode 1)
             ))
 )
 
@@ -328,8 +333,10 @@ HTML them READ org
                           cursor-in-non-selected-windows t)))
 
 (setenv "XAPIAN_CJK_NGRAM" "1")
-
-(setq w3m-use-tab-line nil)
+(use-package! w3m
+  :config
+  (setq w3m-use-tab-line nil)
+)
 #+end_src
 
 #+RESULTS:
@@ -408,7 +415,6 @@ Uses `current-date-time-format' for the formatting the date/time."
 ** config
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (load! "setting")
-(add-hook! 'after-init-hook 'org-starter-load-all-files-in-path)
 (add-hook! 'org-mode-hook 'auto-revert-mode)
 (use-package! company-english-helper)
 (use-package! ox-hugo)
@@ -424,15 +430,22 @@ Uses `current-date-time-format' for the formatting the date/time."
 ** Packages
 #+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
 (package! company-english-helper :recipe (:host github :repo "manateelazycat/company-english-helper"))
-(package! org-super-agenda)
-(package! ob-mermaid)
-(package! org-starter)
-(package! helm-org-rifle)
-(package! org-wild-notifier)
+;; (package! org-super-agenda)
+;; (package! ob-mermaid)
+;; (package! org-starter)
+;; (package! helm-org-rifle)
+;; (package! org-wild-notifier)
 (package! org-books :recipe (:host github :repo "lepisma/org-books"))
 ;;(package! deft)
 (package! notdeft :recipe (:host github :repo "hasu/notdeft"))
 (package! emacs-powerthesaurus :recipe (:host github :repo "SavchenkoValeriy/emacs-powerthesaurus"))
+#+end_src
+
+- load packages
+
+
+#+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
+;;(use-package! org-starter)
 #+end_src
 
 ** setting
@@ -573,13 +586,13 @@ Uses `current-date-time-format' for the formatting the date/time."
   "Export org audio links to hmtl."
   (cl-case format
     (html (format
-	   "<audio preload=\"auto\"> <source src=\"https://www.gtrun.org/music/%s\">%s</audio>"
-	   path (or desc "")))
+       "<audio preload=\"auto\"> <source src=\"https://www.gtrun.org/music/%s\">%s</audio>"
+       path (or desc "")))
 
     ;; README: hugo music file path
     (md (format
-	 "<audio class=\"wp-audio-shortcode\"  loop=\"1\"  preload=\"auto\" style=\"width: 100%%;\" controls> <source src=\"https://www.gtrun.org/music/%s\">%s</audio>"
-	 path (or desc "")))
+     "<audio class=\"wp-audio-shortcode\"  loop=\"1\"  preload=\"auto\" style=\"width: 100%%;\" controls> <source src=\"https://www.gtrun.org/music/%s\">%s</audio>"
+     path (or desc "")))
     (latex (format "(HOW DO I EXPORT AUDIO TO LATEX? \"%s\")" path))))
 (after! org
 (org-add-link-type "audio" #'ignore #'endless/export-audio-link)
@@ -618,25 +631,12 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 ** org-starter
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(use-package org-starter
+(use-package! org-starter
   :config
-  ;; (add-hook! 'after-init-hook 'org-starter-load-all-files-in-path)
+    ;; (add-hook! 'after-init-hook 'org-starter-load-all-files-in-path)
   (org-starter-def "~/Documents/org-notes"
                    :files
                    ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
-                   ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel .5 ))
-                   ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel .5 ))
-                   ("GTD/Habit.org"                    :agenda t :key "h" :refile (:maxlevel .5 ))
-                   ("post/traveling/traveling.org" :key "t" :refile (:maxlevel .5 ))
-                   ("post/myself/love.org"         :key "l" :refile (:maxlevel .5 ))
-                   ("post/myself/qing.org"         :key "q" :refile (:maxlevel .5 ))
-                   ("post/myself/plan.org"         :key "p" :refile (:maxlevel .5 ))
-                   ("elfeed.org"         :key "e" :refile (:maxlevel .5 ))
-                   ("GTD/my-books.org"             :agenda t :key "b" :refile (:maxlevel .5 ))
-                   ("post/life-thing/life-things.org")
-                   ("NSM-GTD/workflow.org"         :agenda t :required t)
-                   ("NSM-GTD/NsmOrg.org"           :agenda t :required t)
-                   ("art/learn-music.org"          :agenda t :key "M" :refile (:maxlevel .5 ))
                    )
   (org-starter-def "~/.config/nixpkgs/dotfiles/doom/"
                    :files
@@ -646,8 +646,6 @@ Uses `current-date-time-format' for the formatting the date/time."
   (org-starter-def "~/.config/nixpkgs"
                    :files
                    ("README.org")
-                   ("global-readme.org")
-                   ("dotfiles/wallpaper/wallpaper.org" :agenda nil)
                    )
 
 
@@ -655,24 +653,10 @@ Uses `current-date-time-format' for the formatting the date/time."
       "
   Org-starter-files
   ^^^^------------------------------------------------
- _i_: init.org    _g_: gtd.org      _l_: love.org
- _n_: note        _t_: traveling    _h_: Habit.org
- _m_: myself      _q_: 情-qing      _p_: Plan.org
- _b_: my-books    _e_: elfeed       _M_: learn music
-
+ _i_: init.org    _g_: gtd.org
   "
       ("i" org-starter-find-file:init)
       ("g" org-starter-find-file:gtd)
-      ("n" org-starter-find-file:notes)
-      ("e" org-starter-find-file:elfeed)
-      ("M" org-starter-find-file:learn-music)
-      ("m" org-starter-find-file:myself)
-      ("t" org-starter-find-file:traveling)
-      ("q" org-starter-find-file:qing)
-      ("l" org-starter-find-file:love)
-      ("h" org-starter-find-file:Habit)
-      ("p" org-starter-find-file:plan)
-      ("b" org-starter-find-file:my-books)
 )
  :bind
  (
@@ -681,6 +665,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 
   )
+
 #+end_src
 
 #+RESULTS:
@@ -1484,14 +1469,14 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
 (package! awesome-pair :recipe (:host github :repo "manateelazycat/awesome-pair"))
 (package! lsp-julia :recipe (:host github :repo "gdkrmr/lsp-julia"))
-(package! plantuml-mode)
-(package! ccls)
-(package! company-tabnine)
-(package! polymode)
-(package! poly-markdown)
-(package! lsp-haskell)
-(package! bicycle)
-(package! jsonrpc)
+;; (package! plantuml-mode)
+;; (package! ccls)
+;; (package! company-tabnine)
+;; (package! polymode)
+;; (package! poly-markdown)
+;; (package! lsp-haskell)
+;; (package! bicycle)
+;; (package! jsonrpc)                      ;
 #+end_src
 
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/config.el"
@@ -1888,7 +1873,6 @@ FACE defaults to inheriting from default and highlight."
   :load-path "./modules"
   :if (eq system-type 'gnu/linux)
   :config
-  (add-hook! 'emacs-startup-hook 'doom-modeline-mode)
   (setq-default cursor-type 'box)
   (blink-cursor-mode -1)
   (set-cursor-color "IndianRed3")

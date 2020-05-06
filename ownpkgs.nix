@@ -49,9 +49,10 @@ in
 
       ##owner
     ]))
-    (emacsPackages.emacsWithPackages (with pkgs.emacsPackagesNg; [
-     emacs-libvterm
-    ]))
+    
+    # (emacsPackages.emacsWithPackages (with pkgs.emacsPackagesNg; [
+    #   emacs-libvterm
+    # ]))
     wakatime
     go
     polipo
