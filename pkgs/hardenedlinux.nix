@@ -18,5 +18,9 @@ in
 
 {
   home.packages = with pkgs;[ harbian-audit
+                              networkmanager
+                              pciutils
+                              nettools
+                              bc
                             ];
 }
