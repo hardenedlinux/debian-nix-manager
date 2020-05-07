@@ -148,7 +148,7 @@ Version 2017-01-21"
 ;; scrolling
 (define-key xah-fly-key-map (kbd "C-v") 'scrollkeeper-contents-up)
 ;; rekey  kmacro-start-macro-or-insert-counter
-(define-key xah-fly-key-map (kbd "<f3>") 'gtrun/hydra-org-starter/body)
+(define-key xah-fly-key-map (kbd "<f3>") 'nsm/hydra-org-starter/body)
 #+end_src
 
 #+RESULTS:
