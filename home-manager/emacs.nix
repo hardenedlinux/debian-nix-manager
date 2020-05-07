@@ -16,15 +16,14 @@ in
 
     home.activation.linkEmacsPrivate = config.lib.dag.entryAfter [ "writeBoundary" ] ''
      if [ ! -d "$HOME/.emacs.d" ];then
-         ${pkgs.git}/bin/git clone https://github.com/GTrunSec/doom-emacs.git --depth=1 ~/.emacs.d
+         ${pkgs.git}/bin/git clone https://github.com/GTrunSec/doom-emacs.git -b my-doom --depth=1 ~/.emacs.d
       if [ ! -d "$HOME/.emacs.d/bin/doom" ];then
        mv $HOME/.emacs.d $HOME/.emacs.d-backup
-       ${pkgs.git}/bin/git clone https://github.com/GTrunSec/doom-emacs.git --depth=1 ~/.emacs.d
+       ${pkgs.git}/bin/git clone https://github.com/GTrunSec/doom-emacs.git -b my-doom --depth=1 ~/.emacs.d
        fi
      fi
      if [ ! -d "$HOME/.doom.d" ];then
      mkdir -p $HOME/.doom.d/
-     mkdir -p $HOME/.doom.d/autoload
      mkdir -p $HOME/.doom.d/etc
      fi
      ln -sfT "${config.home.homeDirectory}/.config/nixpkgs/dotfiles/doom/lisp" $HOME/.doom.d/lisp
@@ -35,20 +34,27 @@ in
      if [ ! -d "$HOME/.doom.d/modules/my-code" ];then
           mkdir -p $HOME/.doom.d/modules/private/my-org
           mkdir -p $HOME/.doom.d/modules/private/my-code
+          mkdir -p $HOME/.doom.d/autoload
      fi
-     ##modules
-     if [ ! -d "$HOME/.emacs.d/.local/straight" ];then
+      ##modules
+     if [ ! -d "$HOME/.emacs.d/.local/autoloads.el" ];then
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/completion/company/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/magit/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/ein/packages.el
+     sed -e 's/^/;;/' -i ~/.emacs.d/modules/app/rss/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/lsp/packages.el
+     sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/ein/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/nix/packages.el
+     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/python/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/markdown/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/julia/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/latex/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/haskell/packages.el
+     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/scheme/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/go/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/data/packages.el
+     sed -e 's/^/;;/' -i ~/.emacs.d/modules/ui/modeline/packages.el
+     sed -e 's/^/;;/' -i ~/.emacs.d/modules/ui/modeline/packages.el
+     sed -e 's/^/;;/' -i ~/.emacs.d/modules/completion/ivy/packages.el
      fi
    '';
 
@@ -65,105 +71,131 @@ in
    programs.emacs = {
      enable = true;
      extraPackages = epkgs: with epkgs;[
-       #org
-       #data
-       graphql-mode
-       json-mode
-       jsonnet-mode
-       yaml-mode
-       csv-mode
-       dhall-mode
-       protobuf-mode
-       #ein
-       ein
-       #go
-       go-eldoc
-       go-guru
-       go-mode
-       gorepl-mode
-       go-tag
-       go-gen-test
-       company-go
-       flycheck-golangci-lint
-       #haskell
-       haskell-mode
-       lsp-haskell
-       #latex
-       ivy-bibtex
-       company-auctex
-       company-reftex
-       company-math
-       auctex
-       adaptive-wrap
-       latex-preview-pane
-       #julia
-       julia-mode
-       julia-repl
-       #markdown
-       markdown-mode
-       markdown-toc
-       edit-indirect
-       grip-mode
-       #nix
-       nix-mode
-       nix-update
-       company-nixos-options
-       #helm-nixos-options
-       ##vterm
-       vterm
-       emacs-libvterm
-       ##magit
-       magit
-       forge
-       magit-todos
-       github-review
-       magit-gitflow
-       ##
-       helm-tramp
-       visual-fill-column
-       vlf
-       wakatime-mode
-       imenu-list
-       eyebrowse
-       cnfonts
-       elfeed-goodies
-       dimmer
-       beacon
-       golden-ratio
-       writegood-mode
-       yatemplate
-       pinyin-search
-       grab-x-link
-       hungry-delete
-       flymake-json
-       bm
-       w3m
-       org-super-agenda
-       ob-mermaid
-       org-starter
-       helm-org-rifle
-       org-wild-notifier
-       plantuml-mode
-       ccls
-       company-tabnine
-       polymode
-       poly-markdown
-       bicycle
-       jsonrpc
-       anzu
-       doom-modeline
-       shrink-path
-       ##lsp
-       lsp-mode
-       lsp-ui
-       company-lsp
-       lsp-ivy
-       ##helm-lsp
-       ##company-module
-       company
-       company-dict
-       company-prescient
-     ];
+           #editon
+          scrollkeeper
+          #org
+          #python
+          flycheck-cython
+          cython-mode
+          pip-requirements
+          poetry
+          nose
+          python-pytest
+          #data
+          graphql-mode
+          json-mode
+          jsonnet-mode
+          yaml-mode
+          csv-mode
+          dhall-mode
+          protobuf-mode
+          #ein
+          ein
+          #go
+          go-eldoc
+          go-guru
+          go-mode
+          gorepl-mode
+          go-tag
+          go-gen-test
+          company-go
+          flycheck-golangci-lint
+          #haskell
+          haskell-mode
+          lsp-haskell
+          #latex
+          ivy-bibtex
+          company-auctex
+          company-reftex
+          company-math
+          auctex
+          adaptive-wrap
+          latex-preview-pane
+          #julia
+          julia-mode
+          julia-repl
+          lsp-julia
+          #markdown
+          markdown-mode
+          markdown-toc
+          edit-indirect
+          grip-mode
+          #nix
+          nix-mode
+          nix-update
+          company-nixos-options
+          #helm-nixos-options
+          ##vterm
+          vterm
+          emacs-libvterm
+          ##magit
+          magit
+          forge
+          magit-todos
+          github-review
+          magit-gitflow
+          ##
+          helm-tramp
+          visual-fill-column
+          vlf
+          wakatime-mode
+          imenu-list
+          eyebrowse
+          cnfonts
+          elfeed-org
+          elfeed
+          elfeed-goodies
+          dimmer
+          beacon
+          golden-ratio
+          writegood-mode
+          yatemplate
+          pinyin-search
+          grab-x-link
+          hungry-delete
+          flymake-json
+          bm
+          w3m
+          org-super-agenda
+          ob-mermaid
+          org-starter
+          org-superstar
+          helm-org-rifle
+          org-wild-notifier
+          plantuml-mode
+          ccls
+          company-tabnine
+          polymode
+          poly-markdown
+          bicycle
+          jsonrpc
+          anzu
+          doom-modeline
+          shrink-path
+          #scheme
+          geiser
+          ##lsp
+          lsp-mode
+          lsp-ui
+          company-lsp
+          lsp-ivy
+          ##helm-lsp
+          ##company-module
+          company
+          company-dict
+          company-prescient
+          #ivy
+          swiper
+          ivy
+          ivy-rich
+          ivy-hydra
+          counsel
+          amx
+          counsel-projectile
+          wgrep
+          ivy-prescient
+          flx
+        ];
      #  package = pkgs.emacs.overrideAttrs (old: rec {
      #    wrapperPath = with pkgs; stdenv.lib.makeBinPath ([
      #      gcc        # to compile emacsql
