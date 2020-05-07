@@ -39,7 +39,8 @@ in
      ##modules
      if [ ! -d "$HOME/.emacs.d/.local/straight" ];then
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/completion/company/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/modules/tools/magit/packages.el
+     sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/magit/packages.el
+     sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/ein/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/lsp/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/nix/packages.el
      sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/markdown/packages.el
@@ -64,6 +65,7 @@ in
    programs.emacs = {
      enable = true;
      extraPackages = epkgs: with epkgs;[
+       #org
        #data
        graphql-mode
        json-mode
@@ -165,18 +167,18 @@ in
      #  package = pkgs.emacs.overrideAttrs (old: rec {
      #    wrapperPath = with pkgs; stdenv.lib.makeBinPath ([
      #      gcc        # to compile emacsql
-   #      aspell
-   #      aspellDicts.en
-   #      plantuml
-   #      jre        # for plantuml
-   #      wordnet
-   #      languagetool
-   #      pandoc     # markdown preview
-   #    ]);
-   #    postFixup = ''
-   #      wrapProgram $out/bin/emacs --prefix PATH : ${wrapperPath} --set SHELL ${pkgs.bash}/bin/bash
-   #    '';
-   #  };
-    };
-    services.emacs.enable = true;
+     #      aspell
+     #      aspellDicts.en
+     #      plantuml
+     #      jre        # for plantuml
+     #      wordnet
+     #      languagetool
+     #      pandoc     # markdown preview
+     #    ]);
+     #    postFixup = ''
+     #      wrapProgram $out/bin/emacs --prefix PATH : ${wrapperPath} --set SHELL ${pkgs.bash}/bin/bash
+     #    '';
+     #  };
+   };
+   services.emacs.enable = true;
 }

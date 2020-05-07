@@ -402,8 +402,6 @@ Uses `current-date-time-format' for the formatting the date/time."
        )
 #+end_src
 
-#+RESULTS:
-: insert-current-date-time-test
 
 *** default
 #+begin_src emacs-lisp :tangle "~/.doom.d/autoload/+default.el"
@@ -422,32 +420,17 @@ Uses `current-date-time-format' for the formatting the date/time."
 (use-package! ob-async)
 (use-package! org-books
   :config
-(setq org-books-file "~/Documents/org-notes/GTD/my-books.org")
-)
+(setq org-books-file "~/Documents/org-notes/GTD/my-books.org"))
 ;;(use-package emacs-powerthesaurus)
 #+end_src
 
 ** Packages
 #+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
 (package! company-english-helper :recipe (:host github :repo "manateelazycat/company-english-helper"))
-;; (package! org-super-agenda)
-;; (package! ob-mermaid)
-;; (package! org-starter)
-;; (package! helm-org-rifle)
-;; (package! org-wild-notifier)
 (package! org-books :recipe (:host github :repo "lepisma/org-books"))
-;;(package! deft)
 (package! notdeft :recipe (:host github :repo "hasu/notdeft"))
 (package! emacs-powerthesaurus :recipe (:host github :repo "SavchenkoValeriy/emacs-powerthesaurus"))
 #+end_src
-
-- load packages
-
-
-#+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
-;;(use-package! org-starter)
-#+end_src
-
 ** setting
 *** org-global
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/setting.el"
@@ -493,7 +476,6 @@ Uses `current-date-time-format' for the formatting the date/time."
            (string= lang "plantuml"))))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
-(setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
 
 (setq org-babel-C++-compiler 'g++-9)
 (setq org-babel-C-compiler 'gcc-9)
@@ -611,6 +593,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 ** super-agenda
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
+
 (use-package! org-super-agenda
   :config
   (add-hook! 'after-init-hook 'org-super-agenda-mode)
@@ -633,7 +616,6 @@ Uses `current-date-time-format' for the formatting the date/time."
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (use-package! org-starter
   :config
-    ;; (add-hook! 'after-init-hook 'org-starter-load-all-files-in-path)
   (org-starter-def "~/Documents/org-notes"
                    :files
                    ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
