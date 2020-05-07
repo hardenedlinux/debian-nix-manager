@@ -32,6 +32,9 @@ systemctl --user status zeek.service
            └─8306 sleep infinity
 #+end_example
 
+* Zeek module
+** zeekctl Deploy <2020-05-07 Thu>-<2020-05-10 Sun>
+
 * Last test 
 ** zeek 3.0.5[2020-04-18 Sat 00:07]
 

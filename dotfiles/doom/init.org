@@ -874,8 +874,8 @@ FACE defaults to inheriting from default and highlight."
                    :files
                    ("gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
                    ("notes.org"                    :agenda t :key "n" :refile (:maxlevel .5 ))
-                   ("service.org"                  :key "s" :refile (:maxlevel .5 ))
-                   ("zeek.org"                     :key "z" :refile (:maxlevel .5 ))
+                   ("service.org"                  :agenda t :key "s" :refile (:maxlevel .5 ))
+                   ("zeek.org"                     :agenda t :key "z" :refile (:maxlevel .5 ))
                    )
   (org-starter-def "~/.config/nixpkgs/dotfiles/doom/"
                    :files
