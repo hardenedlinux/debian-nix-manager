@@ -3,7 +3,7 @@
 
 let
   updatefont = ''fc-cache -f -v'';
-  updateDoom = ".emacs.d/bin/doom refresh";
+  updateDoom = ".emacs.d/bin/doom sync";
   updateInit = "bash .doom.d/bin/emacs.sh";
 in
 {
@@ -149,32 +149,6 @@ in
           poly-markdown
           bicycle
           jsonrpc
-          anzu
-          doom-modeline
-          shrink-path
-          #scheme
-          geiser
-          ##lsp
-          lsp-mode
-          lsp-ui
-          company-lsp
-          lsp-ivy
-          ##helm-lsp
-          ##company-module
-          company
-          company-dict
-          company-prescient
-          #ivy
-          swiper
-          ivy
-          ivy-rich
-          ivy-hydra
-          counsel
-          amx
-          counsel-projectile
-          wgrep
-          ivy-prescient
-          flx
         ];
      #  package = pkgs.emacs.overrideAttrs (old: rec {
      #    wrapperPath = with pkgs; stdenv.lib.makeBinPath ([
