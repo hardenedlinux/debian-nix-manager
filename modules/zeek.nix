@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.services.zeek;
   zeek = pkgs.callPackage ../pkgs/zeek { };
-
+  USER = builtins.getEnv "USER";
   zeek-oneshot = pkgs.writeScript "zeek-oneshot" ''
   /usr/bin/sudo ${zeek}/bin/zeekctl deploy
   if [ $? -eq 0 ]; then
@@ -58,17 +58,24 @@ fi
     if [ ! -d "/var/lib/zeek/scripts" ];then
       mkdir -p /var/lib/zeek/scripts
       fi
+    if [ ! -d "/var/lib/zeek/policy" ];then
+      mkdir -p /var/lib/zeek/policy
+      fi
    ln -sf ${NodeConf} /var/lib/zeek/etc/node.cfg
    ln -sf ${NetworkConf} /var/lib/zeek/etc/networks.cfg
    if [ ! -d "/var/lib/zeek/scripts/helpers" ];then
    cp -r ${zeek}/share/zeekctl/scripts/helpers /var/lib/zeek/scripts/
     cp -r ${zeek}/share/zeekctl/scripts/postprocessors /var/lib/zeek/scripts/
    fi
+   cp -r ${pkgs.zeek}/share/zeek/site/local.zeek /var/lib/zeek/policy/
    for i in  run-zeek crash-diag         expire-logs        post-terminate     run-zeek-on-trace  stats-to-csv        check-config       expire-crash       make-archive-name  run-zeek           set-zeek-path             archive-log        delete-log     send-mail
    do
    ln -sf ${zeek}/share/zeekctl/scripts/$i /var/lib/zeek/scripts/
    done
-
+   /usr/bin/sudo chmod 777 ${cfg.dataDir}/policy/local.zeek
+   ${optionalString (cfg.privateScript != null)
+     "echo \"${cfg.privateScript}\" >> ${cfg.dataDir}/policy/local.zeek"
+    }
 '';
 in {
 
@@ -79,12 +86,24 @@ in {
       type = types.bool;
     };
 
+    dataDir = mkOption {
+      type = types.path;
+      default = "/var/lib/zeek";
+      description = ''
+        Data directory for zeek. Do not change
+      '';
+    };
     standalone = mkOption {
       description = "Whether to enable zeek Standalone mode";
       default = true;
       type = types.bool;
     };
 
+    privateScript = mkOption {
+      description = "Zeek load private script path";
+      default ="";
+      type = types.str;
+    };
         
     interface = mkOption {
       description = "Zeek listen address.";
@@ -126,13 +145,10 @@ in {
       };
       Install = { wantedBy = [ "multi-user.target" ];};
       Service = {
-        WorkingDirectory = "/var/lib/zeek";
-        PrivateTmp="yes";
-        ProtectHome="yes";
         Environment = [
           ''"INTERFACE=${cfg.interface}"''
         ];
-        ProtectSystem = "strict";
+        #ProtectSystem = "strict";
         ExecStart = ''
          ${pkgs.bash}/bin/bash ${zeek-oneshot}
          '';

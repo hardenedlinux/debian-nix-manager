@@ -215,7 +215,7 @@ HTML them READ org
          :private
          spacemacs-default
          my-org
-         ;;my-code
+         my-code
 )
 #+end_src
 
@@ -244,7 +244,7 @@ HTML them READ org
 ;;; config.el -*- lexical-binding: t; -*-
 
 (load! "xah-fly.el")
-;;(load! "show-parentheses.el")
+(load! "show-parentheses.el")
 #+end_src
 
 * use-package
@@ -580,9 +580,8 @@ In that case, insert the number."
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! highlight-indent-guides
 :config
-(setq highlight-indent-guides-method 'column)
+(setq highlight-indent-guides-method 'character)
 (setq highlight-indent-guides-auto-enabled nil)
-(set-face-background 'highlight-indent-guides-odd-face "darkgray")
 (set-face-background 'highlight-indent-guides-even-face "dimgray")
 (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
 )
@@ -870,12 +869,22 @@ FACE defaults to inheriting from default and highlight."
   ;; Enable external configuration files loaded from org-starter-path
   (org-starter-load-config-files t)
   :config
-  (org-starter-def "~/.config/nixpkgs/test"
+  (org-starter-def "~/Documents/org-notes"
                    :files
-                   ("gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
-                   ("notes.org"                    :agenda t :key "n" :refile (:maxlevel .5 ))
-                   ("service.org"                  :agenda t :key "s" :refile (:maxlevel .5 ))
-                   ("zeek.org"                     :agenda t :key "z" :refile (:maxlevel .5 ))
+                   ("GTD/gtd.org"                      :agenda t :key "g" :refile (:maxlevel . 5))
+                   ("GTD/notes.org"                    :agenda t :key "n" :refile (:maxlevel .5 ))
+                   ("GTD/myself.org"                   :agenda t :key "m" :refile (:maxlevel .5 ))
+                   ("GTD/Habit.org"                    :agenda t :key "h" :refile (:maxlevel .5 ))
+                   ("post/traveling/traveling.org" :key "t" :refile (:maxlevel .5 ))
+                   ("post/myself/love.org"         :key "l" :refile (:maxlevel .5 ))
+                   ("post/myself/qing.org"         :key "q" :refile (:maxlevel .5 ))
+                   ("post/myself/plan.org"         :key "p" :refile (:maxlevel .5 ))
+                   ("elfeed.org"         :key "e" :refile (:maxlevel .5 ))
+                   ("GTD/my-books.org"             :agenda t :key "b" :refile (:maxlevel .5 ))
+                   ("post/life-thing/life-things.org")
+                   ("NSM-GTD/workflow.org"         :agenda t :required t)
+                   ("NSM-GTD/NsmOrg.org"           :agenda t :required t)
+                   ("art/learn-music.org"          :agenda t :key "M" :refile (:maxlevel .5 ))
                    )
   (org-starter-def "~/.config/nixpkgs/dotfiles/doom/"
                    :files
@@ -885,21 +894,33 @@ FACE defaults to inheriting from default and highlight."
   (org-starter-def "~/.config/nixpkgs"
                    :files
                    ("README.org")
+                   ("global-readme.org")
+                   ("dotfiles/wallpaper/wallpaper.org" :agenda nil)
                    )
 
 
- (defhydra nsm/hydra-org-starter nil
+ (defhydra gtrun/hydra-org-starter nil
       "
   Org-starter-files
   ^^^^------------------------------------------------
- _i_: init.org    _g_: gtd.org  _n_: notes.org
- _s_: service.org    _z_: zeek.org
+ _i_: init.org    _g_: gtd.org      _l_: love.org
+ _n_: note        _t_: traveling    _h_: Habit.org
+ _m_: myself      _q_: 情-qing      _p_: Plan.org
+ _b_: my-books    _e_: elfeed       _M_: learn music
+
   "
       ("i" org-starter-find-file:init)
       ("g" org-starter-find-file:gtd)
       ("n" org-starter-find-file:notes)
-      ("s" org-starter-find-file:service)
-      ("z" org-starter-find-file:zeek)
+      ("e" org-starter-find-file:elfeed)
+      ("M" org-starter-find-file:learn-music)
+      ("m" org-starter-find-file:myself)
+      ("t" org-starter-find-file:traveling)
+      ("q" org-starter-find-file:qing)
+      ("l" org-starter-find-file:love)
+      ("h" org-starter-find-file:Habit)
+      ("p" org-starter-find-file:plan)
+      ("b" org-starter-find-file:my-books)
 )
 :commands org-starter-load-all-files-in-path
 :hook
@@ -940,7 +961,7 @@ FACE defaults to inheriting from default and highlight."
 
 ** agenda-custom-setting
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(require 'org-super-agenda)  
+(require 'org-super-agenda)
 (setq org-agenda-custom-commands
       '(("z" "GtruN Agenda"
          ((agenda "" ((org-agenda-span 2)
@@ -1083,7 +1104,7 @@ FACE defaults to inheriting from default and highlight."
 (setq org-babel-C-compiler 'gcc-9)
 #+end_src
 
-** org publish
+** org publish 
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/setting.el"
   (setq org-publish-project-alist
         '(("nsm"
@@ -1237,7 +1258,7 @@ make
 * my-codes
 ** packages
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
-(package! lsp-julia :recipe (:host github :repo "gdkrmr/lsp-julia"))
+;;(package! lsp-julia :recipe (:host github :repo "gdkrmr/lsp-julia"))
 (package! nox :recipe (:host github :repo "manateelazycat/nox"))
 #+end_src
 
@@ -1457,15 +1478,14 @@ make
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! rainbow-delimiters
   :config
-  ;; (custom-set-faces
-  ;;  '(rainbow-delimiters-mismatched-face ((t (:foreground "white" :background "red" :weight bold))))
-  ;;  '(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red" :weight bold))))
+  (custom-set-faces
+   '(rainbow-delimiters-mismatched-face ((t (:foreground "white" :background "red" :weight bold))))
+   '(rainbow-delimiters-unmatched-face ((t (:foreground "white" :background "red" :weight bold))))
 
-  ;;  ;; show parents (in case of rainbow failing !)
-  ;;  '(show-paren-match ((t (:foreground "white" :background "green" :weight bold))))
-  ;;  '(show-paren-mismatch ((t (:foreground "white" :background "red" :weight bold)))))
+   ;; show parents (in case of rainbow failing !)
+   '(show-paren-match ((t (:foreground "white" :background "green" :weight bold))))
+   '(show-paren-mismatch ((t (:foreground "white" :background "red" :weight bold)))))
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'org-mode-hook #'rainbow-delimiters-mode)
 ;; highlight brackets
   )
 

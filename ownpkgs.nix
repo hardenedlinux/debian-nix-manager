@@ -68,6 +68,9 @@ in
     standalone = true;
     interface = "enp0s3";
     listenAddress = "localhost";
+    # privateScript = ''
+    # @load ${config.home.homeDirectory}/.zeek-script
+    # '';
   };
 
   services.netdata = {

@@ -36,26 +36,6 @@ in
           mkdir -p $HOME/.doom.d/modules/private/my-code
           mkdir -p $HOME/.doom.d/autoload
      fi
-      ##modules
-     if [ ! -d "$HOME/.emacs.d/.local/autoloads.el" ];then
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/completion/company/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/magit/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/app/rss/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/lsp/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/tools/ein/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/nix/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/python/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/markdown/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/julia/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/latex/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/haskell/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/scheme/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/go/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/lang/data/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/ui/modeline/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/ui/modeline/packages.el
-     sed -e 's/^/;;/' -i ~/.emacs.d/modules/completion/ivy/packages.el
-     fi
    '';
 
     # editors
