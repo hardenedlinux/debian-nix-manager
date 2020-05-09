@@ -9,7 +9,7 @@ pkgs.stdenv.mkDerivation {
   name = "zeek";
   nativeBuildInputs = [ pkgs.cmake pkgs.flex pkgs.bison pkgs.file pkgs.python38 ];
   buildInputs = [ pkgs.openssl pkgs.libpcap pkgs.zlib pkgs.curl pkgs.libmaxminddb pkgs.gperftools  pkgs.swig pkgs.rocksdb
-                  pkgs.caf pkgs.git pkgs.python
+                  pkgs.caf pkgs.git pkgs.llvm pkgs.clang_9 pkgs.which
                 ];
   shellHook = ''
  # dir="zeek-3.0.3"
@@ -27,8 +27,8 @@ pkgs.stdenv.mkDerivation {
    # export PATH="${pkgs.stdenv.lib.makeBinPath [ pkgs.python38.out ]}''${PATH:+:}$PATH"
    # export PYTHONPATH=${pkgs.python38}/${pkgs.python38.sitePackages}
    # bash path
-   # cd spicy
-   #rm -rf path
+    cd spicy
+   ./configure
 
 '';
 }

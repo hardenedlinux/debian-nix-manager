@@ -9,6 +9,7 @@ install_plugin(){
     cd /build/$name/
     if [ $name == 'spicy' ] ; then
     ./configure --with-zeek=$out
+    grep -lr '/s\?scripts' | xargs sed -i -e 's|'\$'{CMAKE_SOURCE_DIR}|/build/spicy|'
     make -j4 && make install
     fi
     if [ $name == 'metron-bro-plugin-kafka' ] || [ $name == 'asd' ]; then
