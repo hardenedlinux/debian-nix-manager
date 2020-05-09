@@ -1,24 +1,33 @@
 {stdenv, fetchurl, cmake, flex, bison, openssl, libpcap, zlib, file, curl
-, libmaxminddb, gperftools, python, swig, fetchpatch, caf,  rdkafka, postgresql, fetchFromGitHub, writeScript, coreutils }:
+, libmaxminddb, gperftools, python, swig, fetchpatch, caf,  rdkafka, postgresql, fetchFromGitHub, coreutils, geoip
+,  callPackage , runCommand, git, python38, llvm, clang_9, which, pkgs
+,  PostgresqlPlugin ? false
+,  SpicyPlugin ? false
+,  KafkaPlugin ? false
+,  zeekctl ? true
+}:
 let
-  preConfigure = (import ./script.nix);
-  install_plugin = writeScript "install_plugin" (import ./install_plugin.nix { });
-  zeek-postgresql = fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).zeek-postgresql;
-  metron-bro-plugin-kafka = fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).metron-bro-plugin-kafka;
-in
-stdenv.mkDerivation rec {
+  preConfigure = (import ./script.nix {inherit coreutils pkgs;});
+
   pname = "zeek";
   version = "3.0.6";
   confdir = "/var/lib/${pname}";
-  
+
+  plugin = callPackage ./plugin.nix {
+    inherit rdkafka postgresql version confdir PostgresqlPlugin KafkaPlugin SpicyPlugin zeekctl;
+  };
+in
+stdenv.mkDerivation rec {
+  inherit pname version;
+
   src = fetchurl {
     url = "https://download.zeek.org/zeek-${version}.tar.gz";
     sha256 = "1lcanyf5gdfqr7d6cc8ygdpvmn3g94slhw2zwvixnm8w3b15dkap";
   };
 
-  nativeBuildInputs = [ cmake flex bison file ];
-  buildInputs = [ openssl libpcap zlib curl libmaxminddb gperftools python swig caf
-                   rdkafka postgresql  
+  nativeBuildInputs = [ cmake flex bison file  python38 ];
+  buildInputs = [ openssl libpcap zlib curl libmaxminddb gperftools swig caf
+                   rdkafka postgresql python llvm clang_9 git which
                 ];
 
   ZEEK_DIST = "${placeholder "out"}";
@@ -37,36 +46,26 @@ stdenv.mkDerivation rec {
     })
   ];
 
+
+  configureFlags = [
+    "--with-geoip=${geoip}"
+    "--with-python=${python}/bin"
+    "--with-python-lib=${python}/${python.sitePackages}"
+  ];
+
   cmakeFlags = [
     "-DPY_MOD_INSTALL_DIR=${placeholder "out"}/${python.sitePackages}"
     "-DENABLE_PERFTOOLS=true"
+    "-DPYTHON_EXECUTABLE=${python}/bin/python2.7"
+    "-DPYTHON_INCLUDE_DIR=${python}/include"
+    "-DPYTHON_LIBRARY=${python}/lib"
     "-DINSTALL_AUX_TOOLS=true"
     "-DINSTALL_ZEEKCTL=true"
     "-DZEEK_ETC_INSTALL_DIR=${placeholder "out"}/etc"
     "-DCAF_ROOT_DIR=${caf}"
   ];
 
-  ##issue https://github.com/zeek/zeek/issues/939
-  postFixup = ''
-        substituteInPlace $out/etc/zeekctl.cfg \
-         --replace "CfgDir = $out/etc" "CfgDir = ${confdir}/etc" \
-         --replace "SpoolDir = $out/spool" "SpoolDir = ${confdir}/spool" \
-         --replace "LogDir = $out/logs" "LogDir = ${confdir}/logs"
-        substituteInPlace $out/share/zeek/base/frameworks/logging/writers/ascii.zeek \
-         --replace "/bin/mv" "${coreutils}/bin/mv"
-
-
-         echo "scriptsdir = ${confdir}/scripts" >> $out/etc/zeekctl.cfg
-         echo "helperdir = ${confdir}/scripts/helpers" >> $out/etc/zeekctl.cfg
-         echo "postprocdir = ${confdir}/scripts/postprocessors" >> $out/etc/zeekctl.cfg
-         echo "sitepolicypath = ${confdir}/policy" >> $out/etc/zeekctl.cfg
-         ## default disable sendmail
-         echo "sendmail=" >> $out/etc/zeekctl.cfg
-         ##INSTALL ZEEK Plugins
-         bash ${install_plugin} metron-bro-plugin-kafka ${metron-bro-plugin-kafka} ${version}
-         bash ${install_plugin} zeek-postgresql ${zeek-postgresql} ${version}
-
-  '';
+  inherit (plugin) postFixup;
 
   meta = with stdenv.lib; {
     description = "Powerful network analysis framework much different from a typical IDS";

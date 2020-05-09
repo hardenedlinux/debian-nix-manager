@@ -7,18 +7,28 @@ let
 in
 pkgs.stdenv.mkDerivation {
   name = "zeek";
-  nativeBuildInputs = [ pkgs.cmake pkgs.flex pkgs.bison pkgs.file ];
-  buildInputs = [ pkgs.openssl pkgs.libpcap pkgs.zlib pkgs.curl pkgs.libmaxminddb pkgs.gperftools pkgs.python pkgs.swig pkgs.rocksdb pkgs.caf];
+  nativeBuildInputs = [ pkgs.cmake pkgs.flex pkgs.bison pkgs.file pkgs.python38 ];
+  buildInputs = [ pkgs.openssl pkgs.libpcap pkgs.zlib pkgs.curl pkgs.libmaxminddb pkgs.gperftools  pkgs.swig pkgs.rocksdb
+                  pkgs.caf pkgs.git pkgs.python
+                ];
   shellHook = ''
-  dir="zeek-3.0.3"
+ # dir="zeek-3.0.3"
+  dir="spicy"
   if [ -d "$dir" ]
   then
 	echo "Skip download Zeek src."
   else
-      wget https://old.zeek.org/downloads/zeek-3.0.3.tar.gz
-      tar -xvf zeek-3.0.3.tar.gz
-fi
-  cd zeek-3.0.3/
-  ./configure
-  '';
+      #wget https://old.zeek.org/downloads/zeek-3.0.3.tar.gz
+      git clone https://github.com/zeek/spicy.git 
+      #tar -xvf zeek-3.0.3.tar.gz
+      fi
+   # echo 'export PATH='$PATH >> path
+   # sed -i 's|${pkgs.python}/bin|${pkgs.python38}/bin/|' path
+   # export PATH="${pkgs.stdenv.lib.makeBinPath [ pkgs.python38.out ]}''${PATH:+:}$PATH"
+   # export PYTHONPATH=${pkgs.python38}/${pkgs.python38.sitePackages}
+   # bash path
+   # cd spicy
+   #rm -rf path
+
+'';
 }

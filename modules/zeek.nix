@@ -2,10 +2,9 @@
 with lib;
 let
   cfg = config.services.zeek;
-  zeek = pkgs.callPackage ../pkgs/zeek { };
   USER = builtins.getEnv "USER";
   zeek-oneshot = pkgs.writeScript "zeek-oneshot" ''
-  /usr/bin/sudo ${zeek}/bin/zeekctl deploy
+  /usr/bin/sudo ${cfg.package}/bin/zeekctl deploy
   if [ $? -eq 0 ]; then
   sleep infinity
 else
@@ -64,13 +63,13 @@ fi
    ln -sf ${NodeConf} /var/lib/zeek/etc/node.cfg
    ln -sf ${NetworkConf} /var/lib/zeek/etc/networks.cfg
    if [ ! -d "/var/lib/zeek/scripts/helpers" ];then
-   cp -r ${zeek}/share/zeekctl/scripts/helpers /var/lib/zeek/scripts/
-    cp -r ${zeek}/share/zeekctl/scripts/postprocessors /var/lib/zeek/scripts/
+   cp -r ${cfg.package}/share/zeekctl/scripts/helpers /var/lib/zeek/scripts/
+    cp -r ${cfg.package}/share/zeekctl/scripts/postprocessors /var/lib/zeek/scripts/
    fi
    cp -r ${pkgs.zeek}/share/zeek/site/local.zeek /var/lib/zeek/policy/
    for i in  run-zeek crash-diag         expire-logs        post-terminate     run-zeek-on-trace  stats-to-csv        check-config       expire-crash       make-archive-name  run-zeek           set-zeek-path             archive-log        delete-log     send-mail
    do
-   ln -sf ${zeek}/share/zeekctl/scripts/$i /var/lib/zeek/scripts/
+   ln -sf ${cfg.package}/share/zeekctl/scripts/$i /var/lib/zeek/scripts/
    done
    /usr/bin/sudo chmod 777 ${cfg.dataDir}/policy/local.zeek
    ${optionalString (cfg.privateScript != null)
@@ -84,6 +83,13 @@ in {
       description = "Whether to enable zeek.";
       default = false;
       type = types.bool;
+    };
+
+    package = mkOption {
+      description = "Zeek package to use.";
+      default = "";
+      defaultText = "zeek";
+      type = types.package;
     };
 
     dataDir = mkOption {
@@ -153,7 +159,7 @@ in {
          ${pkgs.bash}/bin/bash ${zeek-oneshot}
          '';
         ExecReload = "${pkgs.bash}/bin/bash ${zeek-oneshot}";
-        ExecStop = "/usr/bin/sudo ${zeek}/bin/zeekctl stop";
+        ExecStop = "/usr/bin/sudo ${cfg.package}/bin/zeekctl stop";
         ExecStartPre = ''
         ${pkgs.bash}/bin/bash ${PreShell}
        '';

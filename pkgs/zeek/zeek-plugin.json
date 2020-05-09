@@ -6,6 +6,13 @@
         "sha256": "1r6nxxkpcb8d8mxm5nafvaixclll1xfslnzqhadl89kzvy4z6z00"
     },
 
+    "spicy": {
+        "url" : "https://github.com/zeek/spicy",
+        "rev": "20ce8f41e184c29428950365baf5e3656082bdf7",
+        "sha256": "1gyb3yfbqagl57117nz2py2jsndnbxb8025n3vk17i09q63l3gyr",
+        "fetchSubmodules": true
+    },
+
     "IRC-Behavioral-Analysis": {
         "owner": "GTrunSec",
         "repo": "IRC-Behavioral-Analysis",

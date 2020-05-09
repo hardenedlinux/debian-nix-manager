@@ -60,7 +60,7 @@ in
     tcpreplay
     bat
     suricata
-    zeek
+    (zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; SpicyPlugin = true; })
    ];
 
   services.zeek = {
@@ -68,6 +68,7 @@ in
     standalone = true;
     interface = "enp0s3";
     listenAddress = "localhost";
+    package = zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; SpicyPlugin = true; };
     # privateScript = ''
     # @load ${config.home.homeDirectory}/.zeek-script
     # '';
