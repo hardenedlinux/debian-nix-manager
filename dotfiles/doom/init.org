@@ -816,6 +816,8 @@ FACE defaults to inheriting from default and highlight."
 (package! emacs-powerthesaurus :recipe (:host github :repo "SavchenkoValeriy/emacs-powerthesaurus"))
 (package! org-spacer.el :recipe (:host github :repo "dustinlacewell/org-spacer.el"))
 (package! org-treeusage :recipe (:host github :repo "mtekman/org-treeusage.el"))
+(package! org-superstar)
+
 #+end_src
 
 ** config Use-package

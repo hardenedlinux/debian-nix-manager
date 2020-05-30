@@ -94,6 +94,7 @@ in
     listenHost = "127.0.0.1";
     port = 9001;
     package = nixpkgs.hydra-unstable.overrideAttrs(oldAttrs:{
+      version = "2020-05-12";
       src = nixpkgs.fetchFromGitHub {
       owner = "NixOS";
       repo = "hydra";

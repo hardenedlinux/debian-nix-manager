@@ -55,13 +55,6 @@ in
           scrollkeeper
           #org
           #python
-          flycheck-cython
-          cython-mode
-          pip-requirements
-          poetry
-          nose
-          python-pytest
-          #data
           graphql-mode
           json-mode
           jsonnet-mode
@@ -69,21 +62,7 @@ in
           csv-mode
           dhall-mode
           protobuf-mode
-          #ein
-          ein
-          #go
-          go-eldoc
-          go-guru
-          go-mode
-          gorepl-mode
-          go-tag
-          go-gen-test
-          company-go
-          flycheck-golangci-lint
-          #haskell
-          haskell-mode
-          lsp-haskell
-          #latex
+
           ivy-bibtex
           company-auctex
           company-reftex
@@ -135,7 +114,6 @@ in
           org-super-agenda
           ob-mermaid
           org-starter
-          org-superstar
           helm-org-rifle
           org-wild-notifier
           plantuml-mode
