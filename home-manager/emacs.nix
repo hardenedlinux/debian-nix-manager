@@ -87,8 +87,6 @@ in
           ##vterm
           vterm
           ##magit
-          magit
-          forge
           magit-todos
           github-review
           magit-gitflow

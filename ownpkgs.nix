@@ -93,15 +93,7 @@ in
     enable = true;
     listenHost = "127.0.0.1";
     port = 9001;
-    package = nixpkgs.hydra-unstable.overrideAttrs(oldAttrs:{
-      version = "2020-05-12";
-      src = nixpkgs.fetchFromGitHub {
-      owner = "NixOS";
-      repo = "hydra";
-      rev = "d5844897da55eb874d561a2a5f10a04b151c64a8";
-      sha256 = "0f11w561k6aj6x3dcn4iharxjm9fkkwlfq7xkncfrx4sq7cvwj9f";
-      };
-    });
+    package = nixpkgs.hydra-unstable;
     max_job = 24;
     hydraURL = "http://127.0.0.1";
     notificationSender = "gtrun@hardenedlinux.org";
