@@ -55,7 +55,6 @@ in
     # ]))
     wakatime
     go
-    polipo
     nodejs
     tcpreplay
     bat
