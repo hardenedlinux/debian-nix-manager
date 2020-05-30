@@ -121,9 +121,6 @@ in
           imenu-list
           eyebrowse
           cnfonts
-          elfeed-org
-          elfeed
-          elfeed-goodies
           dimmer
           beacon
           golden-ratio

@@ -63,20 +63,5 @@ set-option -g display-panes-colour colour166 #orange
    bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
 
   '';
-
-  plugins = with tmuxPlugins; [
-    {
-      plugin = resurrect-patched;
-      extraConfig = /* tmux */ ''
-          set -g @resurrect-capture-pane-contents "on"
-          set -g @resurrect-processes "mosh-client man '~yarn watch'"
-          ${optionalString isLinux /* tmux */ ''
-          set -g @resurrect-save-command-strategy "cmdline"
-          ''}
-          set -g @resurrect-process-match-strategy "basename"
-          set -g @resurrect-strategy-nvim "session"
-        '';
-    }
-  ];
- };
+   };
 }

@@ -32,7 +32,7 @@ in
                               ag
                               fzf
                               jre_headless
-                              certbot
+                              #certbot
                               aria2
                               gotty
                               nettools

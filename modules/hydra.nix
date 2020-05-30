@@ -236,7 +236,7 @@ in
             Environment = [
               ''"PAHT=${cfg.package}/bin"''
               ''"PGPASSFILE=/var/lib/hydra/pgpass"''
-              ''"HYDRA_DBI=dbi:Pg:dbname=hydra;host=localhost;user=hydra;password=${import /var/lib/hydra/pgpass}"''
+              ''"HYDRA_DBI=dbi:Pg:dbname=hydra;host=localhost;user=hydra;password=${config.password.nsm-postgresql}"''
               ''"HYDRA_CONFIG=${baseDir}/hydra.conf"''
             ];
           };
@@ -282,7 +282,7 @@ in
           { ExecStart = "@${cfg.package}/bin/hydra-evaluator hydra-evaluator";
             Restart = "always";
             Environment = [
-              ''"HYDRA_DBI=dbi:Pg:dbname=hydra;host=localhost;user=hydra;password=${import /var/lib/hydra/pgpass}"''
+              ''"HYDRA_DBI=dbi:Pg:dbname=hydra;host=localhost;user=hydra;password=${config.password.nsm-postgresql}"''
               ''"PATH=${makeBinPath [ pkgs.nettools pkgs.jq cfg.package ]}"''
             ];
 
