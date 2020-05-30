@@ -53,7 +53,7 @@ stty -ixon
 bindkey '^s' pet-select
 
 ##proxy
-if [ "$(whoami)" = "nsm" ]; then
+if [ "$(whoami)" = "debian" ]; then
         export  http_proxy=http://127.0.0.1:8123
         export  https_proxy=http://127.0.0.1:8123
 fi
