@@ -107,7 +107,6 @@ in
           #helm-nixos-options
           ##vterm
           vterm
-          emacs-libvterm
           ##magit
           magit
           forge
