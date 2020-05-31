@@ -5,7 +5,7 @@ let
   home_directory = builtins.getEnv "HOME";
   ownpkgs_git = builtins.fetchTarball {
     url = "https://github.com/GTrunSec/nixpkgs/tarball/39247f8d04c04b3ee629a1f85aeedd582bf41cac";
-     sha256 = "1q7asvk73w7287d2ghgya2hnvn01szh65n8xczk4x2b169c5rfv0";
+    sha256 = "1q7asvk73w7287d2ghgya2hnvn01szh65n8xczk4x2b169c5rfv0";
   };
 
   ownpkgs = (import ownpkgs_git) { };
@@ -60,7 +60,7 @@ in
     bat
     suricata
     (zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; SpicyPlugin = true; })
-   ];
+  ];
 
   services.zeek = {
     enable = true;
@@ -124,7 +124,9 @@ in
 
 
   services.nix-serve = {
-  enable = true;
-  secretKeyFile = "${home_directory}/.config/key/cache-priv-key.pem";
+    enable = true;
+    port = 8301;
+    bindAddress = "192.168.217.10";
+    secretKeyFile = "${home_directory}/.config/key/cache-priv-key.pem";
   };
 }

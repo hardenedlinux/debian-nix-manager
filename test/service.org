@@ -199,17 +199,24 @@ systemctl --user status nix-serve.service
 #+RESULTS:
 #+begin_example
 ● nix-serve.service
-   Loaded: loaded (/nix/store/wcsjnmgxl375znvxqhaz2z02cia8rx6k-nix-serve.service/nix-serve.service; linked; vendor preset: enabled)
-   Active: active (running) since Fri 2020-04-03 09:08:38 HKT; 20h ago
- Main PID: 8187 (starman master )
-   CGroup: /user.slice/user-1001.slice/user@1001.service/nix-serve.service
-           ├─8187 starman master /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
-           ├─8207 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
-           ├─8208 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
-           ├─8209 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
-           ├─8210 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
-           └─8211 starman worker /nix/store/q3szgmk4rmf2l6fa403xpvq57yf1f7gh-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:5000
+   Loaded: loaded (/nix/store/bnd7wwnp99h2pp1agqv4v2hip73jbwx7-nix-serve.service/nix-serve.service; linked; vendor preset: enabled)
+   Active: active (running) since Sun 2020-05-31 16:01:05 HKT; 6s ago
+ Main PID: 3188 (starman master )
+   CGroup: /user.slice/user-1000.slice/user@1000.service/nix-serve.service
+           ├─3188 starman master /nix/store/6sqmqjabn0cmn67jq8h47z69xlv9nk39-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:8001
+           ├─3191 starman worker /nix/store/6sqmqjabn0cmn67jq8h47z69xlv9nk39-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:8001
+           ├─3192 starman worker /nix/store/6sqmqjabn0cmn67jq8h47z69xlv9nk39-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:8001
+           ├─3193 starman worker /nix/store/6sqmqjabn0cmn67jq8h47z69xlv9nk39-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:8001
+           ├─3194 starman worker /nix/store/6sqmqjabn0cmn67jq8h47z69xlv9nk39-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:8001
+           └─3195 starman worker /nix/store/6sqmqjabn0cmn67jq8h47z69xlv9nk39-nix-serve-0.2-e4675e3/libexec/nix-serve/nix-serve.psgi --listen 0.0.0.0:8001
 #+end_example
+-key
+#+begin_src sh :async t :exports both :results output
+mkdir ~/.config/key
+cd ~/.config/key
+nix-store --generate-binary-cache-key http://221.4.35.244:8301 cache-priv-key.pem cache-pub-key.pem
+#+end_src
+
 * PostgreSQL
 #+begin_src sh :async t :exports both :results output
 systemctl --user status postgresql.service
