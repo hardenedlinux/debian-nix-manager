@@ -54,6 +54,7 @@ in
            #editon
           scrollkeeper
           #org
+          lsp-haskell
           #python
           graphql-mode
           json-mode
@@ -70,10 +71,6 @@ in
           auctex
           adaptive-wrap
           latex-preview-pane
-          #julia
-          julia-mode
-          julia-repl
-          lsp-julia
           #markdown
           markdown-mode
           markdown-toc
