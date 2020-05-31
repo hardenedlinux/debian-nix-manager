@@ -106,6 +106,7 @@ in
   services.vast = {
     enable = true;
     endpoint = "localhost:4000";
+    package = vast;
     #db-directory = "./vast/vast.db";
     #log-directory = "./vast/vast.log";
   };
