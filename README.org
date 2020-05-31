@@ -75,9 +75,20 @@ set substituters to ~~/.config/nix/nix.conf~
 substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org
 #+end_src
 
+
 * Build
 #+begin_src sh :async t :exports both :results output
 home-manager switch
+#+end_src
+- set priority for ~home-manager~
+#+begin_src sh :async t :exports both :results output
+ nix-env --set-flag priority 10 home-manager
+ ##setting flag on 'home-manager-2020-03-17'
+#+end_src
+
+- set ~zsh~ as default shell
+#+begin_src sh :async t :exports both :results output
+ chsh --shell /home/debian/.nix-profile/bin/zsh debian
 #+end_src
 
 * Install cachix
