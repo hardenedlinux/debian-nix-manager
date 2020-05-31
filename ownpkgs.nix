@@ -91,8 +91,8 @@ in
   
   services.hydra = {
     enable = true;
-    listenHost = "127.0.0.1";
-    port = 9001;
+    listenHost = "192.168.217.10";
+    port = 8300;
     package = nixpkgs.hydra-unstable;
     max_job = 24;
     hydraURL = "http://127.0.0.1";
