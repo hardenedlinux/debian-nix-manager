@@ -18,6 +18,13 @@ in
         '';
       };
 
+      package = mkOption {
+        type = types.package;
+        defaultText = "pkgs.nix-serve";
+        description = "The nix-serve.";
+      };
+
+
       bindAddress = mkOption {
         type = types.str;
         default = "0.0.0.0";
@@ -71,7 +78,7 @@ in
           ''"PATH=${pkgs.nix}/bin"''
           ''"NIX_SECRET_KEY_FILE=${cfg.secretKeyFile}"''
           ];
-        ExecStart = "${pkgs.nix-serve}/bin/nix-serve " +
+        ExecStart = "${cfg.package}/bin/nix-serve " +
           "--listen ${cfg.bindAddress}:${toString cfg.port} ${cfg.extraParams}";
         # User = "nix-serve";
         # Group = "nogroup";

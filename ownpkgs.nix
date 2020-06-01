@@ -126,6 +126,7 @@ in
   services.nix-serve = {
     enable = true;
     port = 8301;
+    package = pkgs.nix-serve;
     bindAddress = "192.168.217.10";
     secretKeyFile = "${home_directory}/.config/key/cache-priv-key.pem";
   };
