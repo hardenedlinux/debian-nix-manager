@@ -21,6 +21,7 @@ in
     ./home-manager/git.nix
     ./home-manager/zsh.nix
     ./home-manager/ssh.nix
+    ./hosts.nix
     ./pkgs/network
     ./pkgs/zeek-pkgs.nix
     ./pkgs/hardenedlinux.nix

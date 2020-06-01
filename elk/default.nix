@@ -7,6 +7,6 @@
   ];
 
   home.file.".debian-nsm-password".text = ''
-  ${config.password.nsm-postgresql}
+  ${config.hosts.compiler.username}
 '';
 }

@@ -95,7 +95,7 @@ in
     port = 8300;
     package = nixpkgs.hydra-unstable;
     max_job = 24;
-    hydraURL = "http://127.0.0.1";
+    hydraURL = "http://192.168.216.10";
     notificationSender = "gtrun@hardenedlinux.org";
     useSubstitutes = true;
     logo = "${home_directory}/.config/nixpkgs/img/logo_no_background_color_white.png";

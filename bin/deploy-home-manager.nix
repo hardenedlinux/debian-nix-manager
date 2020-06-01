@@ -23,10 +23,10 @@ mkdir_authdir()
     sudo mkdir /var/lib/kibana
     sudo chown $USER /var/lib/kibana
 
-    sudo mkdir /var/lib/hydra
-    sudo chown $USER /var/lib/hydra
-
-
+    # sudo mkdir /var/lib/hydra
+    # sudo chown $USER /var/lib/hydra
+    sudo mkdir /nix/var/nix/gcroots/hydra
+    sudo chown $USER /nix/var/nix/gcroots/hydra
 }
 
 start_service()
