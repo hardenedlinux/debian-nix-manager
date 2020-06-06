@@ -1,37 +1,26 @@
 {config, pkgs, lib, ...}:
 let
-  nixpkgs = (import <nixpkgs> { config.allowUnfree = true; config.ignoreCollisions = true;});
-  unstable = (import <unstable> { });
   home_directory = builtins.getEnv "HOME";
-  ownpkgs_git = builtins.fetchTarball {
-    url = "https://github.com/GTrunSec/nixpkgs/tarball/39247f8d04c04b3ee629a1f85aeedd582bf41cac";
-    sha256 = "1q7asvk73w7287d2ghgya2hnvn01szh65n8xczk4x2b169c5rfv0";
-  };
-
-  ownpkgs = (import ownpkgs_git) { };
-  zeek = pkgs.callPackage ./pkgs/zeek { };
-  vast = ownpkgs.callPackage ./pkgs/vast { };
-  pf-ring = ownpkgs.callPackage ./pkgs/network/pf_ring.nix { };
-
+  hydra-pkgs = import (builtins.fetchTarball "https://github.com/nixos/nixpkgs/tarball/a18eaa7b93a05657b64a386c7f535e3ea25ec77a"){};
 in
 {
   imports = [
-    ./modules/vast.nix
-    ./modules/osquery
-    ./modules/elastic.nix
-    ./modules/postgresql.nix
-    ./modules/nix-serve.nix
-    ./modules/hydra.nix
-    ./modules/zookeeper.nix
-    ./modules/apache-kakfa.nix
-    ./modules/kibana.nix
-    ./modules/logstash.nix
-    ./modules/netdata.nix
-    ./modules/zeek.nix
-    ./elk
+    ../modules/vast.nix
+    ../modules/osquery
+    ../modules/elastic.nix
+    ../modules/postgresql.nix
+    ../modules/nix-serve.nix
+    ../modules/hydra.nix
+    ../modules/zookeeper.nix
+    ../modules/apache-kakfa.nix
+    ../modules/kibana.nix
+    ../modules/logstash.nix
+    ../modules/netdata.nix
+    ../modules/zeek.nix
+    ../elk
   ];
 
-  home.packages = with ownpkgs; [
+  home.packages = with pkgs; [
     vast
     pf-ring
     #emacs eaf
@@ -59,7 +48,7 @@ in
     tcpreplay
     bat
     suricata
-    (zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; SpicyPlugin = true; })
+    (zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true;})
   ];
 
   services.zeek = {
@@ -67,7 +56,7 @@ in
     standalone = true;
     interface = "enp0s3";
     listenAddress = "localhost";
-    package = zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; SpicyPlugin = true; };
+    package = pkgs.zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; };
     # privateScript = ''
     # @load ${config.home.homeDirectory}/.zeek-script
     # '';
@@ -93,7 +82,7 @@ in
     enable = true;
     listenHost = "192.168.217.10";
     port = 8300;
-    package = nixpkgs.hydra-unstable;
+    package = hydra-pkgs.hydra-unstable;
     max_job = 24;
     hydraURL = "http://192.168.216.10";
     notificationSender = "gtrun@hardenedlinux.org";
@@ -106,7 +95,7 @@ in
   services.vast = {
     enable = true;
     endpoint = "localhost:4000";
-    package = vast;
+    package = pkgs.vast;
     #db-directory = "./vast/vast.db";
     #log-directory = "./vast/vast.log";
   };

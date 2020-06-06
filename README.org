@@ -19,7 +19,7 @@ wget https://github.com/hardenedlinux/NSM-data-analysis/releases/download/nix/ni
 sudo dpkg -i nix_2.3_master_e3eecb5_amd64.deb
 sudo ln -s /opt/nix-multiuser/nix/bin/nix* /usr/local/bin
 
-nix-channel --add https://github.com/NixOS/nixpkgs/archive/a18eaa7b93a05657b64a386c7f535e3ea25ec77a.tar.gz nixpkgs
+nix-channel --add https://github.com/GTrunSec/nixpkgs/archive/fde7ed20222a3a3661d80d0a81dcae2de067baa7.tar.gz nixpkgs
 nix-channel --update
 export NIX_PATH="$HOME/.nix-defexpr/channels"
 export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH

@@ -29,7 +29,7 @@
      sha256 = "1448d333vny2gq4jaldl9zy62jy81ih5166l0aak3p49vv8g38bz";
    };
 
-   ".config/pet".source = ./dotfiles/pet;
+   ".config/pet".source = ../dotfiles/pet;
 
    ".wakatime.cfg".text = ''
     [settings]

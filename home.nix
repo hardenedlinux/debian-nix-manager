@@ -3,27 +3,29 @@ let
   home_directory = builtins.getEnv "HOME";
   log_directory = "${home_directory}/logs";
   #sysconfig = (import <nixpkgs/nixos> {}).config;
-
 in
 {
+  nixpkgs.overlays = [
+    (import ./nix/packages-overlay.nix)
+  ];
   # Let Home Manager install and manage itself.
   programs.home-manager = {
     enable = true;
     path = "${home_directory}/.nix-defexpr/channels/home-mananger";
   };
   imports = [
-    ./home-packages.nix
-    ./ownpkgs.nix
-    ./home-file.nix
+    ./home-manager/home-packages.nix
+    ./home-manager/nsm-modules.nix
+    ./home-manager/home-file.nix
     #./home-manager/fish.nix
     ./home-manager/emacs.nix
     ./home-manager/tmux.nix
     ./home-manager/git.nix
     ./home-manager/zsh.nix
     ./home-manager/ssh.nix
-    ./hosts.nix
+    ./home-manager/hosts.nix
     ./pkgs/network
-    ./pkgs/zeek-pkgs.nix
+    ./pkgs/zeek/zeek-pkgs.nix
     ./pkgs/hardenedlinux.nix
   ]; #++ lib.optionals sysconfig.services.xserver.enable [
     #./home-manager/desktop.nix ];
