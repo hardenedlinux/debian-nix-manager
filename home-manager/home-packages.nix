@@ -4,7 +4,7 @@ let
      deploy-home-manager = pkgs.writeScriptBin "deploy-home-manager" (import ../bin/deploy-home-manager.nix { });
 in
 {
-     home.packages = with pkgs;[ curl
+   home.packages = with pkgs;[ curl
                                  clean-nix-store
                                  deploy-home-manager
                                  system-sendmail

@@ -35,13 +35,8 @@ in
       grip
       pyqtwebengine
       pyinotify
-
       ##owner
     ]))
-    
-    # (emacsPackages.emacsWithPackages (with pkgs.emacsPackagesNg; [
-    #   emacs-libvterm
-    # ]))
     wakatime
     go
     nodejs

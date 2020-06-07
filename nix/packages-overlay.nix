@@ -11,4 +11,5 @@ in
   vast = super.callPackage "${nixpkgs-hardenedlinux}/pkgs/vast" { };
   pf-ring = super.callPackage ../pkgs/network/pf_ring.nix { };
   osquery = super.callPackages ../pkgs/osquery { };
+  emacs = super.callPackage ../pkgs/nix-emacs-ci/emacs.nix { version = "28.0.50"; sha256 = "0idd8k1lsk4qsh6jywm72rrdpcbdirsg5d1wdvsqfv1b336gyb3r"; withAutoReconf = true; };
 }

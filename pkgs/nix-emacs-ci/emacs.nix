@@ -3,6 +3,7 @@
 , libcxxStdenv, llvmPackages, lib, fetchurl, ncurses, autoreconfHook, texinfo
 , pkgconfig, libxml2, gettext, gnutls
 , withAutoReconf ? false
+, siteStart ? ./site-start.el
 }:
 
 # A very minimal version of https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/emacs/default.nix
@@ -10,6 +11,7 @@ let stdenv = libcxxStdenv;
 in
 stdenv.mkDerivation rec {
   name = "emacs-${version}${versionModifier}";
+  version = "28.0.50";
   versionModifier = "";
 
   src = fetchurl {
@@ -51,7 +53,11 @@ stdenv.mkDerivation rec {
     substituteInPlace src/Makefile.in --replace 'LC_ALL=C $(RUN_TEMACS)' 'env -i LC_ALL=C $(RUN_TEMACS)'
   '';
   postInstall = ''
+    cp ${siteStart} $out/share/emacs/site-lisp/site-start.el
+    $out/bin/emacs --batch -f batch-byte-compile $out/share/emacs/site-lisp/site-start.el
 
+    rm -rf $out/var
+    rm -rf $out/share/emacs/${version}/site-lisp
  '';
   installTargets = "tags install";
 
