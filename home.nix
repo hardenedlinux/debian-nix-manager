@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  home_directory = builtins.getEnv "HOME";
-  log_directory = "${home_directory}/logs";
+  log_directory = "${config.home.homeDirectory}/logs";
   #sysconfig = (import <nixpkgs/nixos> {}).config;
 in
 {
@@ -11,7 +10,7 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager = {
     enable = true;
-    path = "${home_directory}/.nix-defexpr/channels/home-mananger";
+    path = "${config.home.homeDirectory}/.nix-defexpr/channels/home-mananger";
   };
   imports = [
     ./home-manager/home-packages.nix

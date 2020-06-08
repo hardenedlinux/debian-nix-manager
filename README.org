@@ -15,7 +15,7 @@
 #+EXCLUDE_TAGS: noexport
 * Install nix
 #+begin_src sh :async t :exports both :results output
-wget https://github.com/hardenedlinux/NSM-data-analysis/releases/download/nix/nix_2.3_master_e3eecb5_amd64.deb
+wget https://github.com/hardenedlinux/nixpkgs-hardenedlinux//releases/download/nix/nix_2.3_master_e3eecb5_amd64.deb
 sudo dpkg -i nix_2.3_master_e3eecb5_amd64.deb
 sudo ln -s /opt/nix-multiuser/nix/bin/nix* /usr/local/bin
 
@@ -48,7 +48,7 @@ mv  ~/.config/nixpkgs/modules/password/password-example.json  ~/.config/nixpkgs/
 
 Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/test/.nix-profile/bin"
 #+END_EXAMPLE
-- set User's `NOPASSWORD` to `sudoers`
+- set User's ~NOPASSWORD~ to ~sudoers~
 
 
 #+begin_src sh :async t :exports both :results output
@@ -70,26 +70,35 @@ nix-channel --update
 - For China's region users
 
 
-set substituters to ~~/.config/nix/nix.conf~
+set substituters to ~/.config/nix/nix.conf~
 
 #+begin_src sh :async t :exports both :results output
 substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org
 #+end_src
 
-
 * Build
 #+begin_src sh :async t :exports both :results output
 home-manager switch
 #+end_src
+
 - set priority for ~home-manager~
+
+
 #+begin_src sh :async t :exports both :results output
  nix-env --set-flag priority 10 home-manager
  ##setting flag on 'home-manager-2020-03-17'
 #+end_src
 
 - set ~zsh~ as default shell
+
+
 #+begin_src sh :async t :exports both :results output
  chsh --shell /home/debian/.nix-profile/bin/zsh debian
+#+end_src
+
+** Or using hardenedlinux Hydra CI binary cache speed your building process
+#+begin_src sh :async t :exports both :results output
+home-manager switch --option substituters "https://cache.nixos.org http://221.4.35.244:8301" --option trusted-public-keys "221.4.35.244:3ehdeUIC5gWzY+I7iF3lrpmxOMyEZQbZlcjOmlOVpeo="
 #+end_src
 
 * Install cachix
@@ -102,12 +111,12 @@ cachix use nsm-data-analysis
 sudo systemctl restart nix-daemon.service
 #+end_src
 
-** Build NSM-data-analysis
-clone https://github.com/hardenedlinux/NSM-data-analysis
+** Build nixpkgs-hardenedlinux
+clone https://github.com/hardenedlinux/nixpkgs-hardenedlinux
 
 #+begin_src sh :async t :exports both :results output
-git clone https://github.com/hardenedlinux/NSM-data-analysis
-cd NSM-data-analysis/
+git clone https://github.com/hardenedlinux/nixpkgs-hardenedlinux
+cd nixpkgs-hardenedlinux/
 nix-build --option substituters "https://cache.nixos.org https://nsm-data-analysis.cachix.org"
 #+end_src
 
