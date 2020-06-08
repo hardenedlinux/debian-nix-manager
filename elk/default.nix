@@ -7,6 +7,6 @@
   ];
 
   home.file.".debian-nsm-password".text = ''
-  ${config.hosts.compiler.username}
+  ${config.host_1.username}
 '';
 }

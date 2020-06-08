@@ -4,7 +4,7 @@ let
   machine = (builtins.fromJSON (builtins.readFile ./hosts-resource.json)).host_1;
 in
 {
-  options.hosts.compiler = with lib; {
+  options.host_1 = with lib; {
      username = mkOption {
       type = types.str;
       default = machine.username;
@@ -14,7 +14,7 @@ in
      interface_1.ip = mkOption {
       type = types.str;
       default = machine.interface_1.ip;
-      description = "hosts username";
+      description = "hosts interface for Zeek";
     };
 
      interface_1.name = mkOption {

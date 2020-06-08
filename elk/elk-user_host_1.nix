@@ -10,7 +10,7 @@
 in
 {
   config = with lib; mkMerge [
-    (mkIf (config.home.username == "debian") {
+    (mkIf (config.home.username == config.host_1.username ) {
     services.logstash = {
     enable = true;
     package = pkgs.logstash7;

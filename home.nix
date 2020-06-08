@@ -15,7 +15,8 @@ in
   };
   imports = [
     ./home-manager/home-packages.nix
-    ./home-manager/nsm-modules.nix
+    ./modules
+    ./elk
     ./home-manager/home-file.nix
     #./home-manager/fish.nix
     ./home-manager/emacs.nix
