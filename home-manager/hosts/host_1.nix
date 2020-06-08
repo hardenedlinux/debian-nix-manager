@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
-  machine = (builtins.fromJSON (builtins.readFile ./hosts-resource.json)).debian;
+  #for compiler
+  machine = (builtins.fromJSON (builtins.readFile ./hosts-resource.json)).host_1;
 in
 {
   options.hosts.compiler = with lib; {

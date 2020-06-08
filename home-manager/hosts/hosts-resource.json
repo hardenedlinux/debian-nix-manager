@@ -1,5 +1,5 @@
 {
-    "debian": {
+    "host_1": {
         "username": "debian",
         "interface_1": {
             "ip": "192.168.217.10",
@@ -7,7 +7,8 @@
         }
     },
 
-    "test": {
+    "host_2": {
+        "username": "test",
         "interface_1": {
             "ip": "10.0.2.15",
             "name": "enp0s3"

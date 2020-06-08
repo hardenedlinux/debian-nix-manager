@@ -23,7 +23,7 @@ in
     ./home-manager/git.nix
     ./home-manager/zsh.nix
     ./home-manager/ssh.nix
-    ./home-manager/hosts.nix
+    ./home-manager/hosts
     ./pkgs/network
     ./pkgs/zeek/zeek-pkgs.nix
     ./pkgs/hardenedlinux.nix

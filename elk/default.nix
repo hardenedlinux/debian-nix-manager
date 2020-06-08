@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
-    ./elk-user_test.nix
-    ./elk-user_nsm.nix
+    ./elk-user_host_2.nix #my testhost
+    ./elk-user_host_1.nix #compiler host
     ../modules/password/password.nix
   ];
 
