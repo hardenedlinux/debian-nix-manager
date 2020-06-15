@@ -16,3 +16,13 @@
 
 
 * ☞ TODO [#A] hydra CI <2020-06-07 Sun>
+
+* ✔ DONE cve-2020-13777 :zeek:
+:PROPERTIES:
+:CATEGORY: patch
+:END:
+
+:LOGBOOK:
+
+CLOCK: [2020-06-12 Sat 13:06]--[2020-06-12 Sat 13:49] =>  0:43
+:END:

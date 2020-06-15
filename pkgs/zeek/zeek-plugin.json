@@ -39,5 +39,12 @@
         "repo": "spl-spt",
         "rev": "1e33d19c70e9827ccf3c1444c20c41f94d7abd25",
         "sha256": "1vcgsxb0kd1mz7cyg3088sh67kd1wmkn3xmpyjsbygn0kfafzfx8"
+    },
+
+    "zeek-EternalSafety": {
+        "owner": "lexibrent",
+        "repo": "zeek-EternalSafety",
+        "rev": "5bfaa3f827c614b2979c4282c40cd03487a32395",
+        "sha256": "05s4d8anshvrpjcs9iwl7asx1236v4zbc7rm7xk1vygj0zkvm79i"
     }
 }
