@@ -2,7 +2,7 @@
 let
   hardenedlinux-zeek-script-src = builtins.fetchGit {
     url = https://github.com/hardenedlinux/hardenedlinux-zeek-script;
-    rev = "4a7a16a62f6beff872e5bd3d7bcf4802c036103a";
+    rev = "3d83134afda11e49b0bb99a7dac57e13df5127fb";
     ref = "master";
   };
 
