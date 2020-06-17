@@ -67,6 +67,9 @@ fi
     cp -r ${cfg.package}/share/zeekctl/scripts/postprocessors /var/lib/zeek/scripts/
    fi
    cp -r ${pkgs.zeek}/share/zeek/site/local.zeek /var/lib/zeek/policy/
+   ##https://github.com/dopheide-esnet/zeek-known-hosts-with-dns
+   sed -i 's|@load protocols/conn/known-hosts|##@load protocols/conn/known-hosts|' /var/lib/zeek/policy/local.zeek
+
    for i in  run-zeek crash-diag         expire-logs        post-terminate     run-zeek-on-trace  stats-to-csv        check-config       expire-crash       make-archive-name  run-zeek           set-zeek-path             archive-log        delete-log     send-mail
    do
    ln -sf ${cfg.package}/share/zeekctl/scripts/$i /var/lib/zeek/scripts/

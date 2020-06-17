@@ -45,12 +45,12 @@ systemctl --user status apache-kafka.service
 
 #+RESULTS:
 : ● apache-kafka.service
-:    Loaded: loaded (/nix/store/x0f9ims6kdv5r9ry0whxb8ivx2lg554c-apache-kafka.service/apache-kafka.service; linked; vendor preset: enabled)
-:    Active: active (running) since Mon 2020-04-13 01:09:24 EDT; 4min 44s ago
-:  Main PID: 8480 (bash)
+:    Loaded: loaded (/nix/store/2kqpqnq3af8gilasnhcxsrxap1230mkr-apache-kafka.service/apache-kafka.service; linked; vendor preset: enabled)
+:    Active: active (running) since Wed 2020-06-17 09:52:47 HKT; 20s ago
+:  Main PID: 32257 (bash)
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/apache-kafka.service
-:            ├─8480 /nix/store/ffli6m23501dkiznwlkf6n4xvrj02snr-bash-4.4-p23/bin/bash /nix/store/kqmvgwlrzm61x3lrd0wni9f2fnwafpc1-run-kafka
-:            └─8481 /nix/store/i93m7bna9jmn4xrqjaiwvdzimwkzwnzi-openjdk-8u242-b08-jre/bin/java -cp /nix/store/rh6hhfg1mqv5ddpdjkm7n3fm4xisbxmx-apache-kafka-2.12-2.4.0/libs/* -Dlog4j.configuration=file:/nix/store/bz0bs6sr5a96zdqhagswmyg0k2kspg1i-log4j.properties -server -Xmx1G -Xms1G -XX:+UseCompressedOops -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true kafka.Kafka /nix/store/lh4mzn03yp55659frc4rrb5anngygjfl-server.properties
+:            ├─32257 /nix/store/n313xks5ym0s0a5v8a5285rmnmvy6ms9-bash-4.4-p23/bin/bash /nix/store/48p5hznfyvxcnhpng3lrng95fbf28l6v-run-kafka
+:            └─32259 /nix/store/j03rf32h0a71cqr48nqs9i19gv0hz444-openjdk-8u242-b08-jre/bin/java -cp /nix/store/zfnncgaj0slc1m50gpngy5pqv9djav6a-apache-kafka-2.12-2.4.0/libs/* -Dlog4j.configuration=file:/nix/store/xyn24fbkziw69cqbrzaim18gjc1c0fsh-log4j.properties -server -Xmx1G -Xms1G -XX:+UseCompressedOops -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true kafka.Kafka /nix/store/b585aypwj5x9q6dazb43i5fnqzxsrryl-server.properties
 ** Zookeeper
 #+begin_src sh :async t :exports both :results output
 systemctl --user start  zookeeper.service
@@ -64,12 +64,13 @@ systemctl --user status zookeeper.service
 
 #+RESULTS:
 : ● zookeeper.service
-:    Loaded: loaded (/nix/store/k64m5p2qk5dy1n47i1w20rvfi76x404i-zookeeper.service/zookeeper.service; linked; vendor preset: enabled)
-:    Active: active (running) since Mon 2020-04-13 01:05:15 EDT; 8min ago
-:  Main PID: 5021 (bash)
+:    Loaded: loaded (/nix/store/23lf50r0xxg5hf9apkry60ccjxxpiz6n-zookeeper.service/zookeeper.service; linked; vendor preset: enabled)
+:    Active: active (running) since Wed 2020-06-17 09:52:28 HKT; 31s ago
+:   Process: 31806 ExecStartPre=/usr/bin/echo 0 > /var/lib/zookeeper/myid (code=exited, status=0/SUCCESS)
+:  Main PID: 31807 (bash)
 :    CGroup: /user.slice/user-1000.slice/user@1000.service/zookeeper.service
-:            ├─5021 /nix/store/ffli6m23501dkiznwlkf6n4xvrj02snr-bash-4.4-p23/bin/bash /nix/store/cpysmwcchzagmblqq54g9cgsshvpy8hg-run-zookeeper
-:            └─5023 /nix/store/i93m7bna9jmn4xrqjaiwvdzimwkzwnzi-openjdk-8u242-b08-jre/bin/java -cp /nix/store/4v5mikavfdcr3qjxkfcxap6nrp8sjd73-zookeeper-3.4.13/lib/*:/nix/store/4v5mikavfdcr3qjxkfcxap6nrp8sjd73-zookeeper-3.4.13/zookeeper-3.4.13.jar:/nix/store/mczzrx3slgpyv6jx3wx5x7f3m6fmlclc-zookeeper-conf -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=true -Dzookeeper.datadir.autocreate=false -Djava.net.preferIPv4Stack=true org.apache.zookeeper.server.quorum.QuorumPeerMain /nix/store/mczzrx3slgpyv6jx3wx5x7f3m6fmlclc-zookeeper-conf/zoo.cfg
+:            ├─31807 /nix/store/n313xks5ym0s0a5v8a5285rmnmvy6ms9-bash-4.4-p23/bin/bash /nix/store/8lxdygjyd0rpy289cv5543j7y8r8q70f-run-zookeeper
+:            └─31809 /nix/store/j03rf32h0a71cqr48nqs9i19gv0hz444-openjdk-8u242-b08-jre/bin/java -cp /nix/store/3753aissfijlblcngb9i0bw1v0f15kpb-zookeeper-3.4.13/lib/*:/nix/store/3753aissfijlblcngb9i0bw1v0f15kpb-zookeeper-3.4.13/zookeeper-3.4.13.jar:/nix/store/8hlksrmj542hxr1y9f95ax5m1hy6x24n-zookeeper-conf -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=true -Dzookeeper.datadir.autocreate=false -Djava.net.preferIPv4Stack=true org.apache.zookeeper.server.quorum.QuorumPeerMain /nix/store/8hlksrmj542hxr1y9f95ax5m1hy6x24n-zookeeper-conf/zoo.cfg
 
 * Elastic
 ** Elastic 5x

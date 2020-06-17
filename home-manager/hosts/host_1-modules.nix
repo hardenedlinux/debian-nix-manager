@@ -8,7 +8,7 @@ in
       services.zeek = {
         enable = true;
         standalone = true;
-        package = pkgs.zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; Http2Plugin = true;};
+        package = pkgs.zeek;
         interface = config.host_1.interface_1.name;
         listenAddress = config.host_1.interface_1.ip;
         #Tue Jun 16 11:57:31 HKT 2020'

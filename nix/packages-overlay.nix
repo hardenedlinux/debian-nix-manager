@@ -7,7 +7,7 @@ let
   };
 in
 {
-  zeek = super.callPackage "${nixpkgs-hardenedlinux}/pkgs/zeek" { };
+  zeek = super.callPackage "${nixpkgs-hardenedlinux}/pkgs/zeek" {KafkaPlugin = true; PostgresqlPlugin = true; Http2Plugin = true;};
   vast = super.callPackage "${nixpkgs-hardenedlinux}/pkgs/vast" { };
   pf-ring = super.callPackage ../pkgs/network/pf_ring.nix { };
   osquery = super.callPackages ../pkgs/osquery { };
