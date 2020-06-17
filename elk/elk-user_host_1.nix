@@ -26,7 +26,7 @@ in
       services.kibana = {
         enable = true;
         package = pkgs.kibana7;
-        # listenAddress = "10.220.170.113";
+        listenAddress = "localhost";
         elasticsearch.hosts = [ "http://localhost:9200" ];
       };
 

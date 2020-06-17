@@ -59,7 +59,6 @@ in
                                tcpreplay
                                bat
                                suricata
-                               (zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true;})
-
+                               (zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; Http2Plugin = true;})
                              ];
 }

@@ -25,7 +25,7 @@ in
     ./home-manager/ssh.nix
     ./home-manager/hosts
     ./pkgs/network
-    ./pkgs/zeek/zeek-pkgs.nix
+    ./pkgs/zeek
     ./pkgs/hardenedlinux.nix
   ]; #++ lib.optionals sysconfig.services.xserver.enable [
     #./home-manager/desktop.nix ];

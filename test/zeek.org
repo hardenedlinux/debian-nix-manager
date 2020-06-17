@@ -21,21 +21,22 @@ systemctl --user status zeek.service
 #+RESULTS:
 #+begin_example
 ● zeek.service
-   Loaded: loaded (/nix/store/9jjfd5xp4dv8rh800dj92bqv212iqij9-zeek.service/zeek.service; linked; vendor preset: enabled)
-   Active: active (running) since Fri 2020-05-01 03:39:24 EDT; 58s ago
-  Process: 8187 ExecStartPre=/nix/store/kgp3vq8l9yb8mzghbw83kyr3f26yqvsz-bash-4.4-p23/bin/bash /nix/store/0180i23kdirmvqcrqcdky57bqfygpv2q-Pre-runZeek (code=exited, status=0/SUCCESS)
- Main PID: 8204 (bash)
+   Loaded: loaded (/nix/store/qmvgs48mhw3aqhqlnvp2j2pcnfakgpaz-zeek.service/zeek.service; linked; vendor preset: enabled)
+   Active: active (running) since Wed 2020-06-17 09:08:26 HKT; 12s ago
+  Process: 53003 ExecStartPre=/nix/store/n313xks5ym0s0a5v8a5285rmnmvy6ms9-bash-4.4-p23/bin/bash /nix/store/rib5aak2ad8gkhl50i2f0nqwlndijxy6-Pre-runZeek (code=exited, status=0/SUCCESS)
+ Main PID: 53032 (bash)
    CGroup: /user.slice/user-1000.slice/user@1000.service/zeek.service
-           ├─8204 /nix/store/kgp3vq8l9yb8mzghbw83kyr3f26yqvsz-bash-4.4-p23/bin/bash /nix/store/rsqp03azy03ixlz0ym47hy2yqml2dr6f-zeek-oneshot
-           ├─8272 /nix/store/kgp3vq8l9yb8mzghbw83kyr3f26yqvsz-bash-4.4-p23/bin/bash /var/lib/zeek/scripts/run-zeek -1 -i enp0s3 -U .status -p zeekctl -p zeekctl-live -p standalone -p local -p zeek local.zeek zeekctl zeekctl/standalone zeekctl/auto
-           ├─8278 /nix/store/k8c2znch34li453kwf9zyqb81brblxvr-zeek-3.0.5/bin/zeek -i enp0s3 -U .status -p zeekctl -p zeekctl-live -p standalone -p local -p zeek local.zeek zeekctl zeekctl/standalone zeekctl/auto
-           └─8306 sleep infinity
+           ├─53032 /nix/store/n313xks5ym0s0a5v8a5285rmnmvy6ms9-bash-4.4-p23/bin/bash /nix/store/f58lgscxx2dz56ckwppf0il4rp3fmm26-zeek-oneshot
+           ├─53112 /nix/store/n313xks5ym0s0a5v8a5285rmnmvy6ms9-bash-4.4-p23/bin/bash /var/lib/zeek/scripts/run-zeek -1 -i ens18 -U .status -p zeekctl -p zeekctl-live -p standalone -p local -p zeek local.zeek zeekctl zeekctl/standalone zeekctl/auto
+           ├─53118 /nix/store/mzpx546bfbsc52rljril6q9wxrmkmn7l-zeek-3.0.7/bin/zeek -i ens18 -U .status -p zeekctl -p zeekctl-live -p standalone -p local -p zeek local.zeek zeekctl zeekctl/standalone zeekctl/auto
+           └─53147 sleep infinity
 #+end_example
 
 * Zeek module
 ** zeekctl Deploy <2020-05-07 Thu>-<2020-05-10 Sun>
 
-* Last test 
+* Last test
+** zeek 3.0.7 [2020-06-17 Wed 09:08]
 ** zeek 3.0.5[2020-04-18 Sat 00:07]
 
 ** zeek 3.0.2<2020-04-13 Mon 02:38>
@@ -46,43 +47,14 @@ listening on enp0s
 
 * Http2
 #+begin_src sh :async t :exports both :results output
-/usr/local/zeek/bin/zeek -NN mitrecnd::HTTP2
+zeek -NN mitrecnd::HTTP2
 #+end_src
 
 #+RESULTS:
-#+begin_example
-mitrecnd::HTTP2 - Hypertext Transfer Protocol Version 2 analyzer (dynamic, version 0.4.0)
-    [Analyzer] HTTP2 (ANALYZER_HTTP2, enabled)
-    [Event] http2_request
-    [Event] http2_reply
-    [Event] http2_stream_start
-    [Event] http2_stream_end
-    [Event] http2_header
-    [Event] http2_all_headers
-    [Event] http2_begin_entity
-    [Event] http2_end_entity
-    [Event] http2_entity_data
-    [Event] http2_content_type
-    [Event] http2_event
-    [Event] http2_data_event
-    [Event] http2_header_event
-    [Event] http2_priority_event
-    [Event] http2_rststream_event
-    [Event] http2_settings_event
-    [Event] http2_pushpromise_event
-    [Event] http2_ping_event
-    [Event] http2_goaway_event
-    [Event] http2_windowupdate_event
-    [Event] http2_continuation_event
-    [Type] http2_settings_unrecognized_table
-    [Type] http2_settings
-    [Type] http2_stream_stat
-
-#+end_example
 
 * metron-bro-plugin-kafka
 #+begin_src sh :async t :exports both :results output
-/usr/local/zeek/bin/zeek -N Apache::Kafka
+zeek -N Apache::Kafka
 #+end_src
 
 #+RESULTS:

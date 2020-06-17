@@ -1,0 +1,7 @@
+{ ... }:
+
+{
+  imports = [
+    ./zeek-scripts.nix
+  ];
+}

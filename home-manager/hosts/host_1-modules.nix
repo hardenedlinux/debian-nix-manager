@@ -8,12 +8,13 @@ in
       services.zeek = {
         enable = true;
         standalone = true;
+        package = pkgs.zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; Http2Plugin = true;};
         interface = config.host_1.interface_1.name;
-        listenAddress = "localhost";
-        package = pkgs.zeek.override{ KafkaPlugin = true; PostgresqlPlugin = true; };
-        # privateScript = ''
-        # @load ${config.home.homeDirectory}/.zeek-script
-        # '';
+        listenAddress = config.host_1.interface_1.ip;
+        #Tue Jun 16 11:57:31 HKT 2020'
+        privateScript = ''
+        @load ${config.home.homeDirectory}/.zeek-script
+        '';
       };
 
       services.netdata = {
