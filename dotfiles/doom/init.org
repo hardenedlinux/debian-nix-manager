@@ -1,11 +1,9 @@
-#+TITLE: My Doom Emacs config
+#+TITLE: Hardenedlinux Nix's Doom Emacs config
 #+EMAIL: gtrunsec@hardenedlinux.org
 #+DATE:  25 October 2019
 #+AUTHOR: GTrunSec
 #+KEYWORDS: Emacs Profile Doom-Emacs
 #+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t pri:t
-#+SETUPFILE: ~/Documents/org-notes/setup/hugo.local
-#+SETUPFILE: ~/Documents/my-blog/public/theme/org-html-themes/setup/theme-readtheorg.setup
 #+hugo_publishdate: `org-time-stamp-rounding-minutes`
 #+hugo_auto_set_lastmod: t
 #+HUGO_categories: profile Doom-Emacs
@@ -117,7 +115,7 @@ HTML them READ org
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
-       pass              ; password manager for nerds
+       ;;pass              ; password manager for nerds
        ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
@@ -131,7 +129,7 @@ HTML them READ org
        ;;assembly          ; assembly for fun or debugging
        cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
-       common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
@@ -164,11 +162,11 @@ HTML them READ org
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; drag & drop files/images into org buffers
-        +hugo            ; use Emacs for hugo blogging
+        ;;+hugo            ; use Emacs for hugo blogging
         +ipython         ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
         ;+pomodoro        ; be fruitful with the tomato technique
-        +present)        ; using org-mode for presentations
+        )                 ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
@@ -180,7 +178,7 @@ HTML them READ org
        ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       scheme            ; a fully conniving family of lisps
+       ;;scheme            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
@@ -198,7 +196,7 @@ HTML them READ org
        :app
        ;;calendar
        ;;irc               ; how neckbeards socialize
-       (rss +org)        ; emacs as an RSS reader
+       ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
        ;;(write            ; emacs for writers (fiction, notes, papers, etc.)
        ;; +wordnut         ; wordnet (wn) search
@@ -1345,17 +1343,6 @@ make
   )
 #+end_src
 
-** Scheme
-- https://gitlab.com/jaor/geiser
-
-
-#+begin_src emacs-lisp :tangle "config.el"
-(use-package! geiser
-  :config
-  (setq geiser-default-implementation 'racket)
-)
-#+end_src
-
 ** julia
 *** [[https://github.com/gcv/julia-snail][julia-snail: An Emacs development environment for Julia]]
 *** lsp-julia
@@ -1795,6 +1782,7 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 #+begin_src emacs-lisp :tangle "./modules/my-linux.el"
 (provide 'my-linux)
 #+end_src
+
 * Cache
 -  [[https://github.com/bzg/dotemacs/blob/master/emacs.org][dotemacs/emacs.org at master · bzg/dotemacs]]
 
