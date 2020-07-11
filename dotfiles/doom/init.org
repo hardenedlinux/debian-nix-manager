@@ -812,7 +812,7 @@ FACE defaults to inheriting from default and highlight."
 (package! org-spacer.el :recipe (:host github :repo "dustinlacewell/org-spacer.el"))
 (package! org-treeusage :recipe (:host github :repo "mtekman/org-treeusage.el"))
 (package! org-superstar)
-
+(package! org-roam-server)
 #+end_src
 
 ** config Use-package
@@ -1096,6 +1096,34 @@ make
 ** org-protocal
 - [[https://github.com/alphapapa/org-protocol-capture-html][alphapapa/org-protocol-capture-html: Capture HTML from the browser selection into Emacs as org-mode content]]
 
+
+** org-roam
+*** Doc
+- [[https://github.com/nobiot/Zero-to-Emacs-and-Org-roam][nobiot/Zero-to-Emacs-and-Org-roam: Step by step guide from zero to installing and setting up Emacs and Org-roam on Windows 10]]
+
+
+*** org-roam
+#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
+(use-package! org-roam
+  :config
+  (setq org-roam-directory "~/.config/nixpkgs/agenda")
+)
+#+end_src
+
+*** org-roam-server
+#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
+(use-package! org-roam-server
+  :config
+  (setq org-roam-server-host "192.168.217.10"
+        org-roam-server-port 8305
+        org-roam-server-export-inline-images t
+        org-roam-server-authenticate nil
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
+#+end_src
 
 ** ob-mermaid
 #+begin_src emacs-lisp :tangle  "./modules/private/my-org/config.el"

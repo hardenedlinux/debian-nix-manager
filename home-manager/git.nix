@@ -10,6 +10,7 @@
                 ".Rhistory" ".notdeft*" ".auctex-auto" "__pycache__"
                 "vast.db"
                 ".ipynb_checkpoints"
+                "org-roam.db"
               ];
     extraConfig = {
       pull = {
