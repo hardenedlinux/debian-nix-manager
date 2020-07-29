@@ -5,7 +5,6 @@
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en cn
-#+SETUPFILE: ~/Documents/my-blog/public/theme/org-html-themes/setup/theme-readtheorg.setup
 #+hugo_publishdate: (0 5)
 #+hugo_auto_set_lastmod: t
 #+HUGO_categories: 

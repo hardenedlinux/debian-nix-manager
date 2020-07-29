@@ -31,6 +31,7 @@ in
                                ag
                                fzf
                                jre_headless
+                               systemd
                                #certbot
                                aria2
                                gotty
@@ -39,6 +40,7 @@ in
                                pwgen
                                vast
                                pf-ring
+                               sqlite
                                #emacs eaf
                                lxqt.qtermwidget
                                (python3.withPackages (pkgs: with pkgs; [

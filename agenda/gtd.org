@@ -1,28 +1,33 @@
-#+TITLE: GTD:NSM
+#+TITLE: debian-nix-manager agenda
 #+AUTHOR: GTrunSec
 #+EMAIL: gtrunsec@hardenedlinux.org
 #+DATE:  7 May 2020
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en cn
-#+SETUPFILE: ~/Documents/my-blog/public/theme/org-html-themes/setup/theme-readtheorg.setup
-#+hugo_publishdate: (0 5)
-#+hugo_auto_set_lastmod: t
-#+HUGO_categories: 
-#+HUGO_tags: 
 #+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
 
+[[file:service.org][test service]]
 
 * ☞ TODO [#A] hydra CI <2020-06-07 Sun>
+- [[file:~/.config/nixpkgs/test/hydra/default-pkgs.nix][default pkgs test]]
+
+
+[[file:zeek.org][Test zeek services and plugins]]
 
 * ✔ DONE cve-2020-13777 :zeek:
 :PROPERTIES:
 :CATEGORY: patch
-:END:
+'':END:
 
 :LOGBOOK:
 
 CLOCK: [2020-06-12 Sat 13:06]--[2020-06-12 Sat 13:49] =>  0:43
 :END:
+
+#+begin_src nix :async t :exports both :results output
+
+#+end_src
+

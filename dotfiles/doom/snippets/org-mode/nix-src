@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: nix
+# key: nix
+# --
+#+begin_src nix :async t :exports both :results output
+
+#+end_src

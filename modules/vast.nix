@@ -46,7 +46,7 @@ in
       Install = { wantedBy = [ "multi-user.target" ];};
 
       Service = {
-        ExecStart = "${cfg.package}/bin/vast -c ${configFile} start";
+        ExecStart = "${cfg.package}/bin/vast --config=${configFile} start";
         ExecReload = "${pkgs.coreutils.out}/bin/kill -HUP $MAINPID";
         KillMode = "control-group"; # upstream recommends process
         Restart = "always";
