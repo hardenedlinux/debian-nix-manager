@@ -38,6 +38,8 @@ in
                                nettools
                                exa
                                pwgen
+                               nix-du
+                               graphviz
                                vast
                                pf-ring
                                sqlite

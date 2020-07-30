@@ -15,6 +15,13 @@
 - [[file:~/.config/nixpkgs/test/hydra/default-pkgs.nix][default pkgs test]]
 
 
+- [[file:~/.config/nixpkgs/img/store.png]]
+
+
+#+begin_src sh :async t :exports both :results output
+ix-du -s=500MB | tred | dot -Tpng > ~/.config/nixpkgs/img/store.png
+#+end_src
+
 [[file:zeek.org][Test zeek services and plugins]]
 
 * ✔ DONE cve-2020-13777 :zeek:
