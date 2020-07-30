@@ -15,7 +15,7 @@
 - [[file:~/.config/nixpkgs/test/hydra/default-pkgs.nix][default pkgs test]]
 
 
-- [[file:~/.config/nixpkgs/img/store.png]]
+- [[file:../img/store.png]]
 
 
 #+begin_src sh :async t :exports both :results output
