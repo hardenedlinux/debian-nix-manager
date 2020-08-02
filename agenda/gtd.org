@@ -19,8 +19,10 @@
 
 
 #+begin_src sh :async t :exports both :results output
-ix-du -s=500MB | tred | dot -Tpng > ~/.config/nixpkgs/img/store.png
+nix-du -s=500MB | tred | dot -Tpng > ~/.config/nixpkgs/img/store.png
 #+end_src
+
+#+RESULTS:
 
 [[file:zeek.org][Test zeek services and plugins]]
 
