@@ -15,7 +15,7 @@ in
   imports = [
     ./home-manager/home-packages.nix
     ./modules
-    ./elk
+        ./elk
     ./home-manager/home-file.nix
     #./home-manager/fish.nix
     ./home-manager/emacs.nix
@@ -27,6 +27,8 @@ in
     ./pkgs/network
     ./pkgs/zeek
     ./pkgs/hardenedlinux.nix
+
+    ./modules/pre-modules.nix
   ]; #++ lib.optionals sysconfig.services.xserver.enable [
     #./home-manager/desktop.nix ];
   

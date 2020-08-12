@@ -157,7 +157,6 @@ HTML them READ org
        nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
-        +roam
         +dragndrop       ; drag & drop files/images into org buffers
         ;;+hugo            ; use Emacs for hugo blogging
         +ipython         ; ipython/jupyter support for babel
@@ -826,6 +825,11 @@ FACE defaults to inheriting from default and highlight."
   :config
   (setq org-books-file "~/Documents/org-notes/GTD/my-books.org")
   )
+(use-package! org-roam)
+(use-package! org-superstar
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+)
 ;;(use-package emacs-powerthesaurus)
 #+end_src
 
@@ -904,6 +908,8 @@ FACE defaults to inheriting from default and highlight."
  ;; "C-c e" . org-starter-refile-by-key))
  )
 #+end_src
+
+
 
 ** super-agenda
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
@@ -1586,7 +1592,6 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 
 ** grip-mode
 - [[https://github.com/seagle0128/grip-mode][seagle0128/grip-mode: Instant Github-flavored Markdown/Org preview using grip]]
-
 
 * chinese
 ** pinyinlib
