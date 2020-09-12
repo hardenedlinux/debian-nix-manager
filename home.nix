@@ -15,7 +15,7 @@ in
   imports = [
     ./home-manager/home-packages.nix
     ./modules
-        ./elk
+    ./elk
     ./home-manager/home-file.nix
     #./home-manager/fish.nix
     ./home-manager/emacs.nix

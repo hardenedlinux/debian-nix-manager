@@ -64,5 +64,8 @@ in
                                bat
                                suricata
                                zeek
+                               llvmPackages_9.clang-unwrapped
+                               llvmPackages_9.llvm
+                               git-crypt
                              ];
 }

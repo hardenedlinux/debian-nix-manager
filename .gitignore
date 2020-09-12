@@ -1,6 +1,5 @@
 #password path
 #keys.sh
-password.json
 ## nixos
 result
 pkgs/osquery/osquery
