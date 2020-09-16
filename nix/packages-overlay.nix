@@ -2,8 +2,8 @@ self: super:
 let
   nixpkgs-hardenedlinux = super.fetchgit {
     url = "https://github.com/hardenedlinux/nixpkgs-hardenedlinux";
-    rev = "bd99eb5e9a3f1c6d43d49f4873457ecc5ecf9440";
-    sha256 = "15snlj4j87c1y3kaaskdc0hvlxlyrfdjq8dlpsfjw3cbb999vn03";
+    rev = "60ab7b44f6c7b9ae73e273c91c2efb452638074b";
+    sha256 = "1z9r7qs9q617sxg8cyxy98ijnaxdjgd9gm8hbwjb0ifi1cgvczjr";
   };
 in
 {
