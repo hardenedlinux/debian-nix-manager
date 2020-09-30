@@ -7,15 +7,6 @@
 #+PROPERTY: header-args :tangle "~/.emacs.d/init.el"
 - [[https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org][doom-emacs/getting_started.org at develop · hlissner/doom-emacs]]
 
-
-#+BEGIN_QUOTE
-HTML them READ org
-
-#+END_QUOTE
-
--  [[https://www.gtrun.org/custom/init.html][My Doom Emacs config]]
-
-
 * init.el
 #+begin_src emacs-lisp :tangle yes
 ;;; init.el -*- lexical-binding: t; -*-
@@ -215,13 +206,9 @@ HTML them READ org
 #+end_src
 
 * package.el
-:PROPERTIES:
-:ID:       F2FFBBA8-3EFB-4336-81A5-0BE0A548EAC7
-:END:
-
 #+begin_src emacs-lisp :tangle "packages.el"
 (package! discover :recipe (:host github :repo "mickeynp/discover.el"))
-(package! xah-fly-keys :recipe (:host github :repo "GTrunSec/xah-fly-keys"))
+(package! xah-fly-keys :recipe (:host github :repo "xahlee/xah-fly-keys"))
 (package! maple-iedit :recipe (:host github :repo "honmaple/emacs-maple-iedit"))
 (package! ctrlf :recipe (:host github :repo "raxod502/ctrlf"))
 (package! scrollkeeper :recipe (:host github :repo "alphapapa/scrollkeeper.el"))
@@ -237,13 +224,16 @@ HTML them READ org
 * config.el
 #+begin_src emacs-lisp :tangle "config.el"
 ;;; config.el -*- lexical-binding: t; -*-
-
-(load! "xah-fly.el")
+(load! "xah-fly-keys.el")
 (load! "show-parentheses.el")
 #+end_src
 
 * use-package
 ** helm-tramp
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! helm-tramp)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! helm-tramp
   :config
@@ -264,17 +254,27 @@ HTML them READ org
 #+end_src
 
 ** Pinyin
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! pinyin-search)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! pinyin-search)
 #+end_src
 
 ** wakatime-mode
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! wakatime-mode)
+#+end_src
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! wakatime-mode
 :hook (after-init . global-wakatime-mode))
 #+end_src
 
 ** ctrlf
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! ctrlf)
+#+end_src
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! ctrlf
   :config
@@ -283,6 +283,9 @@ HTML them READ org
 #+end_src
 
 ** vlf
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! vlf)
+#+end_src
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! vlf
   :config
@@ -305,6 +308,10 @@ HTML them READ org
 #+end_src
 
 ** imenu-list
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! imenu-list)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! imenu-list
   :config
@@ -399,8 +406,6 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook! 'text-mode-hook 'gtrun/truncate-lines-hook)
 
-(add-hook! 'sunrise-start-hook 'xah-fly-insert-mode-activate)
-
 (setenv "XAPIAN_CJK_NGRAM" "1")
 
 (setq w3m-use-tab-line nil)
@@ -478,6 +483,10 @@ In that case, insert the number."
 #+end_src
 
 ** company-tabnine
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! company-tabnine)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! company-tabnine
   :when (featurep! :completion company)
@@ -515,19 +524,20 @@ In that case, insert the number."
 
 ** company-backend
 #+begin_src emacs-lisp :tangle "config.el"
-(set-company-backend! '(julia-mode)
-  '(:separate company-lsp
-              company-tabnine
-              company-files
-              company-yasnippet
-              ))
+ (set-company-backend! '(nix-mode)
+    '(
+      company-files
+      :separate
+      company-tabnine
+      company-nixos-options
+      ))
 
-;;  (set-company-backend! 'sh-mode nil) ; unsets backends for sh-mode
 (set-company-backend! '(c-mode
                         c++-mode
                         ess-mode
                         haskell-mode
                         ;;emacs-lisp-mode
+                        conf-mode
                         lisp-mode
                         sh-mode
                         php-mode
@@ -540,12 +550,19 @@ In that case, insert the number."
                         org-mode
                         web-mode
                         )
-  '(:separate company-tabnine
-              company-files
-              company-yasnippet))
+  '(
+    company-files
+    company-yasnippet
+    :separate
+    company-tabnine
+    ))
 
-(setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
-
+(setq +lsp-company-backend '(company-lsp
+                             company-files
+                             company-yasnippet
+                             :separate
+                             company-tabnine
+                             ))
 #+end_src
 
 ** Edition
@@ -657,6 +674,11 @@ FACE defaults to inheriting from default and highlight."
 #+end_src
 
 *** hungry-delete
+
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! hungry-delete)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! hungry-delete
   :config
@@ -665,6 +687,10 @@ FACE defaults to inheriting from default and highlight."
 #+end_src
 
 ** Bookmark
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! bm)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
   (use-package! bm
     :demand t
@@ -788,6 +814,10 @@ FACE defaults to inheriting from default and highlight."
 #+end_src
 
 ** templating
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! yatemplate)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! yatemplate
   :after yasnippet
@@ -863,6 +893,10 @@ FACE defaults to inheriting from default and highlight."
 #+end_src
 
 ** org-starter
+#+begin_src emacs-lisp :tangle "./modules/private/my-org/packages.el"
+(package! org-starter)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (use-package! org-starter
   :custom
@@ -912,6 +946,10 @@ FACE defaults to inheriting from default and highlight."
 
 
 ** super-agenda
+#+begin_src emacs-lisp :tangle "./modules/private/my-org/packages.el"
+(package! org-super-agenda)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (use-package! org-super-agenda
   :config
@@ -927,17 +965,6 @@ FACE defaults to inheriting from default and highlight."
    org-agenda-start-with-log-mode t)
   )
 #+end_src
-
-** org-wild-notifier
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(use-package! org-wild-notifier
-  :defer t
-  :config
-  (add-hook! 'after-init-hook 'org-wild-notifier-mode)
-  (setq org-wild-notifier-alert-time 15
-        alert-default-style (if IS-MAC 'osx-notifier 'libnotify)))
-#+end_src
-
 ** agenda-custom-setting
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (require 'org-super-agenda)
@@ -1070,6 +1097,9 @@ FACE defaults to inheriting from default and highlight."
 
 - [[https://github.com/EFLS/zetteldeft][EFLS/zetteldeft: A Zettelkasten system! Or rather, some functions on top of the emacs deft package.]]
 
+#+begin_src emacs-lisp :tangle "./modules/private/my-org/packages.el"
+(package! notdeft)
+#+end_src
 
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (use-package! notdeft
@@ -1104,11 +1134,9 @@ make
 
 
 ** org-roam
-*** Doc
-- [[https://github.com/nobiot/Zero-to-Emacs-and-Org-roam][nobiot/Zero-to-Emacs-and-Org-roam: Step by step guide from zero to installing and setting up Emacs and Org-roam on Windows 10]]
-
 
 *** org-roam
+
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (use-package! org-roam
   :config
@@ -1132,6 +1160,11 @@ make
 #+end_src
 
 ** ob-mermaid
+
+#+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el" 
+(package! ob-mermaid)
+#+end_src
+
 #+begin_src emacs-lisp :tangle  "./modules/private/my-org/config.el"
 (use-package! ob-mermaid
   :config
@@ -1146,9 +1179,9 @@ make
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (use-package! org-spacer
   :config
-  (add-hook 'org-mode-hook
-            (lambda () (add-hook 'before-save-hook
-                                 'org-spacer-enforce nil 'make-it-local)))
+  ;; (add-hook 'org-mode-hook
+  ;;           (lambda () (add-hook 'before-save-hook
+  ;;                                'org-spacer-enforce nil 'make-it-local)))
   )
 #+end_src
 
@@ -1164,28 +1197,18 @@ make
 
 #+end_src
 
-** org-format
-*** org-link-type
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/setting.el"
-(defun endless/export-audio-link (path desc format)
-  "Export org audio links to hmtl."
-  (cl-case format
-    (html (format
-       "<audio preload=\"auto\"> <source src=\"https://www.gtrun.org/music/%s\">%s</audio>"
-       path (or desc "")))
+** org-super-links
+- [[https://github.com/toshism/org-super-links][toshism/org-super-links: Package to create links with auto backlinks]]
 
-    ;; README: hugo music file path
-    (md (format
-     "<audio class=\"wp-audio-shortcode\"  loop=\"1\"  preload=\"auto\" style=\"width: 100%%;\" controls> <source src=\"https://www.gtrun.org/music/%s\">%s</audio>"
-     path (or desc "")))
-    (latex (format "(HOW DO I EXPORT AUDIO TO LATEX? \"%s\")" path))))
 
-(after! org
-  (org-add-link-type "audio" #'ignore #'endless/export-audio-link)
-)
+#+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
+(package! org-super-links :recipe (:local-repo "~/.myscript/org-super-links"))
 #+end_src
 
-* my-codes
+#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
+(use-package! org-super-links)
+#+end_src
+* major mode for coding
 ** packages
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
 (package! lsp-julia :recipe (:host github :repo "non-Jedi/lsp-julia"))
@@ -1193,11 +1216,18 @@ make
 #+end_src
 
 ** lsp
-#+begin_src emacs-lisp :tangle "./modules/private/my-code/config.el"
-(load! "my-latex")
+#+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
+(unpin! lsp-mode)
+#+end_src
 
+#+begin_src emacs-lisp :tangle "./modules/private/my-code/config.el"
 (use-package! lsp-mode
   :config
+  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix))
  ;; Support LSP in Org Babel with header argument `:file'.
   ;; https://github.com/emacs-lsp/lsp-mode/issues/377
   (defvar org-babel-lsp-explicit-lang-list
@@ -1233,6 +1263,7 @@ make
       "ein"
       ;; "ruby"
       "js" "css"
+      "haskell"
       ;; "C" "C++"
 
       "rust" "go" "java"))
@@ -1241,84 +1272,11 @@ make
     (eval `(lsp-org-babel-enbale ,lang))))
 #+end_src
 
-** latex
-** Latex
-*** auctex
-*** chinese-latex
-#+begin_src emacs-lisp :tangle  "./modules/private/my-code/my-latex.el"
-(after! latex
-      (add-to-list 'org-latex-classes '("article" "\\documentclass[a4paper,11pt]{article}
-        [NO-DEFAULT-PACKAGES]
-          \\usepackage[utf8]{inputenc}
-          \\usepackage[T1]{fontenc}
-          \\usepackage{fixltx2e}
-          \\usepackage{graphicx}
-          \\usepackage{longtable}
-          \\usepackage{float}
-          \\usepackage{wrapfig}
-          \\usepackage{rotating}
-          \\usepackage[normalem]{ulem}
-          \\usepackage{amsmath}
-          \\usepackage{textcomp}
-          \\usepackage{marvosym}
-          \\usepackage{wasysym}
-          \\usepackage{amssymb}
-          \\usepackage{booktabs}
-          \\usepackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref}
-          \\tolerance=1000
-          \\usepackage{listings}
-          \\usepackage{xcolor}
-          \\usepackage{fontspec}
-          \\usepackage{xeCJK}
-          \\setCJKmainfont{Weibei SC}
-          \\setmainfont{Fantasque Sans Mono}
-          \\lstset{
-          %行号
-          numbers=left,
-          %背景框
-          framexleftmargin=10mm,
-          frame=none,
-          %背景色
-          %backgroundcolor=\\color[rgb]{1,1,0.76},
-          backgroundcolor=\\color[RGB]{245,245,244},
-          %样式
-          keywordstyle=\\bf\\color{blue},
-          identifierstyle=\\bf,
-          numberstyle=\\color[RGB]{0,192,192},
-          commentstyle=\\it\\color[RGB]{0,96,96},
-          stringstyle=\\rmfamily\\slshape\\color[RGB]{128,0,0},
-          %显示空格
-          showstringspaces=false
-          }
-          "
-                                        ("\\section{%s}" . "\\section*{%s}")
-                                        ("\\subsection{%s}" . "\\subsection*{%s}")
-                                        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                                        ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                                        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-      ;; {{ export org-mode in Chinese into PDF
-      ;; @see http://freizl.github.io/posts/tech/2012-04-06-export-orgmode-file-in-Chinese.html
-      ;; and you need install texlive-xetex on different platforms
-      ;; To install texlive-xetex:
-      ;;    `sudo USE="cjk" emerge texlive-xetex` on Gentoo Linux
-      ;; }}
-      ;;(setq org-latex-default-class "ctexart")
-    (add-to-list 'org-latex-packages-alist '("" "minted"))
-    (setq org-latex-listings 'minted)
-    (setq org-src-fontify-natively t)
-    (setq org-latex-pdf-process
-            '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-              "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-              "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-              "xelatex -interaction nonstopmode -output-directory %o %f"
-              "xelatex -interaction nonstopmode -output-directory %o %f"
-              "xelatex -interaction nonstopmode -output-directory %o %f"
-              "rm -fr %b.out %b.log %b.tex auto"))
-)
+** haskell
+#+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
+(package! lsp-haskell)
 #+end_src
 
-** haskell
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/config.el"
 (use-package! lsp-haskell
   :config
@@ -1329,6 +1287,10 @@ make
 #+end_src
 
 ** ccls
+#+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
+(package! ccls)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/config.el"
 (use-package! ccls
   :hook ((c-mode c++-mode objc-mode cuda-mode) .
@@ -1339,6 +1301,12 @@ make
 #+end_src
 
 ** Poly
+#+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
+(package! polymode)
+(package! poly-markdown)
+#+end_src
+
+
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/config.el"
 (use-package! polymode)
 (use-package! poly-markdown
@@ -1350,6 +1318,10 @@ make
 ** julia
 *** [[https://github.com/gcv/julia-snail][julia-snail: An Emacs development environment for Julia]]
 *** lsp-julia
+#+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
+(package! lsp-julia)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/config.el"
 (use-package! lsp-julia
   :config
@@ -1365,35 +1337,10 @@ make
 (setq flycheck-python-pylint-executable "pylint")
 #+end_src
 
-** nox
-#+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
-(package! nox :recipe (:host github :repo "manateelazycat/nox"))
-#+end_src
-
-#+begin_src emacs-lisp :tangle "./modules/private/my-code/config.el"
-(use-package! nox
-  :config
-  (add-to-list 'nox-server-programs '(haskell-mode . ("ghcide" "--lsp")))
-  ;; (dolist (hook (list
-  ;;                'js-mode-hook
-  ;;                'rust-mode-hook
-  ;;                'python-mode-hook
-  ;;                'ruby-mode-hook
-  ;;                'java-mode-hook
-  ;;                'sh-mode-hook
-  ;;                'php-mode-hook
-  ;;                'c-mode-common-hook
-  ;;                'c-mode-hook
-  ;;                'c++-mode-hook
-  ;;                'haskell-mode-hook
-  ;;                ))
-  ;;   (add-hook hook '(lambda () (nox-ensure))))
-  )
-#+end_src
-
 * Visual
 ** Buffer
 *** Parenthesis
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! rainbow-delimiters
   :config
@@ -1411,6 +1358,10 @@ make
 #+end_src
 
 *** eysbrowse
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! eyebrowse)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! eyebrowse
   :config
@@ -1529,12 +1480,20 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 #+end_src
 
 *** Dimming Unused Windows
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! dimmer)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! dimmer
   :config (dimmer-mode))
 #+end_src
 
 *** beacon
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! beacon)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! beacon
   :diminish
@@ -1548,6 +1507,10 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 #+end_src
 
 *** golden-ratio
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! golden-ratio)
+#+end_src
+
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! golden-ratio
   :disabled
@@ -1565,29 +1528,6 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 ;;   :config ;; for good measure and clarity
 ;;   (setq-default cursor-type '(bar . 2))
 ;;   (setq-default line-spacing 2))
-#+end_src
-
-** writegood
-- [[https://github.com/bnbeckwith/writegood-mode][bnbeckwith/writegood-mode: Minor mode for Emacs to improve English writing
-
-
-]]
-
-#+begin_src emacs-lisp :tangle "config.el"
-(use-package! writegood-mode
-  ;; Load this whenver I'm composing prose.
-  ;;:hook (text-mode org-mode)
-  ;; Don't show me the “Wg” marker in the mode line
-  :diminish
-  ;; Some additional weasel words.
-  :config
-  (--map (push it writegood-weasel-words)
-         '("some" "simple" "simply" "easy" "often" "easily" "probably"
-           "clearly"               ;; Is the premise undeniably true?
-           "experience shows"      ;; Whose? What kind? How does it do so?
-           "may have"              ;; It may also have not!
-           "it turns out that")))  ;; How does it turn out so?
-           ;; ↯ What is the evidence of highighted phrase? ↯
 #+end_src
 
 ** grip-mode
@@ -1695,12 +1635,15 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 )
 #+end_src
 
-* Linux & Macsos
+* Linux only
 #+begin_src emacs-lisp :tangle "config.el"
 (load! "./modules/my-linux.el")
 #+end_src
 
 ** Linux
+#+begin_src emacs-lisp :tangle "packages.el"
+(package! grab-x-link)
+#+end_src
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! my-linux
   :load-path "./modules"
@@ -1716,19 +1659,11 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 
   (bookmark-load bookmark-default-file t)
 
-  (set-company-backend! '(nix-mode)
-    '(:separate company-nixos-options
-      company-tabnine
-      company-files
-      company-yasnippet
-      ))
-
-
-  (setq lsp-python-ms-executable  "~/.nix-profile/bin/mspyls")
   (when (not window-system)
     (xterm-mouse-mode 1)
     )
-  (setq org-crypt-key "24945FE0DBD04F4C045025F96F92B3E8F942D425")
+  ;;(setq org-crypt-key "24945FE0DBD04F4C045025F96F92B3E8F942D425")
+
 
   (set-face-attribute
    'default nil
@@ -1744,53 +1679,20 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
     )
 
   (define-key org-mode-map (kbd "C-c l") 'grab-x-link)
-  (setq notdeft-xapian-program "/home/gtrun/src/notdeft/xapian/notdeft-xapian")
-  ;; (setq jupyter-runtime-directory "~/.local/share/jupyter/runtime")
 
+  ;; (setq notdeft-xapian-program "/home/gtrun/src/notdeft/xapian/notdeft-xapian")
 
   (add-hook 'ob-async-pre-execute-src-block-hook
             '(lambda ()
-               (setq inferior-julia-program-name "/nix/store/fi7c1417hcv093ffyf03rdrlw84qb6mi-system-path/bin/julia")))
+               (setq inferior-julia-program-name "~/.nix-profile/bin/julia")))
   )
 
 (use-package! grab-x-link
   :if (eq system-type 'gnu/linux)
   )
-(when (display-graphic-p)
-  (use-package! eaf
-    :if (eq system-type 'gnu/linux)
-    :load-path "~/.myscript/eaf"
-    :custom
-    (eaf-find-alternate-file-in-dired t)
-    :config
-    (add-hook! 'eaf-mode-hook 'xah-fly-keys-off)
-
-    (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-    (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
-
-    (defun eaf-open-google ()
-      "Open Google using EAF."
-      (interactive)
-      (eaf-open-browser "https://www.google.com")))
-  )
-
-(use-package! snails
-  :if (eq system-type 'gnu/linux)
-  :load-path "~/.myscript/snails"
-  :config
-  (define-key snails-mode-map [remap next-line] #'snails-select-next-item)
-  (add-hook 'snails-mode-hook #'xah-fly-insert-mode-activate))
 #+end_src
 
 #+begin_src emacs-lisp :tangle "./modules/my-linux.el"
 (provide 'my-linux)
 #+end_src
 
-* Cache
--  [[https://github.com/bzg/dotemacs/blob/master/emacs.org][dotemacs/emacs.org at master · bzg/dotemacs]]
-
-
--  [[http://irfu.cea.fr/Pisp/vianney.lebouteiller/emacs.html][Everything with Emacs]]
-
-
--  [[https://github.com/munen/emacs.d/blob/master/configuration.org][emacs.d/configuration.org  atmaster · munen/]]

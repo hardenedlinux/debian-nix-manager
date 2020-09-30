@@ -54,6 +54,18 @@ Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/
 #+begin_src sh :async t :exports both :results output
 test   ALL=(ALL:ALL) NOPASSWD: ALL
 #+end_src
+* using flake to shell environment
+
+Edit either ~~/.config/nix/nix.conf~ or ~/etc/nix/nix.conf~ and add:
+
+#+begin_src sh :async t :exports both :results output
+experimental-features = nix-command flakes
+#+end_src
+
+then run:
+#+begin_src sh :async t :exports both :results output
+nix develop
+#+end_src
 
 * Install home-manager
 #+begin_src sh :async t :exports both :results output

@@ -10,24 +10,16 @@
      sha256 = "16mpc6lidmn6annyl4skdixzx7syvwdj9c5la0sidg57l8kh1rqd";
    };
 
+   ".myscript/org-super-links".source = pkgs.fetchFromGitHub {
+    owner = "toshism";
+    repo = "org-super-links";
+    rev = "94f59485e3063f0162b9ab2adddd0b34711d18ef";
+    sha256 = "1i9dnkdhfzvhz55n8ghdnzvaxcpkm0yjrkl4acvq1a6jyjb87q48";
+  };
+
    ".direnvrc".text = ''
       source $HOME/.nix-direnv/direnvrc
     '';
-
-   ".myscript/eaf".source =pkgs.fetchFromGitHub {
-     owner = "manateelazycat";
-     repo = "emacs-application-framework";
-     rev = "320840214bcb3cd2f5a0729adbe09a0ff56c8148";
-     sha256 = "0f4wra2w78nlbfgnwlnpmn2i73lrv4kqcsnfs86asmvf3g26d5jy";
-   };
-
-
-   ".myscript/snails".source =pkgs.fetchFromGitHub {
-     owner = "manateelazycat";
-     repo = "snails";
-     rev = "7e83f3822c00ee496cce42cf69331436cb3b1379";
-     sha256 = "1448d333vny2gq4jaldl9zy62jy81ih5166l0aak3p49vv8g38bz";
-   };
 
    ".config/pet".source = ../dotfiles/pet;
 

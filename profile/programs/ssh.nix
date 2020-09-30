@@ -1,6 +1,5 @@
 {...}:
 {
-#  home-manager.users.gtrun = { ... }:    {
     programs.ssh = {
     enable      = true;
     compression = true;
