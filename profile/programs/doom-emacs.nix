@@ -4,10 +4,10 @@
 let
   updatefont = ''fc-cache -f -v'';
   updateInit = "bash .doom.d/bin/emacs.sh";
-
-  overlays = [
+  emacs-overlay-rev = (builtins.fromJSON (builtins.readFile ../../flake.lock)).nodes.emacs-overlay.locked.rev;
+    overlays = [
     (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+      url = "https://github.com/nix-community/emacs-overlay/archive/${emacs-overlay-rev}.tar.gz";
     }))
   ];
 
@@ -73,5 +73,5 @@ in
                                                    ];
   });
 
-  #services.emacs.enable = true;
+  services.emacs.enable = true;
 }
