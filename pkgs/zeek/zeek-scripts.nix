@@ -1,16 +1,22 @@
-{ config, lib, pkgs, ... }:
+{ config
+, pkgs
+, lib
+,  ... }:
 let
-  spl-spt = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).spl-spt;
-  IRC-Zeek-package = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).IRC-Zeek-package;
-  IRC-Behavioral-Analysis = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).IRC-Behavioral-Analysis;
-  zeek-EternalSafety = pkgs.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).zeek-EternalSafety;
+  inherit (inputflake) loadInput flakeLock;
+  inputflake = import ../../lib/input-flake.nix {inherit lib;};
+  IRC-Zeek-package = loadInput flakeLock.nodes.IRC-Zeek-package;
+  IRC-Behavioral-Analysis = loadInput flakeLock.nodes.IRC-Behavioral-Analysis;
+  zeek-EternalSafety = loadInput flakeLock.nodes.zeek-EternalSafety;
+  spl-spt = loadInput flakeLock.nodes.spl-spt;
+  #spl-spt = pkgs.IRC-Zeek-packagefetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).spl-spt;
   hardenedlinux-zeek-script  = (pkgs.callPackage ./hardenedlinux-zeek-script.nix){inherit pkgs;};
 in
 {
   home.file = {
     ".zeek-script/__load__.zeek".text = ''
-    @load ${spl-spt}/scripts
-    ##@load ${IRC-Zeek-package}
+    @load ${spl-spt}/scripts #spl-spt
+    ##@load ${IRC-Zeek-package} #IRC-Zeek-package
     @unload protocols/conn/known-hosts
     @load ${zeek-EternalSafety}/scripts
     @load ${hardenedlinux-zeek-script}/zeek-kafka.zeek

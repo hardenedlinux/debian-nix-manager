@@ -1,5 +1,37 @@
 {
   "nodes": {
+    "IRC-Zeek-package": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1589900388,
+        "narHash": "sha256-gbYZtxO19KwyJQWaJuszQ6P3PTvbPykDRoYBjzZFlXQ=",
+        "owner": "stratosphereips",
+        "repo": "IRC-Zeek-package",
+        "rev": "cdfee23b447cf2fe89618a0ed52e4aa537e7a0df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stratosphereips",
+        "repo": "IRC-Zeek-package",
+        "type": "github"
+      }
+    },
+    "detect-ransomware-filenames": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1598550674,
+        "narHash": "sha256-6N6xxvnB3VPniynFiTVpnEG0R0HsxE87A5+7rlMEB7M=",
+        "owner": "corelight",
+        "repo": "detect-ransomware-filenames",
+        "rev": "484263a20e51b9ee4f0d69c67c458ea6819171ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "corelight",
+        "repo": "detect-ransomware-filenames",
+        "type": "github"
+      }
+    },
     "emacs-overlay": {
       "locked": {
         "lastModified": 1601180770,
@@ -113,11 +145,47 @@
     },
     "root": {
       "inputs": {
+        "IRC-Zeek-package": "IRC-Zeek-package",
+        "detect-ransomware-filenames": "detect-ransomware-filenames",
         "emacs-overlay": "emacs-overlay",
         "flake-utils": "flake-utils",
         "hardenedlinux-pkgs": "hardenedlinux-pkgs",
         "master": "master",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "spl-spt": "spl-spt",
+        "zeek-EternalSafety": "zeek-EternalSafety"
+      }
+    },
+    "spl-spt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1586632986,
+        "narHash": "sha256-qLvvlJvAPr+09Lf2YWfloc1joEYIjOfZ+TW0CVbXj+0=",
+        "owner": "GTrunSec",
+        "repo": "spl-spt",
+        "rev": "1e33d19c70e9827ccf3c1444c20c41f94d7abd25",
+        "type": "github"
+      },
+      "original": {
+        "owner": "GTrunSec",
+        "repo": "spl-spt",
+        "type": "github"
+      }
+    },
+    "zeek-EternalSafety": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1600933914,
+        "narHash": "sha256-VVkxIMNcudI1FKxv56WEClG1NOjzHVx3nt2BNgG96LQ=",
+        "owner": "lexibrent",
+        "repo": "zeek-EternalSafety",
+        "rev": "c5313aa64c511389b946d165cb1cdbfe646181ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lexibrent",
+        "repo": "zeek-EternalSafety",
+        "type": "github"
       }
     }
   },

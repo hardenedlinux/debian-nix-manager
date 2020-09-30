@@ -18,6 +18,7 @@ in
   imports = [
     ./profile
     ./modules
+    ./lib
     ./elk
     ./pkgs/network
     ./pkgs/zeek
