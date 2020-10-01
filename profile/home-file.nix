@@ -19,6 +19,11 @@
 
    ".direnvrc".text = ''
       source $HOME/.nix-direnv/direnvrc
+      use_flake() {
+      watch_file flake.nix
+      watch_file flake.lock
+      eval "$(nix print-dev-env)"
+      }
     '';
 
    ".config/pet".source = ../dotfiles/pet;
