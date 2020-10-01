@@ -13,10 +13,11 @@
 #+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
+#+PROPERTY: header-args :tangle "~/.emacs.d/init.el"
 * Install nix
 #+begin_src sh :async t :exports both :results output
-wget https://github.com/hardenedlinux/nixpkgs-hardenedlinux//releases/download/nix/nix_2.3_master_e3eecb5_amd64.deb
-sudo dpkg -i nix_2.3_master_e3eecb5_amd64.deb
+wget https://github.com/hardenedlinux/nix-fpm-multiuser/releases/download/924712e/nix_3.0.master_amd64.deb
+sudo dpkg -i nix_3.0.master_amd64.deb
 sudo ln -s /opt/nix-multiuser/nix/bin/nix* /usr/local/bin
 
 nix-channel --add https://github.com/GTrunSec/nixpkgs/archive/my-release.tar.gz nixpkgs
@@ -27,10 +28,24 @@ export TERM=xterm
 
 #+end_src
 
+- check ~nix-daemon~ status (if the task status is inactive to restart it first)
+  #+begin_src sh :async t :exports both :results output
+systemctl status nix-daemon.service
+  #+end_src
+
+  #+RESULTS:
+  : ● nix-daemon.service - Nix Daemon
+  :      Loaded: loaded (/lib/systemd/system/nix-daemon.service; disabled; vendor preset: enabled)
+  :      Active: active (running) since Wed 2020-09-30 21:50:11 EDT; 1min 16s ago
+  :    Main PID: 22027 (nix-daemon)
+  :       Tasks: 7 (limit: 4915)
+  :      Memory: 3.5M
+  :      CGroup: /system.slice/nix-daemon.service
+  :              └─22027 /nix/store/66n31il66pmf9hnd9yccmv42xfi0fm4p-nix-3.0pre19700101_dirty/bin/nix-daemon --daemon
+
 #+begin_src sh :async t :exports both :results output
 nix-shell -p 'git'
 git clone https://github.com/hardenedlinux/debian-nix-manager.git ~/.config/nixpkgs/
-mv  ~/.config/nixpkgs/modules/password/password-example.json  ~/.config/nixpkgs/modules/password/password.json
 #+end_src
 
 - Authorized User
@@ -56,7 +71,7 @@ test   ALL=(ALL:ALL) NOPASSWD: ALL
 #+end_src
 * using flake to shell environment
 
-Edit either ~~/.config/nix/nix.conf~ or ~/etc/nix/nix.conf~ and add:
+Edit either ~/.config/nix/nix.conf~ or ~/etc/nix/nix.conf~ and add:
 
 #+begin_src sh :async t :exports both :results output
 experimental-features = nix-command flakes
@@ -89,6 +104,12 @@ substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://c
 #+end_src
 
 * Build
+- register your own password.json
+  #+begin_src sh :async t :exports both :results output
+  mv ./secrets/password.json ./secrets/password-old.json
+  cp ./lib/password/password-example.json ./secrets/password.json
+  #+end_src
+
 #+begin_src sh :async t :exports both :results output
 home-manager switch
 #+end_src

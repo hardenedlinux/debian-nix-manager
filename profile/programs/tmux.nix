@@ -24,7 +24,7 @@ in
   clock24 = true;
   keyMode = "vi";
   extraConfig = /* tmux */ ''
-   set-option -g default-shell $HOME/.nix-profile/bin/zsh
+   set-option -g default-shell ${pkgs.zsh}/bin/zsh
    bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
    set -gu prefix2
    unbind C-a
