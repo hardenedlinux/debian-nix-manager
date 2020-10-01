@@ -84,17 +84,17 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1601420364,
-        "narHash": "sha256-TxdR7+qYk2D0Ze4j1CzBv5vr46l9KR0357dLaU+WXMM=",
+        "lastModified": 1601522904,
+        "narHash": "sha256-GsdH10kPfoivNKyan+WbvnHj0nzqLnWB9xO947xPikk=",
         "owner": "hardenedlinux",
         "repo": "nixpkgs-hardenedlinux",
-        "rev": "1d884a7ddd6aa0d04fa05a5f6efd11e1d1d25552",
+        "rev": "23b3489ff838bc1573e27485ca04253a9664c0bd",
         "type": "github"
       },
       "original": {
         "owner": "hardenedlinux",
+        "ref": "master",
         "repo": "nixpkgs-hardenedlinux",
-        "rev": "1d884a7ddd6aa0d04fa05a5f6efd11e1d1d25552",
         "type": "github"
       }
     },

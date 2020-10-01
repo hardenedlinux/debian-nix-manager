@@ -13,6 +13,7 @@ in
                               
                               git-crypt
                               git
+                              pinentry
 
                               curl
                               tree

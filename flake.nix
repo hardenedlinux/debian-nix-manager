@@ -5,7 +5,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "nixpkgs/684d5d27136f154775c95005dcce2d32943c7c9e";
     master.url = "nixpkgs/703f052de185c3dd1218165e62b105a68e05e15f";
-    hardenedlinux-pkgs.url = "github:hardenedlinux/nixpkgs-hardenedlinux/1d884a7ddd6aa0d04fa05a5f6efd11e1d1d25552";
+    hardenedlinux-pkgs.url = "github:hardenedlinux/nixpkgs-hardenedlinux/master";
     emacs-overlay.url = "github:nix-community/emacs-overlay/9f0ac65857f41e134389317c6463cf2df6f05f75";
 
     detect-ransomware-filenames = {
