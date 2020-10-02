@@ -1,6 +1,6 @@
 {config, pkgs, lib, ...}:
 let
-  hydra-pkgs = import (builtins.fetchTarball "https://github.com/nixos/nixpkgs/tarball/a18eaa7b93a05657b64a386c7f535e3ea25ec77a"){};
+  hydra-pkgs = import (builtins.fetchTarball "https://github.com/nixos/nixpkgs/tarball/11b4cc52db2af7af9ea5d4740019078a70bf4b09"){};
 in
 {
   config = with lib; mkMerge [
