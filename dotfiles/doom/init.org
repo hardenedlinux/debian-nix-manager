@@ -631,7 +631,6 @@ In that case, insert the number."
       company-files
       :separate
       company-tabnine
-      company-nixos-options
       ))
 
 (set-company-backend! '(c-mode

@@ -8,5 +8,6 @@
     ./core-packages.nix
     ./misc-packages.nix
     ./hosts
+    ./python-packages.nix
   ];
 }

@@ -8,25 +8,12 @@
     hardenedlinux-pkgs.url = "github:hardenedlinux/nixpkgs-hardenedlinux/master";
     emacs-overlay.url = "github:nix-community/emacs-overlay/9f0ac65857f41e134389317c6463cf2df6f05f75";
 
-    detect-ransomware-filenames = {
-      url = "github:corelight/detect-ransomware-filenames";
-      flake = false;
-    };
+    #zeek  packages
+    detect-ransomware-filenames = { url = "github:corelight/detect-ransomware-filenames"; flake = false; };
+    spl-spt = { url = "github:GTrunSec/spl-spt"; flake = false; };
+    zeek-EternalSafety = { url = "github:lexibrent/zeek-EternalSafety"; flake = false; };
+    IRC-Zeek-package = { url = "github:stratosphereips/IRC-Zeek-package"; flake = false; };
 
-    spl-spt = {
-      url = "github:GTrunSec/spl-spt";
-      flake = false;
-    };
-
-    zeek-EternalSafety = {
-      url = "github:lexibrent/zeek-EternalSafety";
-      flake = false;
-    };
-
-    IRC-Zeek-package = {
-      url = "github:stratosphereips/IRC-Zeek-package";
-      flake = false;
-    };
   };
 
   #outputs = inputs@{ self, nixpkgs, hardenedlinux-pkgs, master, flake-utils, emacs-overlay }:
