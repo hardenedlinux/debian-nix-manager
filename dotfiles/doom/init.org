@@ -1309,6 +1309,24 @@ make
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (use-package! org-super-links)
 #+end_src
+** [[https://github.com/mtekman/org-tanglesync.el][mtekman/org-tanglesync.el: A package to pull external changes into an org-mode source block if that block is tangled to an external file]]
+
+#+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
+(package! org-tanglesync)
+#+end_src
+
+#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
+(use-package! org-tanglesync
+  :config
+  :hook (((prog-mode text-mode) . org-tanglesync-watch-mode))
+  :custom
+  (org-tanglesync-watch-files '("~/.config/nixpkgs/README.org"
+                                ))
+   :bind
+  (( "C-c M-i" . org-tanglesync-process-buffer-interactive)
+   ( "C-c M-a" . org-tanglesync-process-buffer-automatic))
+  )
+#+end_src
 * major mode for coding
 ** packages
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"

@@ -368,7 +368,7 @@
 #+end_src
 * define global-set-key
 #+begin_src emacs-lisp :tangle "xah-fly-keys.el"
-(global-set-key (kbd "<f3>") 'gtrun/hydra-org-starter/body)
+(global-set-key (kbd "<f3>") 'nsm/hydra-org-starter/body)
 (global-set-key (kbd "<f4>") 'xah-fly-command-mode-activate)
 #+end_src
 * add hook to active xah-fly-keys insert or command mode
