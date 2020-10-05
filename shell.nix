@@ -4,10 +4,8 @@ with pkgs;
 
 mkShell {
   buildInputs = [
-    pkgs.zeek
-    home-manager
   ];
   shellHook = ''
-    home-manager build
+    home-manager build -f home.nix
     '';
 }
