@@ -21,6 +21,9 @@
 
     (mkIf config.services.postgresql.enable {
       home.activation.preRunPostgresql = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [ ! -d "/run/postgresql" ];then
+      sudo mkdir -p /run/postgresql && sudo chown $USER /run/postgresql
+      fi
       if [ ! -d "/var/lib/postgresql" ];then
       mkdir -p /var/lib/postgresql/
       fi
