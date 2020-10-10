@@ -72,6 +72,8 @@ in
                                                     "--with-nativecomp"
                                                    ];
   });
-
+  programs.emacs.extraPackages = epkgs: with epkgs;[
+    vterm
+  ];
   services.emacs.enable = true;
 }

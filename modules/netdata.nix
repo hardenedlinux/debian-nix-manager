@@ -27,7 +27,7 @@ let
       mkdir -p /var/cache/netdata
       fi
   '';
-  
+
   plugins = [
     "${cfg.package}/libexec/netdata/plugins.d"
     "${wrappedPlugins}/libexec/netdata/plugins.d"
@@ -42,7 +42,7 @@ let
       "web files owner" = "root";
       "web files group" = "root";
     };
-    
+
   };
   mkConfig = generators.toINI {} (recursiveUpdate localConfig cfg.config);
   configFile = pkgs.writeText "netdata.conf" (if cfg.configText != null then cfg.configText else mkConfig);

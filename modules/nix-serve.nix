@@ -24,7 +24,6 @@ in
         description = "The nix-serve.";
       };
 
-
       bindAddress = mkOption {
         type = types.str;
         default = "0.0.0.0";

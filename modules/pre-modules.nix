@@ -9,7 +9,6 @@
       '';
     })
 
-
     (mkIf config.services.zeek.enable {
       home.activation.preRunZeek = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
      if [ ! -d "/var/lib/zeek" ];then
@@ -17,7 +16,6 @@
       fi
       '';
     })
-
 
     (mkIf config.services.postgresql.enable {
       home.activation.preRunPostgresql = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -62,7 +60,6 @@
       '';
     })
 
-
     (mkIf config.services.vast.enable {
       home.activation.preRunVast = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
      # if [ ! -d "/var/lib/hydra" ];then
@@ -77,6 +74,5 @@
       fi
       '';
     })
-
   ];
 }

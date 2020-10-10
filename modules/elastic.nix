@@ -8,7 +8,7 @@ let
   es6 = builtins.compareVersions cfg.package.version "6" >= 0;
 
   esConfig = ''
-    network.host: ${cfg.listenAddress} 
+    network.host: ${cfg.listenAddress}
     cluster.name: "thehive"
 
     http.port: "9400"

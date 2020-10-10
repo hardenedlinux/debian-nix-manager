@@ -142,6 +142,7 @@ in {
         ExecStart = ''
             ${pkgs.bash}/bin/bash ${PreShell}
         '';
+        Restart = "on-failure";
       };
     };
 

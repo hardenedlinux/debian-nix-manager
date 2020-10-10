@@ -8,7 +8,7 @@ let
       endpoint =  "${toString cfg.endpoint}";
   }
     '';
-in 
+in
 {
   options = {
     services.vast = {
@@ -41,8 +41,8 @@ in
       Unit = {
         After = [ "network.target"];
         description = "vast";
-      };      
-     
+      };
+
       Install = { wantedBy = [ "multi-user.target" ];};
 
       Service = {

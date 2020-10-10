@@ -244,7 +244,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -258,7 +257,6 @@ in
             else if versionAtLeast config.system.stateVersion "16.03" then pkgs.postgresql_9_5
             else throw "postgresql_9_4 was removed, please upgrade your postgresql version.");
 
-
     services.postgresql.authentication = mkAfter
       ''
         # Generated file; do not edit!
@@ -268,7 +266,6 @@ in
       '';
 
     home.packages = [ postgresql ];
-
 
     systemd.user.services.postgresql =
       {
@@ -283,7 +280,6 @@ in
 
         #paths = [ postgresql ];
 
-
         Service =
           { ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
             Environment = [
@@ -295,6 +291,8 @@ in
             ExecStart = ''
             ${pkgs.bash}/bin/bash ${PreShell}
                 '';
+
+            Restart = "on-failure";
           };
         # Wait for PostgreSQL to be ready to accept connections.
 

@@ -39,7 +39,6 @@ let
      sed -i "1ipath.logs = /var/lib/logstash/logs" $out/log4j2.properties
   '';
 
-
   PreShell = pkgs.writeScript "run-logstash" ''
           ${cfg.package}/bin/logstash \
           ${pluginsPath} \
@@ -91,7 +90,6 @@ in
         '';
       };
 
-      
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/logstash";
@@ -178,10 +176,8 @@ in
         '';
       };
 
-
     };
   };
-
 
   ###### implementation
 
