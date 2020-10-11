@@ -9,5 +9,6 @@
     ./misc-packages.nix
     ./hosts
     ./python-packages.nix
+    ./shell-env.nix
   ];
 }
