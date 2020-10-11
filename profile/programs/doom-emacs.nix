@@ -76,4 +76,5 @@ in
     vterm
   ];
   services.emacs.enable = true;
+  services.emacs.socketActivation.enable = true;
 }

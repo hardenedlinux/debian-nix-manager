@@ -63,41 +63,6 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "locked": {
-        "lastModified": 1601282935,
-        "narHash": "sha256-WQAFV6sGGQxrRs3a+/Yj9xUYvhTpukQJIcMbIi7LCJ4=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "588973065fce51f4763287f0fda87a174d78bf48",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "hardenedlinux-pkgs": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1601522904,
-        "narHash": "sha256-GsdH10kPfoivNKyan+WbvnHj0nzqLnWB9xO947xPikk=",
-        "owner": "hardenedlinux",
-        "repo": "nixpkgs-hardenedlinux",
-        "rev": "23b3489ff838bc1573e27485ca04253a9664c0bd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hardenedlinux",
-        "ref": "master",
-        "repo": "nixpkgs-hardenedlinux",
-        "type": "github"
-      }
-    },
     "master": {
       "locked": {
         "lastModified": 1601419125,
@@ -115,21 +80,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1601252555,
-        "narHash": "sha256-4PrnTqMQn9D24gD52KDrnG2NymfPkeqKWAFXOAyD9E0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "684d5d27136f154775c95005dcce2d32943c7c9e",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "rev": "684d5d27136f154775c95005dcce2d32943c7c9e",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1601941917,
         "narHash": "sha256-Hjk6Uysg+RUy9VnVcHyoaIqRu8NVpuwldQkyO02xR/M=",
         "owner": "NixOS",
@@ -143,15 +93,31 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-hardenedlinux": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1602450700,
+        "narHash": "sha256-RVNKSi4dnu79KTxKG4ZCWNiAo2z3/QU+X2DEXZsrmUo=",
+        "ref": "master",
+        "rev": "d1abf07869e1bfe8dcc8599f3a53bbf64b3e25aa",
+        "revCount": 189,
+        "type": "git",
+        "url": "https://github.com/hardenedlinux/nixpkgs-hardenedlinux"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/hardenedlinux/nixpkgs-hardenedlinux"
+      }
+    },
     "root": {
       "inputs": {
         "IRC-Zeek-package": "IRC-Zeek-package",
         "detect-ransomware-filenames": "detect-ransomware-filenames",
         "emacs-overlay": "emacs-overlay",
         "flake-utils": "flake-utils",
-        "hardenedlinux-pkgs": "hardenedlinux-pkgs",
         "master": "master",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-hardenedlinux": "nixpkgs-hardenedlinux",
         "spl-spt": "spl-spt",
         "zeek-EternalSafety": "zeek-EternalSafety"
       }

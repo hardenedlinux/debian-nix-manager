@@ -36,6 +36,7 @@ in
       em    = "emacs";
       cp    = "cp -i";
       mv    = "mv -i";
+      ndu    = "nix develop --update-input nixpkgs-hardenedlinux";
       overlay-go   = "cd ~/.config/nixpkgs/nixos/overlays/go";
       overlay-python   = "cd ~/.config/nixpkgs/nixos/overlays/python";
       overlay-custom   = "cd ~/.config/nixpkgs/nixos/overlays/custom";
