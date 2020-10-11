@@ -1,15 +1,23 @@
-self: super:
+final: prev:
 let
   nixpkgs-hardenedlinux-locked = (builtins.fromJSON (builtins.readFile ../flake.lock)).nodes.nixpkgs-hardenedlinux.locked;
-  nixpkgs-hardenedlinux = super.fetchgit {
-    url = "${nixpkgs-hardenedlinux-locked.url}";
-    rev = "${nixpkgs-hardenedlinux-locked.rev}";
-    sha256 = "sha256-hi1nL7I3qS5BxmA8f+kC0rQQ4YgPJwtKG4r5FP/ttNY=";
+  zeek-nix-locked = (builtins.fromJSON (builtins.readFile ../flake.lock)).nodes.zeek-nix.locked;
+
+  nixpkgs-hardenedlinux = builtins.fetchTarball {
+    url = "https://github.com/${nixpkgs-hardenedlinux-locked.owner}/${nixpkgs-hardenedlinux-locked.repo}/archive/${nixpkgs-hardenedlinux-locked.rev}.tar.gz";
+    sha256 = nixpkgs-hardenedlinux-locked.narHash;
   };
+
+  zeek-nix = builtins.fetchTarball {
+    url = "https://github.com/${zeek-nix-locked.owner}/${zeek-nix-locked.repo}/archive/${zeek-nix-locked.rev}.tar.gz";
+    sha256 = zeek-nix-locked.narHash;
+  };
+
+
 in
 {
-  zeek = super.callPackage "${nixpkgs-hardenedlinux}/pkgs/zeek" {KafkaPlugin = true; PostgresqlPlugin = true; Http2Plugin = true;};
-  vast = super.callPackage "${nixpkgs-hardenedlinux}/pkgs/vast" { };
-  pf-ring = super.callPackage ../pkgs/network/pf_ring.nix { };
-  osquery = super.callPackages ../pkgs/osquery { };
+  zeek = prev.callPackage "${zeek-nix}" {KafkaPlugin = true; PostgresqlPlugin = true; Http2Plugin = true;};
+  vast = prev.callPackage "${nixpkgs-hardenedlinux}/pkgs/vast" { };
+  pf-ring = prev.callPackage ../pkgs/network/pf_ring.nix { };
+  osquery = prev.callPackages ../pkgs/osquery { };
 }
