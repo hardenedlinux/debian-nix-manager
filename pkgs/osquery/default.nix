@@ -8,11 +8,11 @@
 
 stdenv.mkDerivation rec {
   pname = "osquery";
-  version = "4.2.0";
+  version = "4.5.0_1";
 
   src = fetchurl {
-    url = "https://pkg.osquery.io/deb/osquery_4.2.0_1.linux.amd64.deb";
-    sha256 = "1i8ac8i64cc80sp18gl18m46rnz6sc041r8acsrskc7aq6rbxd3n";
+    url = "https://pkg.osquery.io/deb/${pname}_${version}.linux.amd64.deb";
+    sha256 = "sha256-d1jUwhWjtnJSQBNYIn2jivZ0/Nr9mitb8QmTdDjQgs0=";
   };
 
   phases = [ "installPhase" ];

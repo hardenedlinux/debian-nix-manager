@@ -16,7 +16,7 @@ in
 
   
   imports = [
-    ./profile
+    ./profiles
     ./modules
     ./lib
     ./elk

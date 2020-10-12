@@ -5,5 +5,6 @@
     ./host_1.nix
     ./host_1-modules.nix
     ./host_2.nix
+    ./host_2-modules.nix
   ];
 }
