@@ -136,7 +136,7 @@ in {
         description = "Apache Kafka Daemon";
         after = [ "network.target" ];
       };
-      Install = { wantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ];};
 
       Service = {
         ExecStart = ''

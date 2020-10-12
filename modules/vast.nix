@@ -3,11 +3,12 @@ with lib;
 let
   cfg = config.services.vast;
 
-  configFile =  pkgs.writeText "vast.conf" ''
-  system {
-      endpoint =  "${toString cfg.endpoint}";
-  }
-    '';
+  configFile =  pkgs.writeText "vast.conf" (
+    builtins.toJSON {
+      vast = {
+        endpoint =  "${toString cfg.endpoint}";
+      };
+    });
 in
 {
   options = {
@@ -43,7 +44,7 @@ in
         description = "vast";
       };
 
-      Install = { wantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy= [ "multi-user.target" ];};
 
       Service = {
         ExecStart = "${cfg.package}/bin/vast --config=${configFile} start";

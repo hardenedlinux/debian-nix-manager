@@ -138,7 +138,7 @@ in {
       description = "Zookeeper Daemon";
       after = [ "network.target" ];
       };
-      Install = { wantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ];};
 
       Service = {
         Environment = [

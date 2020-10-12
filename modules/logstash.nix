@@ -186,7 +186,7 @@ in
       Unit = {
         description = "Logstash Daemon";
         };
-      Install = { wantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ];};
       #path = [ pkgs.bash ];
       Service = {
         Environment = "JAVA_HOME=${pkgs.jre}";

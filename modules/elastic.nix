@@ -171,7 +171,7 @@ in {
       description = "Elasticsearch Daemon";
       after = [ "network.target" ];
       };
-      Install = { wantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ];};
       Service = {
         ExecStart = "${cfg.package}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
         #PermissionsStartOnly = true;
@@ -189,7 +189,7 @@ in {
       description = "Elasticsearch Daemon";
       after = [ "network.target" ];
       };
-      Install = { wantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ];};
       Service = {
         ExecStart = "${cfg.package-7x}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
         #PermissionsStartOnly = true;

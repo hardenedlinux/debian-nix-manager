@@ -275,7 +275,7 @@ in
           after = [ "network.target" ];
         };
 
-        Install = { wantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ];};
         #environment.PGDATA = cfg.dataDir;
 
         #paths = [ postgresql ];

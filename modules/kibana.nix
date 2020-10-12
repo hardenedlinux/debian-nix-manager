@@ -192,7 +192,7 @@ in {
         description = "Kibana Service";
         after = [ "network.target" "elasticsearch.service" ];
       };
-      Install = { wantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ];};
       #environment = { BABEL_CACHE_PATH = "${cfg.dataDir}/.babelcache.json"; };
       Service = {
         Environment = "BABEL_CACHE_PATH=${cfg.dataDir}/.babelcache.json";

@@ -216,7 +216,7 @@ in
 
     systemd.user.services.hydra-server =
       {
-        Install = { wantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ];};
         Unit = {
           requires = [ "hydra-init.service" ];
           after = [ "hydra-init.service" ];
@@ -243,7 +243,7 @@ in
 
     systemd.user.services.hydra-queue-runner =
       {
-        Install = { wantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ];};
         Unit = {
           requires = [ "hydra-init.service" ];
           after = [ "hydra-init.service" "network.target" ];
@@ -274,7 +274,7 @@ in
           after = [ "hydra-init.service" "network.target" ];
         };
 
-        Install = { wantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ];};
         #path = with pkgs; [ cfg.package nettools jq ];
         #restartTriggers = [ hydraConf ];
         Service =
@@ -291,7 +291,7 @@ in
 
     systemd.user.services.hydra-update-gc-roots =
       {
-        Install = { wantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ];};
         Unit = {
           requires = [ "hydra-init.service" ];
           after = [ "hydra-init.service" "network.target" ];
@@ -305,7 +305,7 @@ in
 
     systemd.user.services.hydra-send-stats =
       {
-        Install = { wantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ];};
         Unit = {
           after = [ "hydra-init.service" "network.target" ];
         };
@@ -317,7 +317,7 @@ in
       };
     systemd.user.services.hydra-notify =
       {
-        Install = { wantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ];};
         Unit = {
           requires = [ "hydra-init.service" ];
           after = [ "hydra-init.service" ];

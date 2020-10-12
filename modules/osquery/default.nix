@@ -75,7 +75,7 @@ in
         description = "The osquery Daemon";
       };
 
-      Install = { wantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ];};
 
       Service = {
         TimeoutStartSec = 0;

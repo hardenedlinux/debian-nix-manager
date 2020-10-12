@@ -152,7 +152,7 @@ in {
         description = "Zeek Daemon";
         after = [ "network.target" ];
       };
-      Install = { wantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ];};
       Service = {
         Environment = [
           ''"INTERFACE=${cfg.interface}"''

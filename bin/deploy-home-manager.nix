@@ -38,11 +38,33 @@ start_service()
     systemctl --user start apache-kafka.service
     systemctl --user start zookeeper.service
     systemctl --user start netdata.service
-    systemctl --user start nix-serve.service
     systemctl --user start kibana.service
     systemctl --user start elasticsearch.service
+    systemctl --user start vast.service
 }
 
+enable_service()
+{
+    systemctl --user enable osquery.service
+    systemctl --user enable vast.service
+    systemctl --user enable elasticsearch-7x.service
+    systemctl --user enable logstash.service
+    systemctl --user enable postgresql.service
+    systemctl --user enable apache-kafka.service
+    systemctl --user enable zookeeper.service
+    systemctl --user enable netdata.service
+    systemctl --user enable kibana.service
+    systemctl --user enable elasticsearch.service
+}
+
+auth_path()
+{
+sudo chown $USER /var/lib
+sudo chown $USER /run/
+sudo chown $USER /var/cache
+sudo chown $USER /var/log
+sudo chown $USER /etc
+}
 check_service()
 {
     systemctl --user status apache-kafka.service
@@ -68,6 +90,12 @@ case $1 in
                   ;;
     -s | --start) shift
                   start_service
+                  ;;
+    -e | --enable) shift
+                  enable_service
+                  ;;
+    -a | --auth) shift
+                  auth_path
                   ;;
 
     * )

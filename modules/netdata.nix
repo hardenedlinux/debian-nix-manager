@@ -155,7 +155,7 @@ in {
       description = "Real time performance monitoring";
       after = [ "network.target" ];
       };
-        Install = { wantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ];};
       # path = (with pkgs; [ curl gawk which ]) ++ lib.optional cfg.python.enable
       #   (pkgs.python3.withPackages cfg.python.extraPackages);
       Service = {
