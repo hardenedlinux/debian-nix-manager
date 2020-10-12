@@ -16,20 +16,20 @@
 #+PROPERTY: header-args :tangle "~/.emacs.d/init.el"
 * Install nix
 #+begin_src sh :async t :exports both :results output
-wget https://github.com/hardenedlinux/nix-fpm-multiuser/releases/download/924712e/nix_3.0.master_amd64.deb
-sudo dpkg -i nix_3.0.master_amd64.deb
-sudo ln -s /opt/nix-multiuser/nix/bin/nix* /usr/local/bin
+wget https://github.com/hardenedlinux/nix-fpm-multiuser/releases/download/19700101/nix_3.0.pre19700101.master_amd64.deb
+sudo dpkg -i nix_3.0.pre19700101.master_amd64.deb
 
-nix-channel --add https://github.com/GTrunSec/nixpkgs/archive/my-release.tar.gz nixpkgs
+nix-channel --add https://github.com/NixOS/nixpkgs/archive/684d5d27136f154775c95005dcce2d32943c7c9e.tar.gz nixpkgs
 nix-channel --update
 export NIX_PATH="$HOME/.nix-defexpr/channels"
 export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
 export TERM=xterm
-
 #+end_src
 
 - check ~nix-daemon~ status (if the task status is inactive to restart it first)
   #+begin_src sh :async t :exports both :results output
+systemctl start nix-daemon.service
+systemctl enable nix-daemon.service
 systemctl status nix-daemon.service
   #+end_src
 
