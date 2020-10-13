@@ -80,7 +80,7 @@ in
       Service = {
         TimeoutStartSec = 0;
         ExecStart = "${osquery}/bin/osqueryd --database_path ${escapeShellArg cfg.databasePath}  --logger_path ${escapeShellArg cfg.loggerPath} --pidfile ${escapeShellArg cfg.pidfile} --database_path ${escapeShellArg cfg.databasePath} --extensions_socket  ${escapeShellArg cfg.extensionsPath} --config_path ${escapeShellArg osuqerycfg}";
-        Restart = "on-failure";
+        Restart = "always";
       };
     };
   };

@@ -231,7 +231,7 @@ in
             #PermissionsStartOnly = true;
             ExecStartPre = ''${pkgs.bash}/bin/bash -c '${cfg.package}/bin/hydra-init; ln -sf ${hydraConf} ${baseDir}/hydra.conf'
             '';
-            Restart = "on-failure";
+            Restart = "always";
             Environment = [
               ''"PAHT=${cfg.package}/bin"''
               ''"PGPASSFILE=/var/lib/hydra/pgpass"''
@@ -253,7 +253,7 @@ in
         Service =
           { ExecStart = "${cfg.package}/bin/hydra-queue-runner -j ${toString cfg.max_job} -v --option build-use-substitutes true";
             ExecStopPost = "${cfg.package}/bin/hydra-queue-runner --unlock";
-            Restart = "on-failure";
+            Restart = "always";
 
             Environment = [
               ''"HYDRA_DATA=/var/lib/hydra"''
@@ -279,7 +279,7 @@ in
         #restartTriggers = [ hydraConf ];
         Service =
           { ExecStart = "@${cfg.package}/bin/hydra-evaluator hydra-evaluator";
-            Restart = "on-failure";
+            Restart = "always";
             Environment = [
               ''"HYDRA_DBI=dbi:Pg:dbname=hydra;host=localhost;user=hydra;password=${config.password.nsm-postgresql}"''
               ''"PATH=${makeBinPath [ pkgs.nettools pkgs.jq cfg.package ]}"''
@@ -330,7 +330,7 @@ in
             # };
             ExecStart = "@${cfg.package}/bin/hydra-notify hydra-notify";
             # FIXME: run this under a less privileged user?
-            Restart = "on-failure";
+            Restart = "always";
             RestartSec = 5;
           };
       };

@@ -15,7 +15,7 @@ with lib;
       ExecStart = "${pkgs.dropbox.out}/bin/dropbox";
       ExecReload = "${pkgs.coreutils.out}/bin/kill -HUP $MAINPID";
       KillMode = "control-group"; # upstream recommends process
-      Restart = "on-failure";
+      Restart = "always";
       PrivateTmp = true;
       ProtectSystem = "full";
       Nice = 10;

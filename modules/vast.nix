@@ -2,7 +2,11 @@
 with lib;
 let
   cfg = config.services.vast;
-
+  PreShell = pkgs.writeScript "check-vast-pid" ''
+    if [ -f "${config.home.homeDirectory}/vast.db/pid.lock" ]; then
+          rm -rf ${config.home.homeDirectory}/vast.db/pid.lock
+    fi
+  '';
   configFile =  pkgs.writeText "vast.conf" (
     builtins.toJSON {
       vast = {
@@ -49,6 +53,9 @@ in
       Service = {
         ExecStart = "${cfg.package}/bin/vast --config=${configFile} start";
         ExecReload = "${pkgs.coreutils.out}/bin/kill -HUP $MAINPID";
+        ExecStartPre = ''
+        ${pkgs.bash}/bin/bash ${PreShell}
+        '';
         KillMode = "control-group"; # upstream recommends process
         Restart = "always";
         PrivateTmp = true;

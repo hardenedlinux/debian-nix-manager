@@ -292,7 +292,7 @@ in
             ${pkgs.bash}/bin/bash ${PreShell}
                 '';
 
-            Restart = "on-failure";
+            Restart = "always";
           };
         # Wait for PostgreSQL to be ready to accept connections.
 
