@@ -34,17 +34,17 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1601180770,
-        "narHash": "sha256-EFcFVjcAfughWrYLArsdHBTcxsV6v/PbQqyrIhtzunI=",
+        "lastModified": 1602634759,
+        "narHash": "sha256-Q2Pbe0sRuG4ZDopDNTc8+S+Zl4e0XJU8md+1+W8VL40=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "9f0ac65857f41e134389317c6463cf2df6f05f75",
+        "rev": "8318449b2589482b85b79f3d211c749cb671cf01",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "master",
         "repo": "emacs-overlay",
-        "rev": "9f0ac65857f41e134389317c6463cf2df6f05f75",
         "type": "github"
       }
     },
@@ -115,11 +115,11 @@
         "zeek-nix": "zeek-nix"
       },
       "locked": {
-        "lastModified": 1602450700,
-        "narHash": "sha256-RVNKSi4dnu79KTxKG4ZCWNiAo2z3/QU+X2DEXZsrmUo=",
+        "lastModified": 1602640390,
+        "narHash": "sha256-YdBERRPkFMxMsZAxiOmJPsfgWigcrd1mfFXwXnQHxfw=",
         "owner": "hardenedlinux",
         "repo": "nixpkgs-hardenedlinux",
-        "rev": "d1abf07869e1bfe8dcc8599f3a53bbf64b3e25aa",
+        "rev": "44e91482aea99443f6a5de6c681c304da3d8b1c3",
         "type": "github"
       },
       "original": {

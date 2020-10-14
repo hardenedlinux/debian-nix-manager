@@ -6,7 +6,7 @@
     nixpkgs.url = "nixpkgs/0cdf13328905da1d35c9395ad1de89424c511943";
     master.url = "nixpkgs/703f052de185c3dd1218165e62b105a68e05e15f";
     nixpkgs-hardenedlinux.url = "github:hardenedlinux/nixpkgs-hardenedlinux";
-    emacs-overlay.url = "github:nix-community/emacs-overlay/9f0ac65857f41e134389317c6463cf2df6f05f75";
+    emacs-overlay.url = "github:nix-community/emacs-overlay/8318449b2589482b85b79f3d211c749cb671cf01";
 
     #zeek  packages
     detect-ransomware-filenames = { url = "github:corelight/detect-ransomware-filenames"; flake = false; };

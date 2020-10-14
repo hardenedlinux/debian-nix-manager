@@ -80,6 +80,13 @@ check_service()
     systemctl --user status nix-serve.service
     systemctl --user status kibana.service
 }
+hydra_service()
+{
+    systemctl --user start hydra-server.service
+    systemctl --user start hydra-evaluator.service
+    systemctl --user start hydra-queue-runner.service
+    systemctl --user start nix-serve.service
+}
 while [ "$1" != "" ]; do
 case $1 in
     -f | --first) shift
@@ -97,7 +104,9 @@ case $1 in
     -a | --auth) shift
                   auth_path
                   ;;
-
+    -h | --hydra) shift
+                  hydra_service
+                  ;;
     * )
     shift
 esac
