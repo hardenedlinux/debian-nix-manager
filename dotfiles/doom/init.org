@@ -215,10 +215,8 @@
 (package! awesome-tab :recipe (:host github :repo "manateelazycat/awesome-tab"))
 (package! ob-session-async :recipe (:host github :repo "jackkamm/ob-session-async"))
 (package! maple-explorer :recipe (:host github :repo "honmaple/emacs-maple-explorer"))
-(package! sunrise-commander :recipe (:host github :repo "sunrise-commander/sunrise-commander"))
 (package! awesome-pair :recipe (:host github :repo "manateelazycat/awesome-pair"))
 ;; (package! berrys-theme)
-
 (unpin! magit)
 #+end_src
 
@@ -941,33 +939,14 @@ FACE defaults to inheriting from default and highlight."
 * org-mode
 ** Packages
 #+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
-(package! company-english-helper :recipe (:host github :repo "manateelazycat/company-english-helper"))
-(package! org-books :recipe (:host github :repo "lepisma/org-books"))
-(package! notdeft :recipe (:host github :repo "hasu/notdeft"))
-(package! emacs-powerthesaurus :recipe (:host github :repo "SavchenkoValeriy/emacs-powerthesaurus"))
-(package! org-spacer.el :recipe (:host github :repo "dustinlacewell/org-spacer.el"))
-(package! org-treeusage :recipe (:host github :repo "mtekman/org-treeusage.el"))
-(package! org-superstar)
-(package! org-roam-server)
+
 #+end_src
 
 ** config Use-package
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 (load! "setting")
 ;;(setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
-(use-package! company-english-helper)
 (use-package! ob-session-async)
-(use-package! ob-async)
-(use-package! org-books
-  :config
-  (setq org-books-file "~/Documents/org-notes/GTD/my-books.org")
-  )
-(use-package! org-roam)
-(use-package! org-superstar
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-)
-;;(use-package emacs-powerthesaurus)
 #+end_src
 
 ** org-setting
@@ -1049,9 +1028,6 @@ FACE defaults to inheriting from default and highlight."
  ;; "C-c e" . org-starter-refile-by-key))
  )
 #+end_src
-
-
-
 ** super-agenda
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/packages.el"
 (package! org-super-agenda)
@@ -1144,41 +1120,6 @@ FACE defaults to inheriting from default and highlight."
         ))
 #+end_src
 
-** Org-babel
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(defun my-org-confirm-babel-evaluate (lang _body)
-  "Return t if LANG is in whitelist."
-  (not (or (string= lang "ditaa")
-           (string= lang "dot")
-           (string= lang "R")
-           (string= lang "julia")
-           (string= lang "C++")
-           (string= lang "C")
-           (string= lang "ein-R")
-           (string= lang "python")
-           (string= lang "ein-julia")
-           (string= lang "ein-python")
-           (string= lang "plantuml"))))
-
-(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
-
-(setq org-babel-C++-compiler 'g++-9)
-(setq org-babel-C-compiler 'gcc-9)
-#+end_src
-
-** org publish 
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/setting.el"
-  (setq org-publish-project-alist
-        '(("nsm"
-           :base-directory "~/.config/nixpkgs/agenda/gtd.org"
-           :with-author "GTrunSec"
-           :publishing-function org-html-publish-to-html
-           :publishing-directory "~/.config/nixpkgs/agenda/"
-           :exclude "README.org"
-           )
-          ))
-#+end_src
-
 ** org-crypt
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
 ;; 當被加密的部份要存入硬碟時，自動加密回去
@@ -1195,144 +1136,6 @@ FACE defaults to inheriting from default and highlight."
 #+end_src
 
 #+RESULTS:
-** org-notdeft
-- [[https://jingsi.space/post/2017/04/05/organizing-a-complex-directory-for-emacs-org-mode-and-deft/#configuring-deft][Organizing a Complex Directory for Emacs Org Mode and Deft]]
-
-
-- [[https://tero.hasu.is/notdeft/#org7b25462][NotDeft | Tero Hasu]]
-
-
-- [[https://github.com/EFLS/zetteldeft][EFLS/zetteldeft: A Zettelkasten system! Or rather, some functions on top of the emacs deft package.]]
-
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/packages.el"
-(package! notdeft)
-#+end_src
-
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(use-package! notdeft
-  :config
-  (setq notdeft-extension "org")
-  ;;(setq notdeft-secondary-extensions '("md" "org" "scrbl"))
-  (setq notdeft-directories '("~/Documents/org-notes/post/myself"
-                              "~/Documents/org-notes/post/life-thing"
-                              "~/Documents/org-notes/post/traveling"
-                              "~/Documents/org-notes/post/agenda"
-                              "~/Documents/org-notes/post/game"
-                              "~/Dropbox/project/my-learning-list"
-                              "~/Documents/org-notes/GTD"
-                              "~/Documents/org-notes/art"
-                              ))
-
-  :bind (:map notdeft-mode-map
-          ("C-q" . notdeft-quit)
-          ("C-r" . notdeft-refresh)
-          )
-  )
-#+end_src
-
-- build
-
-
-cd ~/.emacs.d/.local/straight/repos/notdeft/xapian
-make
-
-** org-protocal
-- [[https://github.com/alphapapa/org-protocol-capture-html][alphapapa/org-protocol-capture-html: Capture HTML from the browser selection into Emacs as org-mode content]]
-
-
-** org-roam
-
-*** org-roam
-
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(use-package! org-roam
-  :config
-  (setq org-roam-directory "~/.config/nixpkgs/agenda")
-)
-#+end_src
-
-*** org-roam-server
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(use-package! org-roam-server
-  :config
-  (setq org-roam-server-host "192.168.217.10"
-        org-roam-server-port 8305
-        org-roam-server-export-inline-images t
-        org-roam-server-authenticate nil
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20))
-#+end_src
-
-** ob-mermaid
-
-#+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el" 
-(package! ob-mermaid)
-#+end_src
-
-#+begin_src emacs-lisp :tangle  "./modules/private/my-org/config.el"
-(use-package! ob-mermaid
-  :config
-  (setq ob-mermaid-cli-path "~/.nix-profile/bin/mmdc")
-  )
-#+end_src
-
-** org-spacer :edit:
-- [[https://github.com/dustinlacewell/org-spacer.el][dustinlacewell/org-spacer.el: Enforce the number of blank lines between elements in an org-mode document]]
-
-
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(use-package! org-spacer
-  :config
-  ;; (add-hook 'org-mode-hook
-  ;;           (lambda () (add-hook 'before-save-hook
-  ;;                                'org-spacer-enforce nil 'make-it-local)))
-  )
-#+end_src
-
-** org-density.el :summary:statistic:
-- [[https://github.com/mtekman/org-density.el][mtekman/org-density.el: Examine the density of org headings]]
-
-
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(use-package! org-treeusage
-  :config
-  (define-key org-mode-map (kbd "C-c d") 'org-treeusage-mode)
-  )
-
-#+end_src
-
-** org-super-links
-- [[https://github.com/toshism/org-super-links][toshism/org-super-links: Package to create links with auto backlinks]]
-
-
-#+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
-(package! org-super-links :recipe (:local-repo "~/.myscript/org-super-links"))
-#+end_src
-
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(use-package! org-super-links)
-#+end_src
-** [[https://github.com/mtekman/org-tanglesync.el][mtekman/org-tanglesync.el: A package to pull external changes into an org-mode source block if that block is tangled to an external file]]
-
-#+begin_src emacs-lisp :tangle  "./modules/private/my-org/packages.el"
-(package! org-tanglesync)
-#+end_src
-
-#+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(use-package! org-tanglesync
-  :config
-  :hook (((prog-mode text-mode) . org-tanglesync-watch-mode))
-  :custom
-  (org-tanglesync-watch-files '("~/.config/nixpkgs/README.org"
-                                ))
-   :bind
-  (( "C-c M-i" . org-tanglesync-process-buffer-interactive)
-   ( "C-c M-a" . org-tanglesync-process-buffer-automatic))
-  )
-#+end_src
 * major mode for coding
 ** packages
 #+begin_src emacs-lisp :tangle "./modules/private/my-code/packages.el"
@@ -1722,21 +1525,6 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
             (t . ivy-prescient-re-builder))))
   )
 #+end_src
-
-* minor mode and major mode
-** [[https://github.com/rnkn/binder][rnkn/binder: Emacs global minor mode facilitating multi-file writing projects]]
-** [[https://github.com/jerrypnz/major-mode-hydra.el][jerrypnz/major-mode-hydra.el: Spacemacs-esque major mode leader key powered by Hydra]]
-* Writing
-** grammarly
-#+begin_src emacs-lisp :tangle "packages.el"
-;;(package! flycheck-grammarly :recipe (:host github :repo "jcs-elpa/flycheck-grammarly"))
-#+end_src
-
-#+begin_src emacs-lisp :tangle "config.el"
-;;(use-package! flycheck-grammarly)
-#+end_src
-
-** [[https://github.com/arnm/ob-mermaid][arnm/ob-mermaid: Generate mermaid diagrams within Emacs org-mode babel]]
 * load & unload
 ** disbale-package
 #+begin_src emacs-lisp :tangle "packages.el"
@@ -1766,9 +1554,6 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
 #+end_src
 
 ** Linux
-#+begin_src emacs-lisp :tangle "packages.el"
-(package! grab-x-link)
-#+end_src
 #+begin_src emacs-lisp :tangle "config.el"
 (use-package! my-linux
   :load-path "./modules"
@@ -1803,17 +1588,11 @@ Other buffer group by `awesome-tab-get-group-name' with project name."
                         (font-spec :family "Weibei SC" :size 55)))
     )
 
-  (define-key org-mode-map (kbd "C-c l") 'grab-x-link)
-
   ;; (setq notdeft-xapian-program "/home/gtrun/src/notdeft/xapian/notdeft-xapian")
 
   (add-hook 'ob-async-pre-execute-src-block-hook
             '(lambda ()
                (setq inferior-julia-program-name "~/.nix-profile/bin/julia")))
-  )
-
-(use-package! grab-x-link
-  :if (eq system-type 'gnu/linux)
   )
 #+end_src
 

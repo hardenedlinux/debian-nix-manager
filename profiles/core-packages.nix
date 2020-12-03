@@ -40,5 +40,7 @@ in
 
 
                                  nodejs
+
+                                 go
                                ];
 }
