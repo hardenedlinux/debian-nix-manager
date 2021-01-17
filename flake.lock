@@ -19,11 +19,11 @@
     "detect-ransomware-filenames": {
       "flake": false,
       "locked": {
-        "lastModified": 1598550674,
-        "narHash": "sha256-6N6xxvnB3VPniynFiTVpnEG0R0HsxE87A5+7rlMEB7M=",
+        "lastModified": 1606238400,
+        "narHash": "sha256-/xTtkYN9/xaNU0mAQVZKpPyvNxaGOL6tIh6YW83/FWQ=",
         "owner": "corelight",
         "repo": "detect-ransomware-filenames",
-        "rev": "484263a20e51b9ee4f0d69c67c458ea6819171ac",
+        "rev": "295e2d6ed21dc0e2da0b91e033676f8863c3291e",
         "type": "github"
       },
       "original": {
@@ -34,11 +34,11 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1606969313,
-        "narHash": "sha256-jN5Xz/aJMIenQmq6dy3SwhPdTI/asZyd+VAz+puwusQ=",
+        "lastModified": 1610901126,
+        "narHash": "sha256-/vMjMKHkxw3UoDoviyYiyRy8CDwN7LVi9DcCdtUqwkU=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "84b2ccfe5c2416d883339fd6cfd2cb325f5a9222",
+        "rev": "5918be8c408596d2c815346a77cd2a48551cc99c",
         "type": "github"
       },
       "original": {
@@ -49,11 +49,11 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1601282935,
-        "narHash": "sha256-WQAFV6sGGQxrRs3a+/Yj9xUYvhTpukQJIcMbIi7LCJ4=",
+        "lastModified": 1610051610,
+        "narHash": "sha256-U9rPz/usA1/Aohhk7Cmc2gBrEEKRzcW4nwPWMPwja4Y=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "588973065fce51f4763287f0fda87a174d78bf48",
+        "rev": "3982c9903e93927c2164caa727cd3f6a0e6d14cc",
         "type": "github"
       },
       "original": {
@@ -98,11 +98,11 @@
     },
     "master": {
       "locked": {
-        "lastModified": 1610920585,
-        "narHash": "sha256-72RtUa5vMy3lZDVUKPfL+GwtPaoovWHB1MoFf8jEdq8=",
+        "lastModified": 1610923780,
+        "narHash": "sha256-A0FIiUPdofrrF749KVKeAgd2q15NQC7OiOFvz2OxpBk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3f5d6b2e85bcbaaa279a7608ad2e01d2624e4fb2",
+        "rev": "b6a1d4f0cca7264be0e28a0d27f10ed07e3ec9d5",
         "type": "github"
       },
       "original": {
@@ -128,14 +128,15 @@
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs_3",
+        "vast": "vast",
         "zeek-nix": "zeek-nix"
       },
       "locked": {
-        "lastModified": 1602640390,
-        "narHash": "sha256-YdBERRPkFMxMsZAxiOmJPsfgWigcrd1mfFXwXnQHxfw=",
+        "lastModified": 1608242550,
+        "narHash": "sha256-TVvS8+J8S7QmOcWLuKPKIlB0rEuVMLfDFOUE32lxvHM=",
         "owner": "hardenedlinux",
         "repo": "nixpkgs-hardenedlinux",
-        "rev": "44e91482aea99443f6a5de6c681c304da3d8b1c3",
+        "rev": "072119e8b349cc1f29b822d468f3d2b9362ddb9d",
         "type": "github"
       },
       "original": {
@@ -161,16 +162,16 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1601539597,
-        "narHash": "sha256-gOuB2wl8C0Nxi68VsFL+FP30yj62Yt4izr8WtSldQgI=",
+        "lastModified": 1605827546,
+        "narHash": "sha256-EHu0U6KbszSXR4KSuSK2wcqPHGatRkKHBC3ImohxdUc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "302ef60620d277fc87a8aa58c5c561b62c925651",
+        "rev": "af787d41a536ccf8f7919e819a53fe476f2b53a7",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
-        "rev": "302ef60620d277fc87a8aa58c5c561b62c925651",
+        "rev": "af787d41a536ccf8f7919e819a53fe476f2b53a7",
         "type": "indirect"
       }
     },
@@ -201,6 +202,22 @@
       "original": {
         "owner": "GTrunSec",
         "repo": "spl-spt",
+        "type": "github"
+      }
+    },
+    "vast": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1607952675,
+        "narHash": "sha256-HbaWail8v7zMiZISvGRP6s3AWhGsdK1SLMUEiob8Tq4=",
+        "owner": "tenzir",
+        "repo": "vast",
+        "rev": "eac68316f0d4e28b97d9f0722b64b8ea2157e7c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tenzir",
+        "repo": "vast",
         "type": "github"
       }
     },

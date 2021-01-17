@@ -6,10 +6,10 @@
     nixpkgs.url = "nixpkgs/75d69a0a27ee9262805e6a7a605f00e654b75a28";
     master.url = "nixpkgs/master";
     home.url = "github:nix-community/home-manager/master";
-    nixpkgs-hardenedlinux.url = "github:hardenedlinux/nixpkgs-hardenedlinux";
+    nixpkgs-hardenedlinux = { url = "github:hardenedlinux/nixpkgs-hardenedlinux"; inputs.nixpkgs.follows = "nixpkgs";};
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
-    #zeek  packages
+
     detect-ransomware-filenames = { url = "github:corelight/detect-ransomware-filenames"; flake = false; };
     spl-spt = { url = "github:GTrunSec/spl-spt"; flake = false; };
     zeek-EternalSafety = { url = "github:lexibrent/zeek-EternalSafety"; flake = false; };
