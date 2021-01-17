@@ -7,7 +7,7 @@
     master.url = "nixpkgs/master";
     home.url = "github:nix-community/home-manager/master";
     nixpkgs-hardenedlinux = { url = "github:hardenedlinux/nixpkgs-hardenedlinux"; inputs.nixpkgs.follows = "nixpkgs";};
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.url = "github:nix-community/emacs-overlay/493c870ffafe7bec37d5233079d4d380ac1837d4";
 
 
     detect-ransomware-filenames = { url = "github:corelight/detect-ransomware-filenames"; flake = false; };

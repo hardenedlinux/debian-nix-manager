@@ -34,16 +34,17 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1610901126,
-        "narHash": "sha256-/vMjMKHkxw3UoDoviyYiyRy8CDwN7LVi9DcCdtUqwkU=",
+        "lastModified": 1610036770,
+        "narHash": "sha256-uZ/aT7w/o1B+5X+9ylGohj+STKTF8BXndNVhtFAwrgQ=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "5918be8c408596d2c815346a77cd2a48551cc99c",
+        "rev": "493c870ffafe7bec37d5233079d4d380ac1837d4",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "emacs-overlay",
+        "rev": "493c870ffafe7bec37d5233079d4d380ac1837d4",
         "type": "github"
       }
     },
@@ -127,7 +128,9 @@
     "nixpkgs-hardenedlinux": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "vast": "vast",
         "zeek-nix": "zeek-nix"
       },
@@ -157,21 +160,6 @@
       "original": {
         "id": "nixpkgs",
         "rev": "75d69a0a27ee9262805e6a7a605f00e654b75a28",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1605827546,
-        "narHash": "sha256-EHu0U6KbszSXR4KSuSK2wcqPHGatRkKHBC3ImohxdUc=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "af787d41a536ccf8f7919e819a53fe476f2b53a7",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "rev": "af787d41a536ccf8f7919e819a53fe476f2b53a7",
         "type": "indirect"
       }
     },
