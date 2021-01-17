@@ -13,4 +13,5 @@ jobs:
         fetch-depth: 0
         submodules: true
 
+    - run: touch dotfiles/keys.sh
     - run: nix-shell -p home-manager --command 'home-manager -f home.nix -n instantiate'

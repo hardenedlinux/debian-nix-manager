@@ -46,7 +46,7 @@ in
       si    = "pactl set-default-sink (pacmd list-sinks | awk \\\'/name:.*pci/{if (a != \"\") print a;} {a=$NF}\\\')";
     };
 
-    initExtra = builtins.readFile "${home_directory}/.config/nixpkgs/dotfiles/keys.sh" + builtins.readFile "${home_directory}/.config/nixpkgs/dotfiles/zshrc" + ''
+    initExtra = (builtins.readFile ../../dotfiles/keys.sh) + builtins.readFile "${home_directory}/.config/nixpkgs/dotfiles/zshrc" + ''
         SPACESHIP_TIME_SHOW=true
         SPACESHIP_EXIT_CODE_SHOW=true
         SPACESHIP_VI_MODE_SHOW=false
