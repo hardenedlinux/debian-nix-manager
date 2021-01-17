@@ -18,9 +18,7 @@
 #+begin_src sh :async t :exports both :results output
 wget https://github.com/hardenedlinux/nix-fpm-multiuser/releases/download/19700101/nix_3.0.pre19700101.master_amd64.deb
 sudo dpkg -i nix_3.0.pre19700101.master_amd64.deb
-
-nix-channel --add https://github.com/NixOS/nixpkgs/archive/684d5d27136f154775c95005dcce2d32943c7c9e.tar.gz nixpkgs
-nix-channel --update
+export PATH=/opt/nix-multiuser/nix/bin:$PATH
 export NIX_PATH="$HOME/.nix-defexpr/channels"
 export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
 export TERM=xterm
@@ -46,6 +44,8 @@ systemctl status nix-daemon.service
 #+begin_src sh :async t :exports both :results output
 nix-shell -p 'git'
 git clone https://github.com/hardenedlinux/debian-nix-manager.git ~/.config/nixpkgs/
+cd ~/.config/nixpkgs/
+nix-shell
 #+end_src
 
 - Authorized User
