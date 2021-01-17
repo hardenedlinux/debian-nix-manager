@@ -1,11 +1,14 @@
 { config, lib, ... }:
 let
   log_directory = "${config.home.homeDirectory}/logs";
-  #sysconfig = (import <nixpkgs/nixos> {}).config;
+  emacs-overlay-rev = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.emacs-overlay.locked.rev;
 in
 {
   nixpkgs.overlays = [
     (import ./nix/packages-overlay.nix)
+    (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/emacs-overlay/archive/${emacs-overlay-rev}.tar.gz";
+    }))
   ];
 
   # Let Home Manager install and manage itself.

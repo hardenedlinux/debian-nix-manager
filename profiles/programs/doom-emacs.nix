@@ -4,15 +4,6 @@
 let
   updatefont = ''fc-cache -f -v'';
   updateInit = "bash .doom.d/bin/emacs.sh";
-  emacs-overlay-rev = (builtins.fromJSON (builtins.readFile ../../flake.lock)).nodes.emacs-overlay.locked.rev;
-    overlays = [
-    (import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/emacs-overlay/archive/${emacs-overlay-rev}.tar.gz";
-    }))
-  ];
-
-  emacsPkgs  = import ../../nix/master-pkgs.nix {inherit overlays;};
-  
 in
 {
 
@@ -65,8 +56,8 @@ in
 
   programs.emacs.enable = true;
   
-  programs.emacs.package = (emacsPkgs.emacsGcc.override({
-    imagemagick = emacsPkgs.imagemagick;
+  programs.emacs.package = (pkgs.emacsGcc.override({
+    imagemagick = pkgs.imagemagick7;
   })).overrideAttrs(old: rec {
     configureFlags = (old.configureFlags or []) ++ ["--with-imagemagick"
                                                     "--with-nativecomp"
