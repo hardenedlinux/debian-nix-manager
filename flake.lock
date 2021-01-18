@@ -80,7 +80,9 @@
     },
     "home": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1610791052,
@@ -114,14 +116,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1607560137,
-        "narHash": "sha256-qI5U28r9Ie11OlkwzNFkhW0Z4jLanntJdb3JeFq/85A=",
-        "path": "/nix/store/av7yj690m440xkzq5rjgsspla91dajp6-source",
-        "rev": "7ff5e241a2b96fff7912b7d793a06b4374bd846c",
-        "type": "path"
+        "lastModified": 1608966769,
+        "narHash": "sha256-QNxfUPDN3aPeL6hN25TbFnIfwcVCma2A13yYBP10Xxw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "75d69a0a27ee9262805e6a7a605f00e654b75a28",
+        "type": "github"
       },
       "original": {
         "id": "nixpkgs",
+        "rev": "75d69a0a27ee9262805e6a7a605f00e654b75a28",
         "type": "indirect"
       }
     },
@@ -148,21 +152,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1608966769,
-        "narHash": "sha256-QNxfUPDN3aPeL6hN25TbFnIfwcVCma2A13yYBP10Xxw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "75d69a0a27ee9262805e6a7a605f00e654b75a28",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "rev": "75d69a0a27ee9262805e6a7a605f00e654b75a28",
-        "type": "indirect"
-      }
-    },
     "root": {
       "inputs": {
         "IRC-Zeek-package": "IRC-Zeek-package",
@@ -171,7 +160,7 @@
         "flake-utils": "flake-utils",
         "home": "home",
         "master": "master",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-hardenedlinux": "nixpkgs-hardenedlinux",
         "spl-spt": "spl-spt",
         "zeek-EternalSafety": "zeek-EternalSafety"

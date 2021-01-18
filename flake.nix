@@ -5,9 +5,9 @@
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "nixpkgs/75d69a0a27ee9262805e6a7a605f00e654b75a28";
     master.url = "nixpkgs/master";
-    home.url = "github:nix-community/home-manager/master";
+    home = { url = "github:nix-community/home-manager/master"; inputs.nixpkgs.follows = "nixpkgs";};
     nixpkgs-hardenedlinux = { url = "github:hardenedlinux/nixpkgs-hardenedlinux"; inputs.nixpkgs.follows = "nixpkgs";};
-    emacs-overlay.url = "github:nix-community/emacs-overlay/493c870ffafe7bec37d5233079d4d380ac1837d4";
+    emacs-overlay = { url = "github:nix-community/emacs-overlay/493c870ffafe7bec37d5233079d4d380ac1837d4";};
 
 
     detect-ransomware-filenames = { url = "github:corelight/detect-ransomware-filenames"; flake = false; };
