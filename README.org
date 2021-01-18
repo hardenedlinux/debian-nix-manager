@@ -125,7 +125,7 @@ home-manager switch
 
 
 #+begin_src sh :async t :exports both :results output
- chsh --shell /home/debian/.nix-profile/bin/zsh debian
+ chsh --shell /home/$USER/.nix-profile/bin/zsh $USER
 #+end_src
 
 ** Or using hardenedlinux Hydra CI binary cache speed your building process
