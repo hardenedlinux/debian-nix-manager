@@ -16,13 +16,12 @@
 #+PROPERTY: header-args :tangle "~/.emacs.d/init.el"
 * Install nix
 #+begin_src sh :async t :exports both :results output
-wget https://github.com/hardenedlinux/nix-fpm-multiuser/releases/download/19700101/nix_3.0.pre19700101.master_amd64.deb
-sudo dpkg -i nix_3.0.pre19700101.master_amd64.deb
-export PATH=/opt/nix-multiuser/nix/bin:$PATH
-export NIX_PATH="$HOME/.nix-defexpr/channels"
-export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
-export TERM=xterm
+wget https://github.com/hardenedlinux/nix-fpm-multiuser/releases/download/Jan/nix_3.0.pre19700104.master_amd64.deb
+sudo dpkg -i nix_3.0.pre19700104.master_amd64.deb
+nix-channel --add https://github.com/NixOS/nixpkgs/archive/75d69a0a27ee9262805e6a7a605f00e654b75a28.tar.gz nixpkgs
+nix-channel --update
 #+end_src
+- then relaod bash to load nix executable
 
 - check ~nix-daemon~ status (if the task status is inactive to restart it first)
   #+begin_src sh :async t :exports both :results output
