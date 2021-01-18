@@ -3,12 +3,11 @@
 , lib
 ,  ... }:
 let
-  inherit (inputflake) loadInput flakeLock;
-  inputflake = import ../../lib/input-flake.nix {inherit lib;};
-  IRC-Zeek-package = loadInput flakeLock.nodes.IRC-Zeek-package;
-  IRC-Behavioral-Analysis = loadInput flakeLock.nodes.IRC-Behavioral-Analysis;
-  zeek-EternalSafety = loadInput flakeLock.nodes.zeek-EternalSafety;
-  spl-spt = loadInput flakeLock.nodes.spl-spt;
+  fetch = import ../../lib/input-flake.nix;
+  IRC-Zeek-package = fetch "IRC-Zeek-package";
+  IRC-Behavioral-Analysis = fetch "IRC-Behavioral-Analysis";
+  zeek-EternalSafety = fetch "zeek-EternalSafety";
+  spl-spt = fetch "spl-spt";
   #spl-spt = pkgs.IRC-Zeek-packagefetchFromGitHub (builtins.fromJSON (builtins.readFile ./zeek-plugin.json)).spl-spt;
   hardenedlinux-zeek-script  = (pkgs.callPackage ./hardenedlinux-zeek-script.nix){inherit pkgs;};
 in

@@ -630,13 +630,6 @@ In that case, insert the number."
 
 ** company-backend
 #+begin_src emacs-lisp :tangle "config.el"
- (set-company-backend! '(nix-mode)
-    '(
-      company-files
-      :separate
-      company-tabnine
-      ))
-
 (set-company-backend! '(c-mode
                         c++-mode
                         ess-mode
@@ -652,8 +645,9 @@ In that case, insert the number."
                         rust-mode
                         js-mode
                         css-mode
-                        org-mode
                         web-mode
+                        nix-mode
+                        json-mode
                         )
   '(
     company-files
@@ -662,13 +656,17 @@ In that case, insert the number."
     company-tabnine
     ))
 
-(setq +lsp-company-backend '(company-lsp
-                             company-files
-                             company-yasnippet
-                             :separate
-                             company-tabnine
-                             ))
+(setq +lsp-company-backends '(company-lsp
+                              company-files
+                              company-yasnippet
+                              :separate
+                              company-tabnine
+                              ))
+
 #+end_src
+
+#+RESULTS:
+| company-lsp | company-files | company-yasnippet | :separate | company-tabnine |
 
 ** Edition
 *** maple-iedit
@@ -944,7 +942,6 @@ FACE defaults to inheriting from default and highlight."
 
 ** config Use-package
 #+begin_src emacs-lisp :tangle "./modules/private/my-org/config.el"
-(load! "setting")
 ;;(setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
 (use-package! ob-session-async)
 #+end_src
