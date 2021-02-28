@@ -1,6 +1,6 @@
 {config, pkgs, lib, ...}:
 let
-  hydra-pkgs = import (builtins.fetchTarball "https://github.com/nixos/nixpkgs/tarball/11b4cc52db2af7af9ea5d4740019078a70bf4b09"){};
+  hydra-pkgs = import (builtins.fetchTarball "https://github.com/nixos/nixpkgs/tarball/ed113c9bd58542d9a7782ec128272bf4d294bd1d"){};
 in
 {
   config = with lib; mkMerge [
@@ -37,7 +37,11 @@ in
         enable = true;
         listenHost = config.host_1.interface_1.ip;
         port = 8300;
-        package = hydra-pkgs.hydra-unstable;
+        package = hydra-pkgs.hydra-unstable.overrideAttrs (old: rec {
+          preConfigure = ''
+          sed -i 's|evalSettings.restrictEval = true;|evalSettings.restrictEval = false;|' src/hydra-eval-jobs/hydra-eval-jobs.cc
+          '';
+        });
         max_job = 24;
         hydraURL = "http://${config.host_1.interface_1.ip}";
         notificationSender = "gtrun@hardenedlinux.org";
