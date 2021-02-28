@@ -46,7 +46,7 @@ in
         hydraURL = "http://${config.host_1.interface_1.ip}";
         notificationSender = "gtrun@hardenedlinux.org";
         useSubstitutes = true;
-        logo = "${config.home.homeDirectory}/.config/nixpkgs/img/logo_no_background_color_white.png";
+        logo = "${config.home.homeDirectory}/.config/nixpkgs/misc/img/logo_no_background_color_white.png";
       };
 
 

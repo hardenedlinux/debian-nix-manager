@@ -23,7 +23,7 @@
         autostash = true;
       };
       http = {
-        sslVerify = true;
+        sslVerify = false;
       };
     };
   };
