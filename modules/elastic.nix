@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
   cfg = config.services.elasticsearch;
 
@@ -30,8 +29,8 @@ let
   configDir = cfg.dataDir + "/config";
   configDir7 = cfg.dataDir + "/7/config";
 
-  ES_JAVA_OPTS = toString ( [ "-Des.path.conf=${configDir}" ]
-                            ++ cfg.extraJavaOptions);
+  ES_JAVA_OPTS = toString ([ "-Des.path.conf=${configDir}" ]
+    ++ cfg.extraJavaOptions);
 
   elasticsearchYml = pkgs.writeTextFile {
     name = "elasticsearch.yml";
@@ -56,7 +55,8 @@ let
     postBuild = "${pkgs.coreutils}/bin/mkdir -p $out/plugins";
   };
 
-in {
+in
+{
 
   ###### interface
 
@@ -143,20 +143,20 @@ in {
 
     extraCmdLineOptions = mkOption {
       description = "Extra command line options for the elasticsearch launcher.";
-      default = [];
+      default = [ ];
       type = types.listOf types.str;
     };
 
     extraJavaOptions = mkOption {
       description = "Extra command line options for Java.";
-      default = [];
+      default = [ ];
       type = types.listOf types.str;
       example = [ "-Djava.net.preferIPv4Stack=true" ];
     };
 
     plugins = mkOption {
       description = "Extra elasticsearch plugins";
-      default = [];
+      default = [ ];
       type = types.listOf types.package;
       example = lib.literalExample "[ pkgs.elasticsearchPlugins.discovery-ec2 ]";
     };
@@ -168,10 +168,10 @@ in {
   config = mkIf cfg.enable {
     systemd.user.services.elasticsearch = {
       Unit = {
-      description = "Elasticsearch Daemon";
-      after = [ "network.target" ];
+        description = "Elasticsearch Daemon";
+        after = [ "network.target" ];
       };
-      Install = { WantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ]; };
       Service = {
         ExecStart = "${cfg.package}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
         #PermissionsStartOnly = true;
@@ -179,17 +179,17 @@ in {
         EX = "sd";
         LimitNOFILE = "1024000";
         ExecStartPre = ''
-         ${pkgs.bash}/bin/bash -c 'rm -rf /var/lib/elasticsearch/config; ln -sfT ${esPlugins}/plugins ${cfg.dataDir}/plugins; ln -sfT ${cfg.package}/lib ${cfg.dataDir}/lib; ln -sfT ${cfg.package}/modules ${cfg.dataDir}/modules; mkdir -p /var/lib/elasticsearch/config; cp ${elasticsearchYml} ${configDir}/elasticsearch.yml; rm -f ${configDir}/logging.yml; cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename}; ${optionalString es6 "cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options"}'
-       '';
+          ${pkgs.bash}/bin/bash -c 'rm -rf /var/lib/elasticsearch/config; ln -sfT ${esPlugins}/plugins ${cfg.dataDir}/plugins; ln -sfT ${cfg.package}/lib ${cfg.dataDir}/lib; ln -sfT ${cfg.package}/modules ${cfg.dataDir}/modules; mkdir -p /var/lib/elasticsearch/config; cp ${elasticsearchYml} ${configDir}/elasticsearch.yml; rm -f ${configDir}/logging.yml; cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename}; ${optionalString es6 "cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options"}'
+        '';
       };
     };
 
     systemd.user.services.elasticsearch-7x = {
       Unit = {
-      description = "Elasticsearch Daemon";
-      after = [ "network.target" ];
+        description = "Elasticsearch Daemon";
+        after = [ "network.target" ];
       };
-      Install = { WantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ]; };
       Service = {
         ExecStart = "${cfg.package-7x}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
         #PermissionsStartOnly = true;
@@ -197,8 +197,8 @@ in {
         ES_JAVA_OPTS = "${ES_JAVA_OPTS}";
         LimitNOFILE = "1024000";
         ExecStartPre = ''
-         ${pkgs.bash}/bin/bash -c 'rm -rf /var/lib/elasticsearch/7/config; ln -sfT ${esPlugins}/plugins ${cfg.dataDir}/7/plugins; ln -sfT ${cfg.package-7x}/lib ${cfg.dataDir}/7/lib; ln -sfT ${cfg.package-7x}/modules ${cfg.dataDir}/7/modules; mkdir -p /var/lib/elasticsearch/7/config; cp ${elasticsearch7Yml} ${configDir7}/elasticsearch.yml; rm -f ${configDir7}/logging.yml; cp ${loggingConfigFile} ${configDir7}/${loggingConfigFilename}; cp ${cfg.package-7x}/config/jvm.options ${configDir7}/jvm.options'
-       '';
+          ${pkgs.bash}/bin/bash -c 'rm -rf /var/lib/elasticsearch/7/config; ln -sfT ${esPlugins}/plugins ${cfg.dataDir}/7/plugins; ln -sfT ${cfg.package-7x}/lib ${cfg.dataDir}/7/lib; ln -sfT ${cfg.package-7x}/modules ${cfg.dataDir}/7/modules; mkdir -p /var/lib/elasticsearch/7/config; cp ${elasticsearch7Yml} ${configDir7}/elasticsearch.yml; rm -f ${configDir7}/logging.yml; cp ${loggingConfigFile} ${configDir7}/${loggingConfigFilename}; cp ${cfg.package-7x}/config/jvm.options ${configDir7}/jvm.options'
+        '';
       };
     };
 

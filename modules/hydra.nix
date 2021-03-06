@@ -1,9 +1,7 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-
 let
-
   cfg = config.services.hydra;
 
   baseDir = "/var/lib/hydra";
@@ -11,13 +9,15 @@ let
   hydraConf = pkgs.writeScript "hydra.conf" cfg.extraConfig;
 
   hydraEnv =
-    { HYDRA_DBI = cfg.dbi;
+    {
+      HYDRA_DBI = cfg.dbi;
       HYDRA_CONFIG = "${baseDir}/hydra.conf";
       HYDRA_DATA = "${baseDir}";
     };
 
   env =
-    { NIX_REMOTE = "daemon";
+    {
+      NIX_REMOTE = "daemon";
       SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # Remove in 16.03
       PGPASSFILE = "${baseDir}/pgpass";
       #NIX_REMOTE_SYSTEMS = concatStringsSep ":" cfg.buildMachinesFiles;
@@ -27,7 +27,8 @@ let
     } // hydraEnv // cfg.extraEnv;
 
   serverEnv = env //
-    { HYDRA_TRACKER = cfg.tracker;
+    {
+      HYDRA_TRACKER = cfg.tracker;
       XDG_CACHE_HOME = "${baseDir}/www/.cache";
       COLUMNS = "80";
       #PGPASSFILE = "${baseDir}/pgpass-www"; # grrr
@@ -38,7 +39,6 @@ let
   haveLocalDB = cfg.dbi == localDB;
 
 in
-
 {
   ###### interface
   options = {
@@ -110,10 +110,10 @@ in
       };
 
       max_job = mkOption {
-      description = "set max_job number";
-      default = 8;
-      type = types.int;
-    };
+        description = "set max_job number";
+        default = 8;
+        type = types.int;
+      };
       notificationSender = mkOption {
         type = types.str;
         description = ''
@@ -124,7 +124,7 @@ in
       smtpHost = mkOption {
         type = types.nullOr types.str;
         default = null;
-        example = ["localhost"];
+        example = [ "localhost" ];
         description = ''
           Hostname of the SMTP server to use to send email.
         '';
@@ -159,7 +159,7 @@ in
 
       extraEnv = mkOption {
         type = types.attrsOf types.str;
-        default = {};
+        default = { };
         description = "Extra Environment variables for Hydra.";
       };
 
@@ -212,11 +212,11 @@ in
 
     home.packages = [ cfg.package ];
 
-#    Environment.variables = hydraEnv;
+    #    Environment.variables = hydraEnv;
 
     systemd.user.services.hydra-server =
       {
-        Install = { WantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ]; };
         Unit = {
           requires = [ "hydra-init.service" ];
           after = [ "hydra-init.service" ];
@@ -224,7 +224,8 @@ in
         #restartTriggers = [ hydraConf ];
         environment = serverEnv;
         Service =
-          { ExecStart =
+          {
+            ExecStart =
               "${cfg.package}/bin/hydra-server hydra-server -f -h '${cfg.listenHost}' "
               + "-p ${toString cfg.port} --max_spare_servers 5 --max_servers 25 "
               + "--max_requests 100 ${optionalString cfg.debugServer "-d"}";
@@ -243,7 +244,7 @@ in
 
     systemd.user.services.hydra-queue-runner =
       {
-        Install = { WantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ]; };
         Unit = {
           requires = [ "hydra-init.service" ];
           after = [ "hydra-init.service" "network.target" ];
@@ -251,14 +252,15 @@ in
         #path = [ cfg.package pkgs.nettools pkgs.openssh pkgs.bzip2 config.nix.package ];
         #restartTriggers = [ hydraConf ];
         Service =
-          { ExecStart = "${cfg.package}/bin/hydra-queue-runner -j ${toString cfg.max_job} -v --option build-use-substitutes true";
+          {
+            ExecStart = "${cfg.package}/bin/hydra-queue-runner -j ${toString cfg.max_job} -v --option build-use-substitutes true";
             ExecStopPost = "${cfg.package}/bin/hydra-queue-runner --unlock";
             Restart = "always";
 
             Environment = [
               ''"HYDRA_DATA=/var/lib/hydra"''
               ''"NIX_BUILD_CORES=12"''
-              ''"IN_SYSTEMD=1"''            # to get log severity levels
+              ''"IN_SYSTEMD=1"'' # to get log severity levels
               ''"HYDRA_CONFIG=${baseDir}/hydra.conf"''
             ];
             # Ensure we can get core dumps.
@@ -274,15 +276,19 @@ in
           after = [ "hydra-init.service" "network.target" ];
         };
 
-        Install = { WantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ]; };
         #path = with pkgs; [ cfg.package nettools jq ];
         #restartTriggers = [ hydraConf ];
         Service =
-          { ExecStart = "@${cfg.package}/bin/hydra-evaluator hydra-evaluator";
+          {
+            ExecStart = "@${cfg.package}/bin/hydra-evaluator hydra-evaluator";
             Restart = "always";
             Environment = [
               ''"HYDRA_DBI=dbi:Pg:dbname=hydra;host=localhost;user=hydra;password=${config.password.nsm-postgresql}"''
               ''"PATH=${makeBinPath [ pkgs.nettools pkgs.jq cfg.package ]}"''
+              ''"SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"''
+              ''"https_proxy=http://127.0.0.1:8123"''
+              ''"http_proxy=http://127.0.0.1:8123"''
             ];
 
             WorkingDirectory = baseDir;
@@ -291,13 +297,14 @@ in
 
     systemd.user.services.hydra-update-gc-roots =
       {
-        Install = { WantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ]; };
         Unit = {
           requires = [ "hydra-init.service" ];
           after = [ "hydra-init.service" "network.target" ];
         };
         Service =
-          { ExecStart = "@${cfg.package}/bin/hydra-update-gc-roots hydra-update-gc-roots";
+          {
+            ExecStart = "@${cfg.package}/bin/hydra-update-gc-roots hydra-update-gc-roots";
             #Environment = env;
           };
         #startAt = "2,14:15";
@@ -305,19 +312,20 @@ in
 
     systemd.user.services.hydra-send-stats =
       {
-        Install = { WantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ]; };
         Unit = {
           after = [ "hydra-init.service" "network.target" ];
         };
         Service =
-          { ExecStart = "@${cfg.package}/bin/hydra-send-stats hydra-send-stats";
+          {
+            ExecStart = "@${cfg.package}/bin/hydra-send-stats hydra-send-stats";
             User = "hydra";
             #Environment = env;
           };
       };
     systemd.user.services.hydra-notify =
       {
-        Install = { WantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ]; };
         Unit = {
           requires = [ "hydra-init.service" ];
           after = [ "hydra-init.service" ];

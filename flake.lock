@@ -65,11 +65,11 @@
     },
     "flake-utils_2": {
       "locked": {
-        "lastModified": 1601282935,
-        "narHash": "sha256-WQAFV6sGGQxrRs3a+/Yj9xUYvhTpukQJIcMbIi7LCJ4=",
+        "lastModified": 1605370193,
+        "narHash": "sha256-YyMTf3URDL/otKdKgtoMChu4vfVL3vCMkRqpGifhUn0=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "588973065fce51f4763287f0fda87a174d78bf48",
+        "rev": "5021eac20303a61fafe17224c087f5519baed54d",
         "type": "github"
       },
       "original": {
@@ -99,6 +99,22 @@
         "type": "github"
       }
     },
+    "icsnpp-bacnet": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1611095103,
+        "narHash": "sha256-LM6yZKtmr9/tdVRhkMAxVY8dEh1JeOdIZUhK2BDrZGE=",
+        "ref": "master",
+        "rev": "9c6e6b097b4799245af740402ced96383784e599",
+        "revCount": 1,
+        "type": "git",
+        "url": "https://github.com/cisagov/icsnpp-bacnet"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/cisagov/icsnpp-bacnet"
+      }
+    },
     "master": {
       "locked": {
         "lastModified": 1610923780,
@@ -114,36 +130,45 @@
         "type": "indirect"
       }
     },
+    "metron-zeek-plugin-kafka": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1600793201,
+        "narHash": "sha256-F2jWQYEQIo/oLdaLkBlddjlnUk8LrD3+x2QBElvQYrI=",
+        "ref": "master",
+        "rev": "92b85e5e00cc2fd9023ea7f53466db6592eb6634",
+        "revCount": 48,
+        "type": "git",
+        "url": "https://github.com/apache/metron-bro-plugin-kafka/"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/apache/metron-bro-plugin-kafka/"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1608966769,
-        "narHash": "sha256-QNxfUPDN3aPeL6hN25TbFnIfwcVCma2A13yYBP10Xxw=",
+        "lastModified": 1615064793,
+        "narHash": "sha256-orBdNWqSW9JscWv2KkFPwZsAJv16LHetoBsqZcNVutQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "75d69a0a27ee9262805e6a7a605f00e654b75a28",
+        "rev": "362477fdf726ed1dff33eadda8b99b257b46e085",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
-        "rev": "75d69a0a27ee9262805e6a7a605f00e654b75a28",
+        "ref": "master",
         "type": "indirect"
       }
     },
     "nixpkgs-hardenedlinux": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "vast": "vast",
-        "zeek-nix": "zeek-nix"
-      },
+      "flake": false,
       "locked": {
-        "lastModified": 1608242550,
-        "narHash": "sha256-TVvS8+J8S7QmOcWLuKPKIlB0rEuVMLfDFOUE32lxvHM=",
+        "lastModified": 1614675749,
+        "narHash": "sha256-DS3naBKVLgDaAIB5wttq3MUveyvKAXsFpdYs+pxrvfY=",
         "owner": "hardenedlinux",
         "repo": "nixpkgs-hardenedlinux",
-        "rev": "072119e8b349cc1f29b822d468f3d2b9362ddb9d",
+        "rev": "837b4f32f1d6b1c2136e9fc1e806e2bfbd0817ea",
         "type": "github"
       },
       "original": {
@@ -163,7 +188,8 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-hardenedlinux": "nixpkgs-hardenedlinux",
         "spl-spt": "spl-spt",
-        "zeek-EternalSafety": "zeek-EternalSafety"
+        "zeek-EternalSafety": "zeek-EternalSafety",
+        "zeek-nix": "zeek-nix"
       }
     },
     "spl-spt": {
@@ -182,20 +208,16 @@
         "type": "github"
       }
     },
-    "vast": {
+    "zeek-4": {
       "flake": false,
       "locked": {
-        "lastModified": 1607952675,
-        "narHash": "sha256-HbaWail8v7zMiZISvGRP6s3AWhGsdK1SLMUEiob8Tq4=",
-        "owner": "tenzir",
-        "repo": "vast",
-        "rev": "eac68316f0d4e28b97d9f0722b64b8ea2157e7c9",
-        "type": "github"
+        "narHash": "sha256-sD4BE06pNWCXFkw1V+XfvVSj0dFCvp9lAhuEVpfT1NQ=",
+        "type": "tarball",
+        "url": "https://download.zeek.org/zeek-4.0.0-rc2.tar.gz"
       },
       "original": {
-        "owner": "tenzir",
-        "repo": "vast",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://download.zeek.org/zeek-4.0.0-rc2.tar.gz"
       }
     },
     "zeek-EternalSafety": {
@@ -214,20 +236,156 @@
         "type": "github"
       }
     },
-    "zeek-nix": {
+    "zeek-current": {
       "flake": false,
       "locked": {
-        "lastModified": 1602297382,
-        "narHash": "sha256-o+OhyMhE8D21CJ7D+jA4XefQGIFJ8JSZeQHaMYK7FeA=",
+        "narHash": "sha256-DfOAe+F0X+HHGX3amIvvHJsDJHJVw2nFZVjbbvEa1vI=",
+        "type": "tarball",
+        "url": "https://download.zeek.org/zeek-4.0.0.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://download.zeek.org/zeek-4.0.0.tar.gz"
+      }
+    },
+    "zeek-nix": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "icsnpp-bacnet": "icsnpp-bacnet",
+        "metron-zeek-plugin-kafka": "metron-zeek-plugin-kafka",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "zeek-4": "zeek-4",
+        "zeek-current": "zeek-current",
+        "zeek-plugin-community-id": "zeek-plugin-community-id",
+        "zeek-plugin-http2": "zeek-plugin-http2",
+        "zeek-plugin-ikev2": "zeek-plugin-ikev2",
+        "zeek-plugin-pdf": "zeek-plugin-pdf",
+        "zeek-plugin-postgresql": "zeek-plugin-postgresql",
+        "zeek-plugin-zip": "zeek-plugin-zip",
+        "zeek-tls": "zeek-tls"
+      },
+      "locked": {
+        "lastModified": 1615066763,
+        "narHash": "sha256-Zo4Me3Asa9kFlfcpTEqPcdoxHiJksXHTPfWu7M5XM5s=",
         "owner": "hardenedlinux",
         "repo": "zeek-nix",
-        "rev": "37d4bd43d79ff11814819146ecb9d3a2dd1ae52d",
+        "rev": "1b2b78f926e060588a39912d450ffb1caa813b35",
         "type": "github"
       },
       "original": {
         "owner": "hardenedlinux",
         "repo": "zeek-nix",
         "type": "github"
+      }
+    },
+    "zeek-plugin-community-id": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1600967039,
+        "narHash": "sha256-MV5Wa67u7WY91nh5jOCgiCk1ymvSKSyfT5nhl9EDA/w=",
+        "ref": "master",
+        "rev": "181a104b99d9019771ece7e489e46f2268b746d8",
+        "revCount": 21,
+        "type": "git",
+        "url": "https://github.com/corelight/zeek-community-id/"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/corelight/zeek-community-id/"
+      }
+    },
+    "zeek-plugin-http2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1607350298,
+        "narHash": "sha256-UpNfsYfNKMb8yO8X5bdwB2wSQo9KWsjZbVqzteKYY3Q=",
+        "ref": "master",
+        "rev": "70008f0f40e6c942547285f8c43b9aabd1efc909",
+        "revCount": 50,
+        "type": "git",
+        "url": "https://github.com/MITRECND/bro-http2/"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/MITRECND/bro-http2/"
+      }
+    },
+    "zeek-plugin-ikev2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1580147366,
+        "narHash": "sha256-ct1nQcbDGQ2V9lrKD/snhmF3EEkDXCbQfiJpSwOmKPI=",
+        "ref": "master",
+        "rev": "5b62d506573da388bb4df0446cc87cdffc12a438",
+        "revCount": 1,
+        "type": "git",
+        "url": "https://github.com/ukncsc/zeek-plugin-ikev2"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/ukncsc/zeek-plugin-ikev2"
+      }
+    },
+    "zeek-plugin-pdf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1602586202,
+        "narHash": "sha256-0zO7RwCJx8W8rn5ebjZUn/xLGl0M1ljCSNWSxawflLA=",
+        "ref": "master",
+        "rev": "3b52f87943f04685da600f4b00b4ad27f8cd28c6",
+        "revCount": 18,
+        "type": "git",
+        "url": "https://github.com/reservoirlabs/zeek-pdf-analyzer"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/reservoirlabs/zeek-pdf-analyzer"
+      }
+    },
+    "zeek-plugin-postgresql": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1586473863,
+        "narHash": "sha256-AHzzid9/JkSbgvhbql0PlFLWo9pO2VJ7RQ0tdmfv1uQ=",
+        "ref": "master",
+        "rev": "fb72b41140094ec8795cd7aaecbb3997c28ff202",
+        "revCount": 24,
+        "type": "git",
+        "url": "https://github.com/0xxon/zeek-postgresql"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/0xxon/zeek-postgresql"
+      }
+    },
+    "zeek-plugin-zip": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1602585700,
+        "narHash": "sha256-1JKcDOVLQh9wyipGrVtmDnVrEXoMqjxtXqPs1rQo150=",
+        "ref": "master",
+        "rev": "df3344f1e161da9349d5257fc9137acc09d4af55",
+        "revCount": 6,
+        "type": "git",
+        "url": "https://github.com/reservoirlabs/zeek-zip-analyzer"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/reservoirlabs/zeek-zip-analyzer"
+      }
+    },
+    "zeek-tls": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-HWgBJqnfZnVzdoZI39yrB2L6agRokVgsUTxZOWj+2/U=",
+        "type": "tarball",
+        "url": "https://download.zeek.org/zeek-3.0.13.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://download.zeek.org/zeek-3.0.13.tar.gz"
       }
     }
   },

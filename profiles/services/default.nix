@@ -4,5 +4,5 @@
   imports = [
     ./gpg.nix
   ];
-  
+
 }

@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
   cfg = config.services.logstash;
   home_directory = builtins.getEnv "HOME";
@@ -29,7 +28,8 @@ let
 
   logstashSettingsYml = pkgs.writeText "logstash.yml" cfg.extraSettings;
 
-  logstashSettingsDir = pkgs.runCommand "logstash-settings" {
+  logstashSettingsDir = pkgs.runCommand "logstash-settings"
+    {
       inherit logstashSettingsYml;
       preferLocalBuild = true;
     } ''
@@ -40,15 +40,14 @@ let
   '';
 
   PreShell = pkgs.writeScript "run-logstash" ''
-          ${cfg.package}/bin/logstash \
-          ${pluginsPath} \
-          --path.config "${toString cfg.logstashConfDir}/*.conf" \
-          --path.settings ${logstashSettingsDir} \
-          --path.data ${cfg.dataDir}
-    '';
+    ${cfg.package}/bin/logstash \
+    ${pluginsPath} \
+    --path.config "${toString cfg.logstashConfDir}/*.conf" \
+    --path.settings ${logstashSettingsDir} \
+    --path.data ${cfg.dataDir}
+  '';
 
 in
-
 {
   imports = [
     (mkRenamedOptionModule [ "services" "logstash" "address" ] [ "services" "logstash" "listenAddress" ])
@@ -82,7 +81,7 @@ in
         description = "The paths to find other logstash plugins in.";
       };
 
-       logstashConfDir = mkOption {
+      logstashConfDir = mkOption {
         type = types.str;
         default = "${home_directory}/.config/nixpkgs/elk/zeek-logstash";
         description = ''
@@ -185,14 +184,14 @@ in
     systemd.user.services.logstash = with pkgs; {
       Unit = {
         description = "Logstash Daemon";
-        };
-      Install = { WantedBy = [ "multi-user.target" ];};
+      };
+      Install = { WantedBy = [ "multi-user.target" ]; };
       #path = [ pkgs.bash ];
       Service = {
         Environment = "JAVA_HOME=${pkgs.jre}";
         ExecStart = ''
-           ${pkgs.bash}/bin/bash ${PreShell}
-         '';
+          ${pkgs.bash}/bin/bash ${PreShell}
+        '';
       };
     };
   };

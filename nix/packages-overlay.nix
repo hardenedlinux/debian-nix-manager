@@ -16,7 +16,7 @@ let
 
 in
 {
-  zeek = prev.callPackage "${zeek-nix}" {KafkaPlugin = true; PostgresqlPlugin = true; Http2Plugin = true;};
+  zeek = prev.callPackage "${zeek-nix}/nix" { KafkaPlugin = true; PostgresqlPlugin = true; Http2Plugin = true; python = prev.python3; };
   vast = prev.callPackage "${nixpkgs-hardenedlinux}/pkgs/vast" { };
   pf-ring = prev.callPackage ../pkgs/network/pf_ring.nix { };
   osquery = prev.callPackages ../pkgs/osquery { };

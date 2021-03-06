@@ -5,31 +5,31 @@ let
 in
 {
   options.host_2 = with lib; {
-     username = mkOption {
+    username = mkOption {
       type = types.str;
       default = machine.username;
       description = "hosts username";
-     };
+    };
 
-     interface_1.ip = mkOption {
+    interface_1.ip = mkOption {
       type = types.str;
       default = machine.interface_1.ip;
       description = "hosts interface ";
     };
 
-     interface_1.name = mkOption {
+    interface_1.name = mkOption {
       type = types.str;
       default = machine.interface_1.name;
       description = "hosts username";
-     };
+    };
 
-     interface_2.ip = mkOption {
+    interface_2.ip = mkOption {
       type = types.str;
       default = machine.interface_2.ip;
       description = "hosts interface ";
     };
 
-     interface_2.name = mkOption {
+    interface_2.name = mkOption {
       type = types.str;
       default = machine.interface_2.name;
       description = "hosts username";

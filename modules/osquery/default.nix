@@ -1,15 +1,13 @@
-{ config, pkgs, lib,  ...}:
+{ config, pkgs, lib, ... }:
 
 with builtins;
 with lib;
-
 let
   cfg = config.services.osquery;
   home_directory = builtins.getEnv "HOME";
   osuqerycfg = "${home_directory}/.osquery/osquery.conf";
   osquery = pkgs.callPackage ../../pkgs/osquery { };
 in
-
 {
   options = {
 
@@ -47,7 +45,7 @@ in
       };
       extraConfig = mkOption {
         type = types.attrs // {
-          merge = loc: foldl' (res: def: recursiveUpdate res def.value) {};
+          merge = loc: foldl' (res: def: recursiveUpdate res def.value) { };
         };
         description = "Extra config to be recursively merged into the JSON config file.";
         default = { };
@@ -57,16 +55,18 @@ in
   };
 
   config = mkIf cfg.enable {
-   home.file.".osquery/osquery.conf".text = toJSON (
-      recursiveUpdate { 
-        options = {
-          config_plugin = "filesystem";
-          logger_plugin = "filesystem";
-          logger_path = cfg.loggerPath;
-          database_path = cfg.databasePath;
-          utc = cfg.utc;
-        };
-      } cfg.extraConfig
+    home.file.".osquery/osquery.conf".text = toJSON (
+      recursiveUpdate
+        {
+          options = {
+            config_plugin = "filesystem";
+            logger_plugin = "filesystem";
+            logger_path = cfg.loggerPath;
+            database_path = cfg.databasePath;
+            utc = cfg.utc;
+          };
+        }
+        cfg.extraConfig
     );
 
     systemd.user.services.osquery = {
@@ -75,7 +75,7 @@ in
         description = "The osquery Daemon";
       };
 
-      Install = { WantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ]; };
 
       Service = {
         TimeoutStartSec = 0;

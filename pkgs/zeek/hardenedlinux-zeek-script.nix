@@ -1,4 +1,4 @@
-{pkgs} :
+{ pkgs }:
 let
   hardenedlinux-zeek-script-src = builtins.fetchGit {
     url = https://github.com/hardenedlinux/hardenedlinux-zeek-script;
@@ -7,11 +7,11 @@ let
   };
 
 in
-  pkgs.stdenv.mkDerivation rec {
-    name = "hardenedlinux-zeek-script";
-    phases = [ "installPhase" ];
-    buildInputs = [ hardenedlinux-zeek-script-src ];
-    installPhase = ''
+pkgs.stdenv.mkDerivation rec {
+  name = "hardenedlinux-zeek-script";
+  phases = [ "installPhase" ];
+  buildInputs = [ hardenedlinux-zeek-script-src ];
+  installPhase = ''
     cp -r ${hardenedlinux-zeek-script-src}/scripts/ $out
 
     substituteInPlace $out/zeek-kafka.zeek \
@@ -25,5 +25,5 @@ in
     substituteInPlace $out/protocols/dns/dyndns.zeek \
     --replace "dynamic_dns.txt" "$out/protocols/dns/dynamic_dns.txt"
 
-   '';
-  }
+  '';
+}

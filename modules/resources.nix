@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-    options.resources = with lib; {
-    };
+  options.resources = with lib; { };
 }

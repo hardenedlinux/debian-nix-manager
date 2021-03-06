@@ -2,12 +2,12 @@
 with lib;
 {
   systemd.user.services.dropbox = {
-      Unit = {
-        description = "Dropbox";
-      };
-      Install = { WantedBy = [ "graphical-session.target" ]; };
+    Unit = {
+      description = "Dropbox";
+    };
+    Install = { WantedBy = [ "graphical-session.target" ]; };
 
-      environment = {
+    environment = {
       QT_PLUGIN_PATH = "$HOME/.nix-profile/" + pkgs.qt5.qtbase.qtPluginPrefix;
       QML2_IMPORT_PATH = "$HOME/.nix-profile/" + pkgs.qt5.qtbase.qtQmlPrefix;
     };

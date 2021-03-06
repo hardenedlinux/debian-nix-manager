@@ -5,7 +5,6 @@
 , hiredis
 , zeromq
 }:
-
 let
   version = "7.6.0";
 in
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
   buildParallel = false;
   installParallel = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     maintainers = with maintainers; [
       wkennington
     ];

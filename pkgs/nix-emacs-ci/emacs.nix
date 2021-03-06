@@ -1,7 +1,16 @@
 { version
 , sha256
-, libcxxStdenv, llvmPackages, lib, fetchurl, ncurses, autoreconfHook, texinfo
-, pkgconfig, libxml2, gettext, gnutls
+, libcxxStdenv
+, llvmPackages
+, lib
+, fetchurl
+, ncurses
+, autoreconfHook
+, texinfo
+, pkgconfig
+, libxml2
+, gettext
+, gnutls
 , withAutoReconf ? false
 , siteStart ? ./site-start.el
 }:
@@ -27,21 +36,21 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig (if withAutoReconf then autoreconfHook else null) ];
 
   buildInputs =
-    [ ncurses libxml2 gnutls gettext texinfo];
+    [ ncurses libxml2 gnutls gettext texinfo ];
 
   hardeningDisable = [ "format" ];
 
   configureFlags = [
     # "--disable-build-details" # for a (more) reproducible build
-     "--with-modules"
-     "--with-x=yes"#
-     "--with-x11"
-     "--with-xft"
-     # "--with-xpm=no"
-     # "--with-jpeg=no"
-     #  "--with-png=no"
-     # "--with-gif=no"
-     # "--with-tiff=no"
+    "--with-modules"
+    "--with-x=yes" #
+    "--with-x11"
+    "--with-xft"
+    # "--with-xpm=no"
+    # "--with-jpeg=no"
+    #  "--with-png=no"
+    # "--with-gif=no"
+    # "--with-tiff=no"
   ];
 
   preConfigure = ''
@@ -58,14 +67,14 @@ stdenv.mkDerivation rec {
 
     rm -rf $out/var
     rm -rf $out/share/emacs/${version}/site-lisp
- '';
+  '';
   installTargets = "tags install";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "The extensible, customizable GNU text editor";
-    homepage    = https://www.gnu.org/software/emacs/;
-    license     = licenses.gpl3Plus;
-    platforms   = platforms.all;
+    homepage = https://www.gnu.org/software/emacs/;
+    license = licenses.gpl3Plus;
+    platforms = platforms.all;
 
     longDescription = ''
       GNU Emacs is an extensible, customizable text editor—and more.  At its

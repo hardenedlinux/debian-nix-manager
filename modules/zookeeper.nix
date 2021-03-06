@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
   cfg = config.services.zookeeper;
 
@@ -22,15 +21,16 @@ let
   };
 
   PreShell = pkgs.writeScript "run-zookeeper" ''
-          ${pkgs.jre}/bin/java \
-            -cp "${cfg.package}/lib/*:${cfg.package}/${cfg.package.name}.jar:${configDir}" \
-            ${escapeShellArgs cfg.extraCmdLineOptions} \
-            -Dzookeeper.datadir.autocreate=false \
-            ${optionalString cfg.preferIPv4 "-Djava.net.preferIPv4Stack=true"} \
-            org.apache.zookeeper.server.quorum.QuorumPeerMain \
-            ${configDir}/zoo.cfg
+    ${pkgs.jre}/bin/java \
+      -cp "${cfg.package}/lib/*:${cfg.package}/${cfg.package.name}.jar:${configDir}" \
+      ${escapeShellArgs cfg.extraCmdLineOptions} \
+      -Dzookeeper.datadir.autocreate=false \
+      ${optionalString cfg.preferIPv4 "-Djava.net.preferIPv4Stack=true"} \
+      org.apache.zookeeper.server.quorum.QuorumPeerMain \
+      ${configDir}/zoo.cfg
   '';
-in {
+in
+{
 
   options.services.zookeeper = {
     enable = mkOption {
@@ -126,7 +126,7 @@ in {
 
 
   config = mkIf cfg.enable {
-    home.packages = [cfg.package];
+    home.packages = [ cfg.package ];
 
     # systemd.tmpfiles.rules = [
     #   "d '${cfg.dataDir}' 0700 zookeeper - - -"
@@ -135,10 +135,10 @@ in {
 
     systemd.user.services.zookeeper = {
       Unit = {
-      description = "Zookeeper Daemon";
-      after = [ "network.target" ];
+        description = "Zookeeper Daemon";
+        after = [ "network.target" ];
       };
-      Install = { WantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ]; };
 
       Service = {
         Environment = [
@@ -146,11 +146,11 @@ in {
         ];
 
         ExecStartPre = ''
-        echo "${toString cfg.id}" > ${cfg.dataDir}/myid
-      '';
+          echo "${toString cfg.id}" > ${cfg.dataDir}/myid
+        '';
 
         ExecStart = ''
-            ${pkgs.bash}/bin/bash ${PreShell}
+          ${pkgs.bash}/bin/bash ${PreShell}
         '';
       };
     };

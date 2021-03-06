@@ -1,30 +1,29 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
   user = builtins.getEnv "USER";
   cfg = config.services.postgresql;
 
   postgresql =
-    if cfg.extraPlugins == []
-      then cfg.package
-      else cfg.package.withPackages (_: cfg.extraPlugins);
+    if cfg.extraPlugins == [ ]
+    then cfg.package
+    else cfg.package.withPackages (_: cfg.extraPlugins);
 
   # The main PostgreSQL configuration file.
   PreShell = pkgs.writeScript "run-postgresql" ''
-    if ! test -e "${cfg.dataDir}/PG_VERSION"; then
-       initdb -E 'UTF-8' --no-locale -U ${cfg.superUser} ${concatStringsSep " " cfg.initdbArgs}
-       touch "${cfg.dataDir}/.first_startup"
-      fi
-  ln -sfn "${configFile}" "${cfg.dataDir}/postgresql.conf"
-      ${optionalString (cfg.recoveryConfig != null) ''
-      ln -sfn "${pkgs.writeText "recovery.conf" cfg.recoveryConfig}"
-          "${cfg.dataDir}/recovery.conf"
-            ''}
+      if ! test -e "${cfg.dataDir}/PG_VERSION"; then
+         initdb -E 'UTF-8' --no-locale -U ${cfg.superUser} ${concatStringsSep " " cfg.initdbArgs}
+         touch "${cfg.dataDir}/.first_startup"
+        fi
+    ln -sfn "${configFile}" "${cfg.dataDir}/postgresql.conf"
+        ${optionalString (cfg.recoveryConfig != null) ''
+        ln -sfn "${pkgs.writeText "recovery.conf" cfg.recoveryConfig}"
+            "${cfg.dataDir}/recovery.conf"
+              ''}
 
-            ${pkgs.postgresql}/bin/postgres  -k "/run/postgresql/"
-    '';
+              ${pkgs.postgresql}/bin/postgres  -k "/run/postgresql/"
+  '';
 
   configFile = pkgs.writeText "postgresql.conf"
     ''
@@ -40,7 +39,6 @@ let
   groupAccessAvailable = versionAtLeast postgresql.version "11.0";
 
 in
-
 {
 
   ###### interface
@@ -107,7 +105,7 @@ in
 
       initdbArgs = mkOption {
         type = with types; listOf str;
-        default = [];
+        default = [ ];
         example = [ "--data-checksums" "--allow-group-access" ];
         description = ''
           Additional arguments passed to <literal>initdb</literal> during data dir
@@ -125,7 +123,7 @@ in
 
       ensureDatabases = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = ''
           Ensures that the specified databases exist.
           This option will never delete existing databases, especially not when the value of this
@@ -149,7 +147,7 @@ in
             };
             ensurePermissions = mkOption {
               type = types.attrsOf types.str;
-              default = {};
+              default = { };
               description = ''
                 Permissions to ensure for the user, specified as an attribute set.
                 The attribute names specify the database and tables to grant the permissions for.
@@ -170,7 +168,7 @@ in
             };
           };
         });
-        default = [];
+        default = [ ];
         description = ''
           Ensures that the specified users exist and have at least the ensured permissions.
           The PostgreSQL users will be identified using peer authentication. This authenticates the Unix user with the
@@ -209,7 +207,7 @@ in
 
       extraPlugins = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         example = literalExample "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]";
         description = ''
           List of PostgreSQL plugins. PostgreSQL version for each plugin should
@@ -232,7 +230,7 @@ in
       };
       superUser = mkOption {
         type = types.str;
-        default= "${user}";
+        default = "${user}";
         internal = true;
         description = ''
           NixOS traditionally used 'root' as superuser, most other distros use 'postgres'.
@@ -253,9 +251,9 @@ in
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
       mkDefault (if versionAtLeast config.system.stateVersion "20.03" then pkgs.postgresql_11
-            else if versionAtLeast config.system.stateVersion "17.09" then pkgs.postgresql_9_6
-            else if versionAtLeast config.system.stateVersion "16.03" then pkgs.postgresql_9_5
-            else throw "postgresql_9_4 was removed, please upgrade your postgresql version.");
+      else if versionAtLeast config.system.stateVersion "17.09" then pkgs.postgresql_9_6
+      else if versionAtLeast config.system.stateVersion "16.03" then pkgs.postgresql_9_5
+      else throw "postgresql_9_4 was removed, please upgrade your postgresql version.");
 
     services.postgresql.authentication = mkAfter
       ''
@@ -275,13 +273,14 @@ in
           after = [ "network.target" ];
         };
 
-        Install = { WantedBy = [ "multi-user.target" ];};
+        Install = { WantedBy = [ "multi-user.target" ]; };
         #environment.PGDATA = cfg.dataDir;
 
         #paths = [ postgresql ];
 
         Service =
-          { ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+          {
+            ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
             Environment = [
               ''"PGDATA=${cfg.dataDir}"''
               ''"PGHOST=${cfg.dataDir}"''
@@ -289,8 +288,8 @@ in
             ];
 
             ExecStart = ''
-            ${pkgs.bash}/bin/bash ${PreShell}
-                '';
+              ${pkgs.bash}/bin/bash ${PreShell}
+            '';
 
             Restart = "always";
           };

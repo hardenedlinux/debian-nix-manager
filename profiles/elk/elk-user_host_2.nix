@@ -10,15 +10,15 @@ let
 in
 {
   config = with lib; mkMerge [
-    (mkIf (config.home.username == config.host_1.username ) {
+    (mkIf (config.home.username == config.host_2.username) {
       services.logstash = {
         enable = true;
         package = pkgs.logstash7;
         plugins = [ pkgs.logstash-contrib ];
         extraSettings = ''
-        config.reload.automatic: true
-        config.reload.interval: 3s
-    '';
+          config.reload.automatic: true
+          config.reload.interval: 3s
+        '';
         inputConfig = ''
         '';
       };
@@ -26,7 +26,7 @@ in
       services.kibana = {
         enable = true;
         package = pkgs.kibana7;
-        listenAddress = "localhost";
+        # listenAddress = "10.220.170.113";
         elasticsearch.hosts = [ "http://localhost:9200" ];
       };
 
@@ -36,7 +36,7 @@ in
         package = elastic5.elasticsearch5;
         package-7x = pkgs.elasticsearch7;
         #cluster_name =  "thehive";
-        extraJavaOptions = [""];
+        extraJavaOptions = [ "" ];
       };
     })
   ];

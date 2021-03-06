@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  imports =  [
+  imports = [
     ./password/password.nix
   ];
 }

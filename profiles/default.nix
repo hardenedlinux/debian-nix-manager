@@ -1,8 +1,8 @@
-{  ... }:
-
+{ ... }:
 {
   imports = [
     ./programs
+    ./elk
     ./services
     ./home-file.nix
     ./core-packages.nix

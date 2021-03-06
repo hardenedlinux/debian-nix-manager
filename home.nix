@@ -17,12 +17,11 @@ in
     path = "${config.home.homeDirectory}/.nix-defexpr/channels/home-mananger";
   };
 
-  
+
   imports = [
     ./profiles
     ./modules
     ./lib
-    ./elk
     ./pkgs/network
     ./pkgs/zeek
     ./pkgs/hardenedlinux.nix

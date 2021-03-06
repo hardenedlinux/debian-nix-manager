@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-
 let
   cfg = config.services.apache-kafka;
 
@@ -24,15 +23,16 @@ let
   logConfig = pkgs.writeText "log4j.properties" cfg.log4jProperties;
 
   PreShell = pkgs.writeScript "run-kafka" ''
-          ${pkgs.jre}/bin/java \
-            -cp "${cfg.package}/libs/*" \
-            -Dlog4j.configuration=file:${logConfig} \
-            ${toString cfg.jvmOptions} \
-            kafka.Kafka \
-            ${serverConfig}
-    '';
+    ${pkgs.jre}/bin/java \
+      -cp "${cfg.package}/libs/*" \
+      -Dlog4j.configuration=file:${logConfig} \
+      ${toString cfg.jvmOptions} \
+      kafka.Kafka \
+      ${serverConfig}
+  '';
 
-in {
+in
+{
 
   options.services.apache-kafka = {
     enable = mkOption {
@@ -130,18 +130,18 @@ in {
 
   config = mkIf cfg.enable {
 
-    home.packages = [cfg.package];
+    home.packages = [ cfg.package ];
 
     systemd.user.services.apache-kafka = {
       Unit = {
         description = "Apache Kafka Daemon";
         after = [ "network.target" ];
       };
-      Install = { WantedBy = [ "multi-user.target" ];};
+      Install = { WantedBy = [ "multi-user.target" ]; };
 
       Service = {
         ExecStart = ''
-            ${pkgs.bash}/bin/bash ${PreShell}
+          ${pkgs.bash}/bin/bash ${PreShell}
         '';
         Restart = "always";
       };

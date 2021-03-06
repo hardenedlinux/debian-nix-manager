@@ -1,6 +1,4 @@
 { config, lib, pkgs, ... }:
-
-
 let
   updatefont = ''fc-cache -f -v'';
   updateInit = "bash .doom.d/bin/emacs.sh";
@@ -49,20 +47,21 @@ in
     source = ../../dotfiles/doom/init.org;
     onChange = updateInit;
   };
-  home.file.".doom.d/xah-fly-keys.org" = {
-    source = ../../dotfiles/doom/xah-fly-keys.org;
+  home.file.".doom.d/meow.org" = {
+    source = ../../dotfiles/doom/meow.org;
     onChange = updateInit;
   };
 
   programs.emacs.enable = true;
-  
-  programs.emacs.package = (pkgs.emacsGcc.override({
+
+  programs.emacs.package = (pkgs.emacsGcc.override ({
     withImageMagick = true;
     imagemagick = pkgs.imagemagick7;
-  })).overrideAttrs(old: rec {
-    configureFlags = (old.configureFlags or []) ++ ["--with-imagemagick"
-                                                    "--with-nativecomp"
-                                                   ];
+  })).overrideAttrs (old: rec {
+    configureFlags = (old.configureFlags or [ ]) ++ [
+      "--with-imagemagick"
+      "--with-nativecomp"
+    ];
   });
   programs.emacs.extraPackages = epkgs: with epkgs;[
     vterm
