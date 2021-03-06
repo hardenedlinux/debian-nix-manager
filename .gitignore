@@ -1,8 +1,9 @@
-#password path
+#passsecrets/password-1.json
+secrets/password-1.json
+secrets/password.json
 #keys.sh
 ## nixos
 result
-secrets/password-1.json
 pkgs/osquery/osquery
 pkgs/osquery/cmake-3.14.6-Linux-x86_64.tar.gz
 pkgs/osquery/osquery-toolchain-1.0.0.tar.xz
