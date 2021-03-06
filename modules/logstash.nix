@@ -37,6 +37,7 @@ let
     ln -s $logstashSettingsYml $out/logstash.yml
     cp ${cfg.package}/config/log4j2.properties $out/.
      sed -i "1ipath.logs = /var/lib/logstash/logs" $out/log4j2.properties
+     echo "-XX:+UseG1GC" > $out/jvm.options
   '';
 
   PreShell = pkgs.writeScript "run-logstash" ''
