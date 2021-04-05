@@ -47,21 +47,22 @@ in
     };
 
     initExtra = (builtins.readFile ../../dotfiles/keys.sh) + (builtins.readFile ../../dotfiles/zshrc) + ''
-      SPACESHIP_TIME_SHOW=true
-      SPACESHIP_EXIT_CODE_SHOW=true
-      SPACESHIP_VI_MODE_SHOW=false
-      SPACESHIP_BATTERY_THRESHOLD=30
-      setopt HIST_IGNORE_ALL_DUPS
-      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#fdf6e3,bg=#586e75,bold,underline"
+      setopt no_extendedglob
+       SPACESHIP_TIME_SHOW=true
+       SPACESHIP_EXIT_CODE_SHOW=true
+       SPACESHIP_VI_MODE_SHOW=false
+       SPACESHIP_BATTERY_THRESHOLD=30
+       setopt HIST_IGNORE_ALL_DUPS
+       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#fdf6e3,bg=#586e75,bold,underline"
 
-      if [ ! -f "${home_directory}/.ssh/authorized_keys" ] ; then
-      cp ${ssh-key} ${home_directory}/.ssh/authorized_keys
-      else
-      if ! cmp -s "${home_directory}/.ssh/authorized_keys" "${ssh-key}" ; then
-              rm -rf ${home_directory}/.ssh/authorized_keys
-              cp ${ssh-key} ${home_directory}/.ssh/authorized_keys
-        fi
-      fi
+       if [ ! -f "${home_directory}/.ssh/authorized_keys" ] ; then
+       cp ${ssh-key} ${home_directory}/.ssh/authorized_keys
+       else
+       if ! cmp -s "${home_directory}/.ssh/authorized_keys" "${ssh-key}" ; then
+               rm -rf ${home_directory}/.ssh/authorized_keys
+               cp ${ssh-key} ${home_directory}/.ssh/authorized_keys
+         fi
+       fi
     '';
 
     plugins =

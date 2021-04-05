@@ -40,12 +40,12 @@ systemctl --user status apache-kafka.service
 
 #+RESULTS:
 : ● apache-kafka.service
-:    Loaded: loaded (/nix/store/2kqpqnq3af8gilasnhcxsrxap1230mkr-apache-kafka.service/apache-kafka.service; linked; vendor preset: enabled)
-:    Active: active (running) since Wed 2020-06-17 09:52:47 HKT; 20s ago
-:  Main PID: 32257 (bash)
-:    CGroup: /user.slice/user-1000.slice/user@1000.service/apache-kafka.service
-:            ├─32257 /nix/store/n313xks5ym0s0a5v8a5285rmnmvy6ms9-bash-4.4-p23/bin/bash /nix/store/48p5hznfyvxcnhpng3lrng95fbf28l6v-run-kafka
-:            └─32259 /nix/store/j03rf32h0a71cqr48nqs9i19gv0hz444-openjdk-8u242-b08-jre/bin/java -cp /nix/store/zfnncgaj0slc1m50gpngy5pqv9djav6a-apache-kafka-2.12-2.4.0/libs/* -Dlog4j.configuration=file:/nix/store/xyn24fbkziw69cqbrzaim18gjc1c0fsh-log4j.properties -server -Xmx1G -Xms1G -XX:+UseCompressedOops -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true kafka.Kafka /nix/store/b585aypwj5x9q6dazb43i5fnqzxsrryl-server.properties
+:      Loaded: loaded (/nix/store/hizcpmxnqadh5w944qv4k838pxky9df2-apache-kafka.service/apache-kafka.service; enabled; vendor preset: enabled)
+:      Active: active (running) since Sun 2021-03-07 07:48:25 HKT; 16s ago
+:    Main PID: 54725 (bash)
+:      CGroup: /user.slice/user-1000.slice/user@1000.service/apache-kafka.service
+:              ├─54725 /nix/store/f7jzmxq9bpbxsg69cszx56mw14n115n5-bash-4.4-p23/bin/bash /nix/store/ix5yq5n0wgbpr4s42rwk98qy18dq7zs5-run-kafka
+:              └─54726 /nix/store/n1i0dnrky3wdmxlvkpg19bfw8l9ik732-openjdk-15.0.1-ga/bin/java -cp /nix/store/nangi3mvi9bc0wg5v62jfyfj1fa9fd8k-apache-kafka-2.13-2.5.0/libs/* -Dlog4j.configuration=file:/nix/store/1g42zjqwxn9b7zlysb98dwyjdmh35311-log4j.properties -server -Xmx1G -Xms1G -XX:+UseG1GC -XX:+ExplicitGCInvokesConcurrent -XX:InitiatingHeapOccupancyPercent=35 -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -Djava.awt.headless=true kafka.Kafka /nix/store/ya5sg3dm2inv1p4y4vc3a5bcr7fg9qaw-server.properties
 ** Zookeeper
 #+begin_src sh :async t :exports both :results output
 systemctl --user start  zookeeper.service
@@ -59,13 +59,16 @@ systemctl --user status zookeeper.service
 
 #+RESULTS:
 : ● zookeeper.service
-:    Loaded: loaded (/nix/store/23lf50r0xxg5hf9apkry60ccjxxpiz6n-zookeeper.service/zookeeper.service; linked; vendor preset: enabled)
-:    Active: active (running) since Wed 2020-06-17 09:52:28 HKT; 31s ago
-:   Process: 31806 ExecStartPre=/usr/bin/echo 0 > /var/lib/zookeeper/myid (code=exited, status=0/SUCCESS)
-:  Main PID: 31807 (bash)
-:    CGroup: /user.slice/user-1000.slice/user@1000.service/zookeeper.service
-:            ├─31807 /nix/store/n313xks5ym0s0a5v8a5285rmnmvy6ms9-bash-4.4-p23/bin/bash /nix/store/8lxdygjyd0rpy289cv5543j7y8r8q70f-run-zookeeper
-:            └─31809 /nix/store/j03rf32h0a71cqr48nqs9i19gv0hz444-openjdk-8u242-b08-jre/bin/java -cp /nix/store/3753aissfijlblcngb9i0bw1v0f15kpb-zookeeper-3.4.13/lib/*:/nix/store/3753aissfijlblcngb9i0bw1v0f15kpb-zookeeper-3.4.13/zookeeper-3.4.13.jar:/nix/store/8hlksrmj542hxr1y9f95ax5m1hy6x24n-zookeeper-conf -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=true -Dzookeeper.datadir.autocreate=false -Djava.net.preferIPv4Stack=true org.apache.zookeeper.server.quorum.QuorumPeerMain /nix/store/8hlksrmj542hxr1y9f95ax5m1hy6x24n-zookeeper-conf/zoo.cfg
+:      Loaded: loaded (/nix/store/c873avlfx3pkb7vc3jhk98wa49jwx0bp-zookeeper.service/zookeeper.service; enabled; vendor preset: enabled)
+:      Active: active (running) since Sun 2021-03-07 07:33:49 HKT; 1min 42s ago
+:    Main PID: 50663 (bash)
+:      CGroup: /user.slice/user-1000.slice/user@1000.service/zookeeper.service
+:              ├─50663 /nix/store/f7jzmxq9bpbxsg69cszx56mw14n115n5-bash-4.4-p23/bin/bash /nix/store/lizai2k9plsfg6gpdjzd1pwywc1m187w-run-zookeeper
+:              └─50665 /nix/store/n1i0dnrky3wdmxlvkpg19bfw8l9ik732-openjdk-15.0.1-ga/bin/java -cp /nix/store/qx457nx5kf0s7v5ng1x4vp0dhrr6dzh2-zookeeper-3.6.2/lib/*:/nix/store/qx457nx5kf0s7v5ng1x4vp0dhrr6dzh2-zookeeper-3.6.2/zookeeper-3.6.2.jar:/nix/store/yr3i5vi8ilw70nk5q8njjmb5hpdgjcs2-zookeeper-conf -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=true -Dzookeeper.datadir.autocreate=false -Djava.net.preferIPv4Stack=true org.apache.zookeeper.server.quorum.QuorumPeerMain /nix/store/yr3i5vi8ilw70nk5q8njjmb5hpdgjcs2-zookeeper-conf/zoo.cfg
+
+** Bug Hunter
+
+cleanup /var/lib/zookeeper/version-2/*
 
 * Elastic
 ** Elastic 5x
